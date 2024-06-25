@@ -24,13 +24,22 @@ void EventDispatcher::HandleEvent(SDL_Event& event) {
         break;
 
     case SDL_EVENT_MOUSE_MOTION:
-        // Mouse moved handler
+        for (auto handler : this->mouseMoveHandlers) {
+            SDL_MouseMotionEvent ev = *(reinterpret_cast<SDL_MouseMotionEvent*>(&event));
+            handler(ev.x, ev.y);
+        }
         break;
 
     case SDL_EVENT_MOUSE_BUTTON_DOWN:
+        for (auto handler : this->mouseButtonDownHandlers) {
+            //handler();
+        }
         break;
 
     case SDL_EVENT_MOUSE_BUTTON_UP:
+        for (auto handler : this->mouseButtonUpHandlers) {
+            //handler();
+        }
         break;
 
     case SDL_EVENT_QUIT:
@@ -64,3 +73,6 @@ void EventDispatcher::AddMouseButtonUpHandler(std::function<void(SDL_MouseButton
     mouseButtonUpHandlers.push_back(handler);
 }
 
+void EventDispatcher::AddMouseMoveHandler(std::function<void(int posX, int posY)> handler) {
+    mouseMoveHandlers.push_back(handler);
+}
