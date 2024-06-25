@@ -6,29 +6,46 @@
 #include <iostream>
 
 void EventDispatcher::HandleEvent(SDL_Event& event) {
-    std::cout << "This address (handle): " << this << std::endl;
-    std::cout << "List address: " << &quitHandlers << std::endl;
 
-    if (event.type == SDL_EVENT_KEY_DOWN) {
+    switch (event.type)
+    {
+    case SDL_EVENT_KEY_DOWN:
         for (auto handler : keyDownHandlers) {
             //handler(event.key.keysym.sym);
             handler(event.key.key);
         }
-    }
-    else if (event.type == SDL_EVENT_QUIT) {
-        std::cout << "Quitting" << std::endl;
+        break;
+
+    case SDL_EVENT_KEY_UP:
+        for (auto handler : keyUpHandlers) {
+            //handler(event.key.keysym.sym);
+            handler(event.key.key);
+        }
+        break;
+
+    case SDL_EVENT_MOUSE_MOTION:
+        // Mouse moved handler
+        break;
+
+    case SDL_EVENT_MOUSE_BUTTON_DOWN:
+        break;
+
+    case SDL_EVENT_MOUSE_BUTTON_UP:
+        break;
+
+    case SDL_EVENT_QUIT:
         for (auto handler : this->quitHandlers) {
             handler();
         }
+        break;
+    
+    default:
+        break;
     }
 }
 
 void EventDispatcher::AddQuitHandler(std::function<void()> handler) {
-    std::cout << "This address (add): " << this << std::endl;
-    std::cout << "List address: " << &quitHandlers << std::endl;
-    int a = 3;
     this->quitHandlers.push_back(handler);
-    quitHandlers.front()();
 }
 
 void EventDispatcher::AddKeyDownHandler(std::function<void(SDL_Keycode)> handler) {
@@ -36,6 +53,14 @@ void EventDispatcher::AddKeyDownHandler(std::function<void(SDL_Keycode)> handler
 }
 
 void EventDispatcher::AddKeyUpHandler(std::function<void(SDL_Keycode)> handler) {
-    keyDownHandlers.push_back(handler);
+    keyUpHandlers.push_back(handler);
+}
+
+void EventDispatcher::AddMouseButtonDownHandler(std::function<void(SDL_MouseButtonFlags)> handler) {
+    mouseButtonDownHandlers.push_back(handler);
+}
+
+void EventDispatcher::AddMouseButtonUpHandler(std::function<void(SDL_MouseButtonFlags)> handler) {
+    mouseButtonUpHandlers.push_back(handler);
 }
 

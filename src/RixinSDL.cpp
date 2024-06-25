@@ -83,7 +83,7 @@ RixinSDLContext& RixinSDL::GetRixinSDLContext() {
 }
 
 EventDispatcher& RixinSDL::GetEventDispatcher() {
-    return this->eventDispatcher;
+    return eventDispatcher;
 }
 
 void RixinSDL::cleanup() {
