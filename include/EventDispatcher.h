@@ -10,7 +10,7 @@ class EventDispatcher {
     std::list<std::function<void(SDL_Keycode)>> keyUpHandlers;
     std::list<std::function<void(SDL_MouseButtonFlags)>> mouseButtonDownHandlers;
     std::list<std::function<void(SDL_MouseButtonFlags)>> mouseButtonUpHandlers;
-    std::list<std::function<void(int posX, int posY)>> mouseMoveHandlers;
+    std::list<std::function<void(float posX, float posY)>> mouseMoveHandlers;
     std::list<std::function<void()>> quitHandlers;
 
  public:
@@ -18,7 +18,7 @@ class EventDispatcher {
     void AddKeyUpHandler(std::function<void(SDL_Keycode)> handler);
     void AddMouseButtonDownHandler(std::function<void(SDL_MouseButtonFlags)> handler);
     void AddMouseButtonUpHandler(std::function<void(SDL_MouseButtonFlags)> handler);
-    void AddMouseMoveHandler(std::function<void(int posX, int posY)> handler);
+    void AddMouseMoveHandler(std::function<void(float posX, float posY)> handler);
     void AddQuitHandler(std::function<void()> handler);
     void HandleEvent(SDL_Event&);
 };

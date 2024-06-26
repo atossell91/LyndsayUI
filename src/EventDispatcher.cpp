@@ -73,6 +73,6 @@ void EventDispatcher::AddMouseButtonUpHandler(std::function<void(SDL_MouseButton
     mouseButtonUpHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddMouseMoveHandler(std::function<void(int posX, int posY)> handler) {
+void EventDispatcher::AddMouseMoveHandler(std::function<void(float posX, float posY)> handler) {
     mouseMoveHandlers.push_back(handler);
 }
