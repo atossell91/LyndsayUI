@@ -43,4 +43,5 @@ class RixinSDL {
     void RemoveUpdateable(IUpdateable* updateable);
     RixinSDLContext& GetRixinSDLContext();
     EventDispatcher& GetEventDispatcher();
+    SDL_Texture* LoadTexture(const char* path);
 };

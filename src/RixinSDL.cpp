@@ -4,6 +4,7 @@
 #include <chrono>
 #include <list>
 #include <iostream>
+#include <SDL3_image/SDL_image.h>
 
 #include "../include/RixinSDLContext.h"
 #include "../include/interfaces/IDrawable.h"
@@ -84,6 +85,11 @@ RixinSDLContext& RixinSDL::GetRixinSDLContext() {
 
 EventDispatcher& RixinSDL::GetEventDispatcher() {
     return eventDispatcher;
+}
+
+SDL_Texture* RixinSDL::LoadTexture(const char* path) {
+    return IMG_LoadTexture(renderer, path);
+    //return nullptr;
 }
 
 void RixinSDL::cleanup() {
