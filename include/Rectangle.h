@@ -7,6 +7,13 @@ namespace RixinSDL {
      private:
         SDL_FRect rectangle;
      public:
+        Rectangle() {
+            rectangle.x = 0;
+            rectangle.y = 0;
+            rectangle.w = 0;
+            rectangle.h = 0;
+        }
+
         float GetWidth() { return rectangle.w; }
         void SetWidth(float val) { rectangle.w = val; }
         float GetHeight() { return rectangle.h; }

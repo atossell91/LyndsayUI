@@ -8,6 +8,6 @@ namespace RixinSDL {
     class IDrawable {
     public:
         virtual ~IDrawable() {}
-        virtual void Draw(const DrawHelper& drawHelper) = 0;
+        virtual void Draw(DrawHelper* drawHelper) = 0;
     };
 }

@@ -1,2 +1,0 @@
-set(RIXIN_INCLUDE ${CMAKE_SOURCE_DIR}/include)
-set(RIXIN_LIB ${CMAKE_SOURCE_DIR}/build/Debug)

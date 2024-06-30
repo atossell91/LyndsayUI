@@ -7,6 +7,7 @@
 #include "../include/Image.h"
 #include "ImageReference.h"
 
+#include <iostream>
 using namespace RixinSDL;
 
 void DrawHelper::FillRectangle(const Rectangle& rectangle, const Colour& colour) const {
@@ -15,7 +16,7 @@ void DrawHelper::FillRectangle(const Rectangle& rectangle, const Colour& colour)
 }
 
 void DrawHelper::DrawImage(const ImageReference& imageRef, const Rectangle& rectangle) const {
-    SDL_Texture* texture = textureRepo.AccessTexture(imageRef);
+    SDL_Texture* texture = textureRepo->AccessTexture(imageRef);
 
     if (texture != nullptr) {
         SDL_RenderTexture(renderer, texture, NULL, &rectangle.rectangle);

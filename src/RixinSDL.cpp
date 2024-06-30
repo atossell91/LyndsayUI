@@ -19,7 +19,7 @@ void RixinSDL::RixinSDL::init() {
 void RixinSDL::RixinSDL::mainLoop() {
     while (!gameContext.ShouldClose) {
         processEvents();
-        drawManager.DrawEverything();
+        drawManager->DrawEverything();
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
     }
@@ -44,11 +44,11 @@ void RixinSDL::RixinSDL::Run() {
 }
 
 void RixinSDL::RixinSDL::AddDrawable(IDrawable* drawable) {
-    drawManager.AddDrawable(drawable);
+    drawManager->AddDrawable(drawable);
 }
 
 void RixinSDL::RixinSDL::RemoveDrawable(IDrawable* drawable) {
-    drawManager.RemoveDrawable(drawable);
+    drawManager->RemoveDrawable(drawable);
 }
 
 void RixinSDL::RixinSDL::AddUpdateable(IUpdateable* updateable) {
@@ -69,5 +69,6 @@ RixinSDL::EventDispatcher& RixinSDL::RixinSDL::GetEventDispatcher() {
 
 void RixinSDL::RixinSDL::cleanup() {
     SDL_DestroyWindow(window);
+    delete drawManager;
     SDL_Quit();
 }

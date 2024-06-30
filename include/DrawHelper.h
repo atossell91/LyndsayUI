@@ -14,11 +14,11 @@ namespace RixinSDL {
     class DrawHelper {
      private:
         SDL_Renderer* renderer;
-        TextureRepository& textureRepo;
+        TextureRepository* textureRepo;
 
         void SetTextureList(std::map<int, SDL_Texture*>* list);
      public:
-        DrawHelper(SDL_Renderer* r, TextureRepository& repo) : renderer{r}, textureRepo{repo} {}
+        DrawHelper(SDL_Renderer* r, TextureRepository* repo) : renderer{r}, textureRepo{repo} {}
         void DrawLine(const Point& p1, const Point& p2, const Colour& colour) const;
         void FillRectangle(const Rectangle& rectangle, const Colour& colour) const;
         void DrawImage(const ImageReference& imgRef, const Rectangle& rectangle) const;

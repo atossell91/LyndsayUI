@@ -14,14 +14,14 @@ namespace RixinSDL {
     class DrawManager {
      private:
         SDL_Renderer* renderer;
-        TextureRepository textureRepo;
-        DrawHelper drawHelper;
+        TextureRepository* textureRepo;
+        DrawHelper* drawHelper;
         std::list<IDrawable*> drawables;
 
         // Creates the DrawHelper from the provided renderer
         DrawManager(SDL_Renderer* r) : renderer{r}, 
-        drawHelper{DrawHelper(renderer, textureRepo)},
-        textureRepo{TextureRepository(renderer)} {}
+        textureRepo {new TextureRepository(renderer)},
+        drawHelper{new DrawHelper(renderer, textureRepo)} {}
      public:
         ~DrawManager();
         ImageReference AddImage(const Image& image);
@@ -34,6 +34,6 @@ namespace RixinSDL {
         //  but is used to construct it. The default constructor is private.
         // Also creates a renderer (from the window) and a DrawHelper using
         //  the renderer. (Because they all use the same renderer).
-        static DrawManager CreateFromWindow(SDL_Window* window);
+        static DrawManager* CreateFromWindow(SDL_Window* window);
     };
 }

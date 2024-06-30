@@ -24,7 +24,7 @@ namespace RixinSDL {
 
       RixinSDLContext gameContext;
       EventDispatcher eventDispatcher;
-      DrawManager drawManager;
+      DrawManager* drawManager;
 
       const int kMainLoopDelay = 20; // Milliseconds
 

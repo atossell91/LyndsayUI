@@ -6,20 +6,20 @@
 namespace RixinSDL {
     class Colour {
      private:
-        uint8_t r;
-        uint8_t g;
-        uint8_t b;
-        uint8_t a;
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        int a = 255;
      public:
-        uint8_t GetRed() { return r; }
-        void SetRed(uint8_t val) { r = val; }
-        uint8_t GetGreen() { return g; }
-        void SetGreen(uint8_t val) { g = val; }
-        uint8_t GetBlue() { return b; }
-        void SetBlue(uint8_t val) { b = val; }
-        uint8_t GetAlpha() { return a; }
-        void SetAlpha(uint8_t val) { a = val; }
-        void SetColour(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) {
+        int GetRed() { return r; }
+        void SetRed(int val) { r = val; }
+        int GetGreen() { return g; }
+        void SetGreen(int val) { g = val; }
+        int GetBlue() { return b; }
+        void SetBlue(int val) { b = val; }
+        int GetAlpha() { return a; }
+        void SetAlpha(int val) { a = val; }
+        void SetColour(int red, int green, int blue, int alpha) {
             r = red;
             g = green;
             b = blue;
