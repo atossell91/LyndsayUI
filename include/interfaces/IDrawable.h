@@ -1,9 +1,13 @@
 #pragma once
 
-#include <SDL3/SDL.h>
+#include "../DrawHelper.h"
 
-class IDrawable {
- public:
-    virtual ~IDrawable() {}
-    virtual void Draw(SDL_Renderer* render) = 0;
-};
+class DrawHelper;
+
+namespace RixinSDL {
+    class IDrawable {
+    public:
+        virtual ~IDrawable() {}
+        virtual void Draw(const DrawHelper& drawHelper) = 0;
+    };
+}

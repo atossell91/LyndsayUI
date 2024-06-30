@@ -7,93 +7,67 @@
 #include <SDL3_image/SDL_image.h>
 
 #include "../include/RixinSDLContext.h"
-#include "../include/interfaces/IDrawable.h"
 #include "../include/interfaces/IUpdateable.h"
+#include "../include/interfaces/IDrawable.h"
 
-RixinSDL::RixinSDL() {
-    init();
-}
-
-void RixinSDL::init() {
+void RixinSDL::RixinSDL::init() {
     SDL_Init(kInitFlags);
 
     window = SDL_CreateWindow(gameName, kWindowWidth, kWindowHeight, 0);
-    //renderer = SDL_CreateRenderer(window, NULL, 0);
-    renderer = SDL_CreateRenderer(window, NULL);
-    if (renderer == NULL) {
-        std::cout << "Renderer is null: " << SDL_GetError() << std::endl;
-    }
 }
 
-void RixinSDL::mainLoop() {
+void RixinSDL::RixinSDL::mainLoop() {
     while (!gameContext.ShouldClose) {
         processEvents();
-        draw();
+        drawManager.DrawEverything();
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
     }
 }
 
-void RixinSDL::processEvents() {
+void RixinSDL::RixinSDL::processEvents() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         eventDispatcher.HandleEvent(event);
     }
 }
 
-void RixinSDL::update() {
+void RixinSDL::RixinSDL::update() {
     for (auto updateable : updateables) {
         updateable->Update();
     }
 }
 
-void RixinSDL::draw() {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-
-    for (auto drawable : drawables) {
-        drawable->Draw(renderer);
-    }
-
-    SDL_RenderPresent(renderer);
-}
-
-void RixinSDL::Run() {
+void RixinSDL::RixinSDL::Run() {
     mainLoop();
     cleanup();
 }
 
-void RixinSDL::AddDrawable(IDrawable* drawable) {
-    drawables.push_back(drawable);
+void RixinSDL::RixinSDL::AddDrawable(IDrawable* drawable) {
+    drawManager.AddDrawable(drawable);
 }
 
-void RixinSDL::RemoveDrawable(IDrawable* drawable) {
-    drawables.remove(drawable);
+void RixinSDL::RixinSDL::RemoveDrawable(IDrawable* drawable) {
+    drawManager.RemoveDrawable(drawable);
 }
 
-void RixinSDL::AddUpdateable(IUpdateable* updateable) {
+void RixinSDL::RixinSDL::AddUpdateable(IUpdateable* updateable) {
     updateables.push_back(updateable);
 }
 
-void RixinSDL::RemoveUpdateable(IUpdateable* updateable) {
+void RixinSDL::RixinSDL::RemoveUpdateable(IUpdateable* updateable) {
     updateables.remove(updateable);
 }
 
-RixinSDLContext& RixinSDL::GetRixinSDLContext() {
+RixinSDL::RixinSDLContext& RixinSDL::RixinSDL::GetRixinSDLContext() {
     return this->gameContext;
 }
 
-EventDispatcher& RixinSDL::GetEventDispatcher() {
+RixinSDL::EventDispatcher& RixinSDL::RixinSDL::GetEventDispatcher() {
     return eventDispatcher;
 }
 
-SDL_Texture* RixinSDL::LoadTexture(const char* path) {
-    return IMG_LoadTexture(renderer, path);
-    //return nullptr;
-}
-
-void RixinSDL::cleanup() {
+void RixinSDL::RixinSDL::cleanup() {
     SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
     SDL_Quit();
 }

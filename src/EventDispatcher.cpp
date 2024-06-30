@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+using namespace RixinSDL;
+
 void EventDispatcher::HandleEvent(SDL_Event& event) {
 
     switch (event.type)
