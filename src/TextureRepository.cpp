@@ -10,21 +10,24 @@
 
 using namespace RixinSDL;
 
-ImageReference TextureRepository::addTexture(SDL_Texture* texture) {
+ImageReference TextureRepository::addTexture(SDL_Texture* texture, int imgWidth, int imgHeight) {
     int id = incrementId();
     textures.emplace(id, texture);
-    ImageReference ref(id, 1, 1);
+    ImageReference ref(id, imgWidth, imgHeight);
     return ref;
 }
 
 ImageReference TextureRepository::AddImage(const Image& image) {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image.surface);
-    return addTexture(texture);
+    return addTexture(texture, image.GetWidth(), image.GetHeight());
 }
 
 ImageReference TextureRepository::AddImage(const char* path) {
+    SDL_Surface* sfc = IMG_Load(path);
     SDL_Texture* texture = IMG_LoadTexture(renderer, path);
-    return addTexture(texture);
+    ImageReference ref = addTexture(texture, sfc->w, sfc->h);
+    delete sfc;
+    return ref;
 }
 
 void TextureRepository::RemoveImage(const ImageReference& imgRef) {

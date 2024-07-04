@@ -13,7 +13,7 @@ namespace RixinSDL {
         std::map<int, SDL_Texture*> textures;
         int currentId = 0;
         int incrementId() { return ++currentId; }
-        ImageReference addTexture(SDL_Texture*);
+        ImageReference addTexture(SDL_Texture* texture, int imgWidth, int imgHeight);
      public:
         TextureRepository(SDL_Renderer* r) : renderer{r} {}
         ImageReference AddImage(const Image& image);
