@@ -25,6 +25,7 @@ namespace RixinSDL {
      public:
         ~DrawManager();
         ImageReference AddImage(const Image& image);
+        ImageReference AddImage(const char* path);
         void RemoveImage(const ImageReference& imageRef);
         void AddDrawable(IDrawable* drawable);
         void RemoveDrawable(IDrawable* drawable);

@@ -20,6 +20,10 @@ ImageReference DrawManager::AddImage(const Image& image) {
     return textureRepo->AddImage(image);
 }
 
+ImageReference DrawManager::AddImage(const char* path) {
+    return textureRepo->AddImage(path);
+}
+
 void DrawManager::RemoveImage(const ImageReference& imageRef) {
     textureRepo->RemoveImage(imageRef);
 }
