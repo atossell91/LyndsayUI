@@ -10,12 +10,6 @@
 #include "../include/interfaces/IUpdateable.h"
 #include "../include/interfaces/IDrawable.h"
 
-void RixinSDL::RixinSDL::init() {
-    SDL_Init(kInitFlags);
-
-    window = SDL_CreateWindow(gameName, kWindowWidth, kWindowHeight, 0);
-}
-
 void RixinSDL::RixinSDL::mainLoop() {
     while (!gameContext.ShouldClose) {
         processEvents();
