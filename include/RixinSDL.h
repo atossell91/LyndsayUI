@@ -46,7 +46,7 @@ namespace RixinSDL {
       void RemoveDrawable(IDrawable* drawable);
       void AddUpdateable(IUpdateable* updateable);
       void RemoveUpdateable(IUpdateable* updateable);
-      DrawManager& ADrawManager() { return *drawManager; }
+      DrawManager& GetDrawManager() { return *drawManager; }
       RixinSDLContext& GetRixinSDLContext();
       EventDispatcher& GetEventDispatcher();
    };

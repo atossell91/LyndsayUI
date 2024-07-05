@@ -11,6 +11,7 @@
 using namespace RixinSDL;
 
 ImageReference TextureRepository::addTexture(SDL_Texture* texture, int imgWidth, int imgHeight) {
+    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     int id = incrementId();
     textures.emplace(id, texture);
     ImageReference ref(id, imgWidth, imgHeight);
