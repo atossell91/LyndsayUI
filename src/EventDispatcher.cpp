@@ -59,19 +59,19 @@ void EventDispatcher::AddQuitHandler(std::function<void()> handler) {
     this->quitHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddKeyDownHandler(std::function<void(SDL_Keycode)> handler) {
+void EventDispatcher::AddKeyDownHandler(std::function<void(int)> handler) {
     keyDownHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddKeyUpHandler(std::function<void(SDL_Keycode)> handler) {
+void EventDispatcher::AddKeyUpHandler(std::function<void(int)> handler) {
     keyUpHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddMouseButtonDownHandler(std::function<void(SDL_MouseButtonFlags)> handler) {
+void EventDispatcher::AddMouseButtonDownHandler(std::function<void(int)> handler) {
     mouseButtonDownHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddMouseButtonUpHandler(std::function<void(SDL_MouseButtonFlags)> handler) {
+void EventDispatcher::AddMouseButtonUpHandler(std::function<void(int)> handler) {
     mouseButtonUpHandlers.push_back(handler);
 }
 
