@@ -13,14 +13,12 @@ void EventDispatcher::HandleEvent(SDL_Event& event) {
     {
     case SDL_EVENT_KEY_DOWN:
         for (auto handler : keyDownHandlers) {
-            //handler(event.key.keysym.sym);
             handler(event.key.key);
         }
         break;
 
     case SDL_EVENT_KEY_UP:
         for (auto handler : keyUpHandlers) {
-            //handler(event.key.keysym.sym);
             handler(event.key.key);
         }
         break;

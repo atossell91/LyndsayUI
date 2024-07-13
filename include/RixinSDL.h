@@ -3,6 +3,7 @@
 #include <SDL3/SDL.h>
 #include <list>
 #include <string>
+#include <iostream>
 
 #include "RixinSDLContext.h"
 #include "EventDispatcher.h"
@@ -40,7 +41,11 @@ namespace RixinSDL {
       RixinSDL(int winWidth, int winHeight) : 
       WindowWidth{winWidth}, WindowHeight{winHeight},
       window{SDL_CreateWindow(gameName.c_str(), WindowWidth, WindowHeight, 0)},
-      drawManager{DrawManager::CreateFromWindow(window)} {}
+      drawManager{DrawManager::CreateFromWindow(window)} {
+         if (window == NULL) {
+            std::cerr << "Error - Window was not created" << std::endl;
+         }
+      }
 
       void Run();
       void SetGameName(std::string& name) { gameName = name; }
