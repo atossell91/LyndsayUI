@@ -66,3 +66,13 @@ void RixinSDL::RixinSDL::cleanup() {
     delete drawManager;
     SDL_Quit();
 }
+
+SDL_Window* RixinSDL::RixinSDL::initWindow(const std::string& name, int width, int height) {
+    SDL_Window* win = SDL_CreateWindow(name.c_str(), width, height, 0);
+    
+    if (win == NULL) {
+        std::cout << "Window not created!" << std::endl;
+    }
+
+    return win;
+}

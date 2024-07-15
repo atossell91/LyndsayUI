@@ -36,11 +36,12 @@ namespace RixinSDL {
       void processEvents();
       void update();
       void cleanup();
+      SDL_Window* initWindow(const std::string& name, int width, int height);
 
    public:
       RixinSDL(int winWidth, int winHeight) : 
       WindowWidth{winWidth}, WindowHeight{winHeight},
-      window{SDL_CreateWindow(gameName.c_str(), WindowWidth, WindowHeight, 0)},
+      window{initWindow(gameName, WindowWidth, WindowHeight)},
       drawManager{DrawManager::CreateFromWindow(window)} {
          if (window == NULL) {
             std::cerr << "Error - Window was not created" << std::endl;
