@@ -16,11 +16,12 @@ include_directories(
 #find_package(SDL3_image REQUIRED)
 
 add_library(RixinSDL
+    ${SRC}/glad.c
+    ${SRC}/Window.cpp
     ${SRC}/Image.cpp
     ${SRC}/TextureRepository.cpp
-    ${SRC}/DrawHelper.cpp
-    ${SRC}/DrawManager.cpp
     ${SRC}/EventDispatcher.cpp
+    ${SRC}/WindowManager.cpp
     ${SRC}/RixinSDL.cpp
 )
 

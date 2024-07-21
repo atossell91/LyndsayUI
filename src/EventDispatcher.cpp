@@ -11,6 +11,11 @@ void EventDispatcher::HandleEvent(SDL_Event& event) {
 
     switch (event.type)
     {
+    case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
+        for (auto handler : closeWindowHandlers) {
+            handler(event.window.windowID);
+        }
+        break;
     case SDL_EVENT_KEY_DOWN:
         for (auto handler : keyDownHandlers) {
             handler(event.key.key);
@@ -75,4 +80,8 @@ void EventDispatcher::AddMouseButtonUpHandler(std::function<void(int)> handler) 
 
 void EventDispatcher::AddMouseMoveHandler(std::function<void(float posX, float posY)> handler) {
     mouseMoveHandlers.push_back(handler);
+}
+
+void EventDispatcher::AddCloseWindowHandler(std::function<void(int id)> handler) {
+    closeWindowHandlers.push_back(handler);
 }

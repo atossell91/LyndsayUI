@@ -8,12 +8,31 @@
 
 #include "../include/RixinSDLContext.h"
 #include "../include/interfaces/IUpdateable.h"
-#include "../include/interfaces/IDrawable.h"
+
+RixinSDL::RixinSDL::RixinSDL() {
+    if (SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO) < 0) {
+        std::cout << "SDL Init failed." << std::endl;
+    }
+    init();
+}
+
+void RixinSDL::RixinSDL::init() {
+    windowManager.AddWindow(defaultWindowTitle, 1920, 1080);
+
+    auto& con = gameContext;
+    auto& wMan = windowManager;
+    eventDispatcher.AddCloseWindowHandler([&con, &wMan](int id){
+        wMan.CloseWindow(id);
+
+        if (wMan.GetNumWindows() < 1) {
+            con.ShouldClose = true;
+        }
+    });
+}
 
 void RixinSDL::RixinSDL::mainLoop() {
     while (!gameContext.ShouldClose) {
         processEvents();
-        drawManager->DrawEverything();
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
     }
@@ -37,14 +56,6 @@ void RixinSDL::RixinSDL::Run() {
     cleanup();
 }
 
-void RixinSDL::RixinSDL::AddDrawable(IDrawable* drawable) {
-    drawManager->AddDrawable(drawable);
-}
-
-void RixinSDL::RixinSDL::RemoveDrawable(IDrawable* drawable) {
-    drawManager->RemoveDrawable(drawable);
-}
-
 void RixinSDL::RixinSDL::AddUpdateable(IUpdateable* updateable) {
     updateables.push_back(updateable);
 }
@@ -53,26 +64,6 @@ void RixinSDL::RixinSDL::RemoveUpdateable(IUpdateable* updateable) {
     updateables.remove(updateable);
 }
 
-RixinSDL::RixinSDLContext& RixinSDL::RixinSDL::GetRixinSDLContext() {
-    return this->gameContext;
-}
-
-RixinSDL::EventDispatcher& RixinSDL::RixinSDL::GetEventDispatcher() {
-    return eventDispatcher;
-}
-
 void RixinSDL::RixinSDL::cleanup() {
-    SDL_DestroyWindow(window);
-    delete drawManager;
     SDL_Quit();
-}
-
-SDL_Window* RixinSDL::RixinSDL::initWindow(const std::string& name, int width, int height) {
-    SDL_Window* win = SDL_CreateWindow(name.c_str(), width, height, 0);
-    
-    if (win == NULL) {
-        std::cout << "Window not created!" << std::endl;
-    }
-
-    return win;
 }
