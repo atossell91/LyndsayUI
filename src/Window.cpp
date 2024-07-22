@@ -55,7 +55,7 @@ void RixinSDL::Window::init() {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
-    SDL_Surface* sfc = IMG_Load("/home/ant/Programming/sdlgl/img/beach.jpg");
+    SDL_Surface* sfc = IMG_Load("/home/ant/Downloads/beach.jpg");
     Utilities::FlipImageSurface(sfc);
 
     if (!sfc) {
