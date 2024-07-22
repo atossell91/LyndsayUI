@@ -2,7 +2,6 @@
 
 void RixinSDL::Utilities::FlipImageSurface(SDL_Surface* sfc) {
     int bytesPerPixel = sfc->format->bytes_per_pixel;
-
     int rowWidth = sfc->w * bytesPerPixel;
 
     char* pixels = (char*)sfc->pixels;
