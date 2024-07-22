@@ -18,6 +18,8 @@ include_directories(
 add_library(RixinSDL
     ${SRC}/glad.c
     ${SRC}/Window.cpp
+    ${SRC}/ShaderUtils.cpp
+    ${SRC}/Utilities.cpp
     ${SRC}/Image.cpp
     ${SRC}/TextureRepository.cpp
     ${SRC}/EventDispatcher.cpp
