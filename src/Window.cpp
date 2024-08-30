@@ -1,6 +1,7 @@
 #include "../include/WindowStuff/Window.h"
 
 #include <iostream>
+#include <vector>
 
 #include <SDL3_image/SDL_image.h>
 
@@ -119,6 +120,79 @@ RixinSDL::BufferedImage bufferImage(const std::string& imgPath) {
         return ref;
 }
 
+class spiral {
+    private:
+    GLuint vao;
+    GLuint shader = -1;
+
+    std::vector<float> vertexNums;
+
+    float calcRad(float angle) {
+        return angle * 0.02;
+    }
+
+    glm::vec2 calcVector(float angle, float rad) {
+        float x = glm::cos(angle) * rad;
+        float y = glm::sin(angle) * rad;
+
+        return glm::vec2(x, y);
+    }
+
+    void calculate() {
+        float width = 0.01;
+        for (int a = 0; a < 360*5; ++a) {
+            float radAngle = glm::radians((float)a);
+            auto inner = calcVector(radAngle, calcRad(radAngle) - width/2);
+            vertexNums.push_back(inner[0]);
+            vertexNums.push_back(inner[1]);
+            vertexNums.push_back(0.0f);
+
+            vertexNums.push_back(0.0f);
+            vertexNums.push_back(0.0f);
+            vertexNums.push_back(1.0f);
+            vertexNums.push_back(1.0f);
+
+            auto outer = calcVector(radAngle, calcRad(radAngle) + width/2);
+            vertexNums.push_back(outer[0]);
+            vertexNums.push_back(outer[1]);
+            vertexNums.push_back(0.0f);
+
+            vertexNums.push_back(0.0f);
+            vertexNums.push_back(0.0f);
+            vertexNums.push_back(1.0f);
+            vertexNums.push_back(1.0f);
+        }
+    }
+
+    public:
+
+    spiral(GLuint shaderProgramRef) : shader{shaderProgramRef} {
+
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);
+
+        GLuint vbo;
+        glGenBuffers(1, &vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+        calculate();
+        glBufferData(GL_ARRAY_BUFFER, vertexNums.size() * sizeof(float), &vertexNums[0], GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float)*7, (void*)(0*sizeof(float)));
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float)*7, (void*)(3*sizeof(float)));
+        glEnableVertexAttribArray(1);
+
+    }
+
+    void draw() {
+        glUseProgram(shader);
+        glBindVertexArray(vao);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexNums.size()/7);
+    }
+
+};
+
 void RixinSDL::Window::init() {
     SDL_GL_MakeCurrent(window, glContext);
     if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
@@ -136,13 +210,14 @@ void RixinSDL::Window::init() {
     RixinSDL::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-smile.jpg");
     RixinSDL::BufferedImage img2 = bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
     int prog = RixinSDL::ShaderUtils::BuildShaderProgram("/home/ant/Programming/RixinSDL/shaders/vertex.glsl", "/home/ant/Programming/RixinSDL/shaders/fragment-img.glsl");
-
-    glUseProgram(prog);
+    int progCol = RixinSDL::ShaderUtils::BuildShaderProgram("/home/ant/Programming/RixinSDL/shaders/vertex-no-transform.glsl", "/home/ant/Programming/RixinSDL/shaders/fragment-color.glsl");
 
     // Mckayla (below) draws a rectangle in openGl, but doesn't texture it.
     Mckayla mm(img, prog);
 
     Mckayla mm2(img2, prog);
+
+    spiral s(progCol);
 
     // Scale to ensure the image keeps it's original size and proportions
     mm2.xScale = ((float)img2.getWidth()/ (float)width)*0.5;
@@ -155,6 +230,8 @@ void RixinSDL::Window::init() {
 
     mm.draw();
     mm2.draw();
+
+    s.draw();
 
     SDL_GL_SwapWindow(window);
 }
