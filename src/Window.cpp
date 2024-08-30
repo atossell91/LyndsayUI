@@ -63,9 +63,7 @@ void RixinSDL::Window::init() {
 
     SDL_assert(sfc);
 
-    std::cout << "Flipping the image" << std::endl;
     Utilities::FlipImageSurface(sfc);
-    std::cout << "Image flipped" << std::endl;
     
     GLuint tex;
     glGenTextures(1, &tex);
