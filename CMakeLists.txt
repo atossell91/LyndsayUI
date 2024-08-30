@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11.2)
 
 project(RixinSDL)
 
-include(SDLDirs.cmake)
+include(Required_Dirs.cmake)
 
 set(SRC ${CMAKE_SOURCE_DIR}/src)
 

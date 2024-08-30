@@ -1,5 +1,9 @@
-set(SDL_DIR ${CMAKE_SOURCE_DIR}/deps/SDL)
-set(SDL_IMAGE_DIR ${CMAKE_SOURCE_DIR}/deps/SDL_image)
+set(DEPS_DIR ${CMAKE_SOURCE_DIR}/deps)
+
+set(SDL_DIR ${DEPS_DIR}/SDL)
+set(SDL_IMAGE_DIR ${DEPS_DIR}/SDL_image)
+
+set(GLM_INCLUDE_DIR ${DEPS_DIR}/glm/glm)
 
 set(SDL_BUILD_CONFIG Debug)
 

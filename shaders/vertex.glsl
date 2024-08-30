@@ -7,8 +7,11 @@ layout(location = 2) in vec2 aTexCoords;
 out vec4 Colour;
 out vec2 TexCoords;
 
+uniform float WidthScale;
+uniform float HeightScale;
+
 void main() {
-    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0f);
+    gl_Position = vec4(aPos.x / WidthScale, aPos.y / HeightScale, aPos.z, 1.0f);
     Colour = aColour;
     TexCoords = aTexCoords;
 }
