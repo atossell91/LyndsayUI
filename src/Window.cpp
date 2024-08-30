@@ -22,7 +22,7 @@ void RixinSDL::Window::init() {
 
     int prog = RixinSDL::ShaderUtils::BuildShaderProgram("/home/ant/Programming/RixinSDL/shaders/vertex.glsl", "/home/ant/Programming/RixinSDL/shaders/fragment.glsl");
     glUseProgram(prog);
-
+    
     GLuint vao;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
@@ -32,10 +32,10 @@ void RixinSDL::Window::init() {
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
     float vertices[] = {
-        -0.5f, -0.5f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.0f, 0.0f, // Bottom Left
-        0.5f, -0.5f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     1.0f, 0.0f, // Bottom Right
-        0.5f, 0.5f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     1.0f, 1.0f, // Top Right
-        -0.5f, 0.5f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.0f, 1.0f, // Top Left
+        -0.5f, -0.5f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.3f, 0.6f, // Bottom Left
+        0.5f, -0.5f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.7f, 0.6f, // Bottom Right
+        0.5f, 0.5f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.7f, 0.8f, // Top Right
+        -0.5f, 0.5f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.3f, 0.8f, // Top Left
     };
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -55,12 +55,17 @@ void RixinSDL::Window::init() {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
-    SDL_Surface* sfc = IMG_Load("/home/ant/Downloads/beach.jpg");
-    Utilities::FlipImageSurface(sfc);
+    SDL_Surface* sfc = IMG_Load("/home/ant/Downloads/mckayla-fangirl.png");
 
     if (!sfc) {
         std::cout << "Failed to load image" << std::endl;
     }
+
+    SDL_assert(sfc);
+
+    std::cout << "Flipping the image" << std::endl;
+    Utilities::FlipImageSurface(sfc);
+    std::cout << "Image flipped" << std::endl;
     
     GLuint tex;
     glGenTextures(1, &tex);
@@ -68,7 +73,7 @@ void RixinSDL::Window::init() {
     glBindTexture(GL_TEXTURE_2D, tex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sfc->w, sfc->h, 0, GL_RGB, GL_UNSIGNED_BYTE, sfc->pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sfc->w, sfc->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc->pixels);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

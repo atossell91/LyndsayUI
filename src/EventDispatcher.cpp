@@ -8,7 +8,6 @@
 using namespace RixinSDL;
 
 void EventDispatcher::HandleEvent(SDL_Event& event) {
-
     switch (event.type)
     {
     case SDL_EVENT_WINDOW_CLOSE_REQUESTED:

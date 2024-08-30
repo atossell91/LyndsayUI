@@ -15,7 +15,7 @@ include_directories(
 #find_package(SDL3 REQUIRED)
 #find_package(SDL3_image REQUIRED)
 
-add_library(RixinSDL
+add_library(RixinSDL SHARED
     ${SRC}/glad.c
     ${SRC}/Window.cpp
     ${SRC}/ShaderUtils.cpp
@@ -30,4 +30,14 @@ add_library(RixinSDL
 target_link_libraries(RixinSDL
     ${SDL_LIB}
     ${SDL_IMAGE_LIB}
+)
+
+add_executable(RixinTest
+    ${CMAKE_SOURCE_DIR}/test-program/main.cpp
+)
+
+target_link_libraries(RixinTest
+    ${CMAKE_SOURCE_DIR}/build/libRixinSDL.so
+    ${SDL_LIB}
+    #${SDL_IMAGE_LIB}
 )

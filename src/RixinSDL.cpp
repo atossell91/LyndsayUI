@@ -17,8 +17,10 @@ RixinSDL::RixinSDL::RixinSDL() {
 }
 
 void RixinSDL::RixinSDL::init() {
+    std::cout << "Adding a window" << std::endl;
     windowManager.AddWindow(defaultWindowTitle, 1920, 1080);
 
+    std::cout << "Adding an event" << std::endl;
     auto& con = gameContext;
     auto& wMan = windowManager;
     eventDispatcher.AddCloseWindowHandler([&con, &wMan](int id){

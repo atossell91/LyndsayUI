@@ -1,5 +1,5 @@
-set(SDL_DIR ${CMAKE_SOURCE_DIR}/../SDL)
-set(SDL_IMAGE_DIR ${CMAKE_SOURCE_DIR}/../SDL_image)
+set(SDL_DIR ${CMAKE_SOURCE_DIR}/deps/SDL)
+set(SDL_IMAGE_DIR ${CMAKE_SOURCE_DIR}/deps/SDL_image)
 
 set(SDL_BUILD_CONFIG Debug)
 
@@ -12,7 +12,7 @@ else()
     set(SDL_LIB_DIR ${SDL_DIR}/build)
     set(SDL_IMAGE_LIB_DIR ${SDL_IMAGE_DIR}/build)
     set(SDL_LIB ${SDL_LIB_DIR}/libSDL3.so)
-    set(SDL_IMAGE_LIB ${SDL_IMAGE_LIB_DIR}/libSDL3.so)
+    set(SDL_IMAGE_LIB ${SDL_IMAGE_LIB_DIR}/libSDL3_image.so)
 endif()
 
 message(SDL Directory: ${SDL_DIR})
