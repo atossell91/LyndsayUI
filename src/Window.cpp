@@ -6,6 +6,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "glad/glad.h"
 #include "../include/ShaderUtils.h"
@@ -14,10 +15,20 @@
 
 
 class Mckayla {
-    public:
+    private:
     GLuint vao;
+    GLuint shader = -1;
+    RixinSDL::BufferedImage image;
 
-    Mckayla() {
+    public:
+    float rotation = 0.0f;
+    float xTrans = 0.0f;
+    float yTrans = 0.0f;
+    float xScale = 1.0f;
+    float yScale = 1.0f;
+
+    Mckayla(RixinSDL::BufferedImage image, GLuint shaderProgramRef) : image{image}, shader{shaderProgramRef} {
+
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
 
@@ -48,6 +59,24 @@ class Mckayla {
     }
 
     void draw() {
+        
+        if (shader >= 0) {
+            // Prepare the matrix
+            auto transform = glm::mat4(1.0f);
+            transform = glm::translate(transform, glm::vec3(xTrans, yTrans, 0.0f));
+            transform = glm::rotate(transform, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+            transform = glm::scale(transform, glm::vec3(xScale, yScale, 1.0f));
+
+            glUseProgram(shader);
+            GLuint tMatrixLoc = glGetUniformLocation(shader, "Transform");
+
+            glUniformMatrix4fv(tMatrixLoc, 1, GL_FALSE, glm::value_ptr(transform));
+        }
+
+        if (image.getBufferId() >= 0) {
+            glBindTexture(GL_TEXTURE_2D, image.getBufferId());
+        }
+
         glBindVertexArray(vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
@@ -57,10 +86,10 @@ class Mckayla {
 
     // Not static - Consider making this static
     const float vertices[vertexArrayElems] = {
-        -1.0f, -1.0f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.0f, 0.0f, // Bottom Left (Origin)
-        1.0f, -1.0f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     1.0f, 0.0f, // Bottom Right
-        1.0f, 1.0f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     1.0f, 1.0f, // Top Right
-        -1.0f, 1.0f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.0f, 1.0f, // Top Left
+        -1.0f, -1.0f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.0f, 0.0f, // Bottom Left (Origin)
+        1.0f, -1.0f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,     1.0f, 0.0f, // Bottom Right
+        1.0f, 1.0f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,     1.0f, 1.0f, // Top Right
+        -1.0f, 1.0f, 0.0f,   1.0f, 1.0f, 1.0f, 1.0f,     0.0f, 1.0f, // Top Left
     };
 
     const int indices[elementIndices] = {0, 1, 2, 2, 3, 0};
@@ -87,7 +116,6 @@ RixinSDL::BufferedImage bufferImage(const std::string& imgPath) {
 
         RixinSDL::BufferedImage ref(tex, sfc->w, sfc->h);
         SDL_DestroySurface(sfc);
-        std::cout << "tex is: " << tex << std::endl;
         return ref;
 }
 
@@ -105,26 +133,28 @@ void RixinSDL::Window::init() {
 
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
-    RixinSDL::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
+    RixinSDL::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-smile.jpg");
+    RixinSDL::BufferedImage img2 = bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
     int prog = RixinSDL::ShaderUtils::BuildShaderProgram("/home/ant/Programming/RixinSDL/shaders/vertex.glsl", "/home/ant/Programming/RixinSDL/shaders/fragment-img.glsl");
 
-    GLuint widthScaleLocation = glGetUniformLocation(prog, "WidthScale");
-    GLuint heightScaleLocation = glGetUniformLocation(prog, "HeightScale");
-
-    //glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-    float ratio = (float)width / (float)height;
-    GLfloat widthScale = (float)width / (float)img.getWidth();
-    GLfloat heightScale = (float)height / (float)img.getHeight();
-
     glUseProgram(prog);
-    glUniform1f(widthScaleLocation, widthScale);
-    glUniform1f(heightScaleLocation, heightScale);
 
     // Mckayla (below) draws a rectangle in openGl, but doesn't texture it.
-    Mckayla mm;
+    Mckayla mm(img, prog);
+
+    Mckayla mm2(img2, prog);
+
+    // Scale to ensure the image keeps it's original size and proportions
+    mm2.xScale = ((float)img2.getWidth()/ (float)width)*0.5;
+    mm2.yScale = ((float)img2.getHeight() / (float)height)*0.5;
+    mm2.xTrans = -0.3;
+
+    mm.xScale = ((float)img.getWidth()/ (float)width)*0.4;
+    mm.yScale = ((float)img.getHeight() / (float)height)*0.4;
+    mm.xTrans = 0.2;
 
     mm.draw();
+    mm2.draw();
 
     SDL_GL_SwapWindow(window);
 }

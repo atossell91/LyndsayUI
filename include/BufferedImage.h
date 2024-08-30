@@ -15,6 +15,6 @@ namespace RixinSDL {
         unsigned int imageId;
         size_t width;
         size_t height;
-        GLuint bufferId;
+        GLuint bufferId  = -1;
     };
 }
