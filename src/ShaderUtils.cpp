@@ -51,7 +51,7 @@ int RixinSDL::ShaderUtils::BuildShaderProgram(const std::string& vShaderPath, co
 
     std::string fragShaderStr = ReadFile(fShaderPath);
     if (fragShaderStr.length() < 1) {
-        std::cout << "Vertex shader is empty file." << std::endl;
+        std::cout << "Fragment shader is empty file." << std::endl;
     }
     
     int vertShader = CompileShader(GL_VERTEX_SHADER, vertShaderStr);

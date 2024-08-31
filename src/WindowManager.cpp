@@ -1,19 +1,29 @@
 #include <string>
+#include <thread>
 
 #include "../include/WindowManager.h"
 
 #include <iostream>
 
 void RixinSDL::WindowManager::AddWindow(const std::string& name, int width, int height) {
-    windows.push_back(std::make_unique<Window>(name, width, height));
+
+    WindowThread windowThread;
+    std::thread* t = new std::thread([this, &windowThread](const std::string& name, int width, int height){
+        Window window(name, width, height);
+        windowThread.window = &window;
+        window.windowLoop();
+        windowThread.window = nullptr;
+    }, name, width, height);
+    windows.push_back(std::move(windowThread));
 }
 
 void RixinSDL::WindowManager::CloseWindow(int sdlWinId) {
     auto iter = windows.begin();
     while (iter != windows.end()) {
-        if (iter->get()->GetWindowId() == sdlWinId) {
-            (*iter)->stopLoop();
-            windows.remove(*iter);
+        if (iter->window->GetWindowId() == sdlWinId) {
+            iter->window->stopLoop();
+            iter->thread->join();
+            windows.erase(iter);
             break;
         }
         iter = std::next(iter);
@@ -23,7 +33,9 @@ void RixinSDL::WindowManager::CloseWindow(int sdlWinId) {
 void RixinSDL::WindowManager::UpdateAll() {
     auto winIter = windows.begin();
     while (winIter != windows.end()) {
-        (*winIter)->update();
-        ++winIter;
+        if (winIter->window) {
+            winIter->window->update();
+            ++winIter;
+        }
     }
 }

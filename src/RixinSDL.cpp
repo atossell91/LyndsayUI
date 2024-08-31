@@ -16,7 +16,7 @@ RixinSDL::RixinSDL::RixinSDL() {
 }
 
 void RixinSDL::RixinSDL::initSDL() {
-    if (SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO)) {
+    if (!SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO)) {
         std::cout << "SDL Init failed." << std::endl;
     }
 
@@ -44,7 +44,9 @@ void RixinSDL::RixinSDL::init() {
 
 void RixinSDL::RixinSDL::mainLoop() {
     while (!gameContext.ShouldClose) {
+        std::cout << "Processing events" << std::endl;
         processEvents();
+        std::cout << "Events processed" << std::endl;
         
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));

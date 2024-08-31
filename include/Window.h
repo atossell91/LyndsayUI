@@ -26,9 +26,8 @@ namespace RixinSDL
         WindowDrawManager drawManager;
 
         void init();
-        void windowLoop();
-        void startLoop();
     public:
+        void windowLoop();
         void stopLoop();
         Window(const std::string& name, int width, int height) :
             width{width}, height{height},
