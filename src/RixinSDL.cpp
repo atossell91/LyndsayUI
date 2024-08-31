@@ -31,7 +31,6 @@ void RixinSDL::RixinSDL::init() {
     std::cout << "Adding a window" << std::endl;
     windowManager.AddWindow(defaultWindowTitle, 1920, 1080);
 
-    std::cout << "Adding an event" << std::endl;
     auto& con = gameContext;
     auto& wMan = windowManager;
     eventDispatcher.AddCloseWindowHandler([&con, &wMan](int id){
@@ -46,8 +45,6 @@ void RixinSDL::RixinSDL::init() {
 void RixinSDL::RixinSDL::mainLoop() {
     while (!gameContext.ShouldClose) {
         processEvents();
-
-        windowManager.UpdateAll();
         
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
@@ -61,23 +58,9 @@ void RixinSDL::RixinSDL::processEvents() {
     }
 }
 
-void RixinSDL::RixinSDL::update() {
-    for (auto updateable : updateables) {
-        updateable->Update();
-    }
-}
-
 void RixinSDL::RixinSDL::Run() {
     mainLoop();
     cleanup();
-}
-
-void RixinSDL::RixinSDL::AddUpdateable(IUpdateable* updateable) {
-    updateables.push_back(updateable);
-}
-
-void RixinSDL::RixinSDL::RemoveUpdateable(IUpdateable* updateable) {
-    updateables.remove(updateable);
 }
 
 void RixinSDL::RixinSDL::cleanup() {

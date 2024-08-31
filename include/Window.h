@@ -1,10 +1,12 @@
 #pragma once
 
 #include <string>
+#include <thread>
 
 #include <SDL3/SDL.h>
 
 #include "glad/glad.h"
+#include "../include/WindowDrawManager.h"
 
 namespace RixinSDL
 {
@@ -14,16 +16,25 @@ namespace RixinSDL
         int width;
         int height;
 
+        std::thread thread;
+
+        bool windowRunning = true;
+
         SDL_Window* window;
         SDL_GLContext glContext;
 
+        WindowDrawManager drawManager;
+
         void init();
+        void windowLoop();
+        void startLoop();
     public:
+        void stopLoop();
         Window(const std::string& name, int width, int height) :
             width{width}, height{height},
             window{SDL_CreateWindow(name.c_str(), width, height, SDL_WINDOW_OPENGL)},
             glContext{SDL_GL_CreateContext(window)} { init(); }
-        ~Window() { SDL_DestroyWindow(window); }
+        ~Window();
         void update();
 
         int GetWindowId() const { return SDL_GetWindowID(window); }

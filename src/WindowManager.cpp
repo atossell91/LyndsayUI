@@ -1,6 +1,6 @@
 #include <string>
 
-#include "../include/WindowStuff/WindowManager.h"
+#include "../include/WindowManager.h"
 
 #include <iostream>
 
@@ -12,6 +12,7 @@ void RixinSDL::WindowManager::CloseWindow(int sdlWinId) {
     auto iter = windows.begin();
     while (iter != windows.end()) {
         if (iter->get()->GetWindowId() == sdlWinId) {
+            (*iter)->stopLoop();
             windows.remove(*iter);
             break;
         }

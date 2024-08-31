@@ -7,7 +7,7 @@
 
 #include "RixinSDLContext.h"
 #include "EventDispatcher.h"
-#include "WindowStuff/WindowManager.h"
+#include "WindowManager.h"
 
 #include "interfaces/IUpdateable.h"
 

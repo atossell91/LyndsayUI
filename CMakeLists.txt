@@ -21,12 +21,12 @@ add_library(RixinSDL SHARED
     ${SRC}/ShaderUtils.cpp
     ${SRC}/Utilities.cpp
     ${SRC}/Image.cpp
-    ${SRC}/TextureRepository.cpp
     ${SRC}/EventDispatcher.cpp
     ${SRC}/WindowManager.cpp
     ${SRC}/RixinSDL.cpp
     ${SRC}/mckayla.cpp
     ${SRC}/spiral.cpp
+    ${SRC}/WindowDrawManager.cpp
 )
 
 target_link_libraries(RixinSDL

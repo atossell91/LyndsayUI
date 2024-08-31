@@ -1,7 +1,9 @@
-#include "../include/WindowStuff/Window.h"
+#include "../include/Window.h"
 
 #include <iostream>
 #include <vector>
+#include <thread>
+#include <chrono>
 
 #include <SDL3_image/SDL_image.h>
 
@@ -25,13 +27,40 @@ void RixinSDL::Window::init() {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return;
     }
-
-    glClearColor(1.0, 0.0, 1.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
     glViewport(0, 0, width, height);
+
+    startLoop();
+}
+
+void RixinSDL::Window::windowLoop() {
+    while(windowRunning) {
+        std::cout << "Window Loop" << std::endl;
+        SDL_GL_MakeCurrent(window, glContext);
+
+        glClearColor(1.0, 0.0, 1.0, 1.0);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        drawManager.drawAll();
+        update();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    }
+}
+
+void RixinSDL::Window::startLoop() {
+    thread = std::thread([this](){ windowLoop(); });
+}
+
+void RixinSDL::Window::stopLoop() {
+    windowRunning = false;
+    thread.join();
 }
 
 void RixinSDL::Window::update() {
-    std::cout << "Updating" << std::endl;
     SDL_GL_SwapWindow(window);
+}
+
+RixinSDL::Window::~Window() {
+    SDL_DestroyWindow(window);
+    //SDL_GL_DestroyContext(glContext);
 }

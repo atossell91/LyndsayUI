@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 
-#include "Window.h"
+#include "../include/Window.h"
 
 namespace RixinSDL
 {
