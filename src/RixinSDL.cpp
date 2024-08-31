@@ -10,10 +10,21 @@
 #include "../include/interfaces/IUpdateable.h"
 
 RixinSDL::RixinSDL::RixinSDL() {
-    if (SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO) < 0) {
+    initSDL();
+    initOpenGl();
+    init();
+}
+
+void RixinSDL::RixinSDL::initSDL() {
+    if (SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO)) {
         std::cout << "SDL Init failed." << std::endl;
     }
-    init();
+
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+}
+
+void RixinSDL::RixinSDL::initOpenGl() {
+    // Nothing to be done here (at the moment)
 }
 
 void RixinSDL::RixinSDL::init() {
@@ -35,6 +46,9 @@ void RixinSDL::RixinSDL::init() {
 void RixinSDL::RixinSDL::mainLoop() {
     while (!gameContext.ShouldClose) {
         processEvents();
+
+        windowManager.UpdateAll();
+        
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
     }

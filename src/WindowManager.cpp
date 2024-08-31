@@ -18,3 +18,11 @@ void RixinSDL::WindowManager::CloseWindow(int sdlWinId) {
         iter = std::next(iter);
     }
 }
+
+void RixinSDL::WindowManager::UpdateAll() {
+    auto winIter = windows.begin();
+    while (winIter != windows.end()) {
+        (*winIter)->update();
+        ++winIter;
+    }
+}

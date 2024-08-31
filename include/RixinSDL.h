@@ -25,6 +25,8 @@ namespace RixinSDL {
 
       std::list<IUpdateable*> updateables;
 
+      void initSDL();
+      void initOpenGl();
       void init();
       void mainLoop();
       void processEvents();

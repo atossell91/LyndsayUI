@@ -13,5 +13,6 @@ namespace RixinSDL
         void AddWindow(const std::string& name, int width, int height);
         void CloseWindow(int sdlWinId);
         int GetNumWindows() const { return windows.size(); }
+        void UpdateAll();
     };
 } // namespace RixinSDL

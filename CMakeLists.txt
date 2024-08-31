@@ -25,6 +25,8 @@ add_library(RixinSDL SHARED
     ${SRC}/EventDispatcher.cpp
     ${SRC}/WindowManager.cpp
     ${SRC}/RixinSDL.cpp
+    ${SRC}/mckayla.cpp
+    ${SRC}/spiral.cpp
 )
 
 target_link_libraries(RixinSDL
@@ -39,5 +41,5 @@ add_executable(RixinTest
 target_link_libraries(RixinTest
     ${CMAKE_SOURCE_DIR}/build/libRixinSDL.so
     ${SDL_LIB}
-    #${SDL_IMAGE_LIB}
+    ${SDL_IMAGE_LIB}
 )
