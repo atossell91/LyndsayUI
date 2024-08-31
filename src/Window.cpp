@@ -32,7 +32,6 @@ void RixinSDL::Window::init() {
 }
 
 void RixinSDL::Window::windowLoop() {
-    std::cout << "Window Running: " << windowRunning << std::endl;
     while(windowRunning) {
         SDL_GL_MakeCurrent(window, glContext);
 

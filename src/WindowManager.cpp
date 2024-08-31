@@ -20,7 +20,7 @@ void RixinSDL::WindowManager::AddWindow(const std::string& name, int width, int 
 void RixinSDL::WindowManager::CloseWindow(int sdlWinId) {
     auto iter = windows.begin();
     while (iter != windows.end()) {
-        if (iter->window->GetWindowId() == sdlWinId) {
+        if (iter->window != nullptr && iter->window->GetWindowId() == sdlWinId) {
             iter->window->stopLoop();
             iter->thread->join();
             windows.erase(iter);
