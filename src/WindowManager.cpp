@@ -5,6 +5,8 @@
 
 #include "../include/WindowManager.h"
 
+#include "Window.h"
+
 #include <iostream>
 
 
@@ -46,6 +48,26 @@ void RixinSDL::WindowManager::CloseWindow(int sdlWinId) {
             break;
         }
         iter = std::next(iter);
+    }
+}
+
+RixinSDL::Window* RixinSDL::WindowManager::GetWindow(int sdlWinId) {
+    auto iter = windows.begin();
+    while (iter != windows.end()) {
+        if (iter->window && iter->window->GetWindowId() == sdlWinId) {
+            return iter->window;
+        }
+        iter = std::next(iter);
+    }
+    return nullptr;
+}
+
+RixinSDL::Window* RixinSDL::WindowManager::GetWindow() {
+    if (windows.begin() == windows.end()) {
+        return nullptr;
+    }
+    else {
+        return windows.begin()->window;
     }
 }
 

@@ -7,6 +7,7 @@
 
 #include "glad/glad.h"
 #include "../include/WindowDrawManager.h"
+#include "BufferedImage.h"
 
 namespace RixinSDL
 {
@@ -35,5 +36,6 @@ namespace RixinSDL
         void update();
 
         int GetWindowId() const { return SDL_GetWindowID(window); }
+        RixinSDL::BufferedImage bufferImage(const std::string& imgPath);
     };
 } // namespace RixinSDL

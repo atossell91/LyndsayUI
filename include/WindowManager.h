@@ -18,6 +18,8 @@ namespace RixinSDL
      public:
         void AddWindow(const std::string& name, int width, int height);
         void CloseWindow(int sdlWinId);
+        Window* GetWindow();
+        Window* GetWindow(int sdlWinId);
         int GetNumWindows() const { return windows.size(); }
         void UpdateAll();
     };

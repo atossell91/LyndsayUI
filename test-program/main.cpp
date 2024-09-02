@@ -6,6 +6,7 @@
 #include "../include/BufferedImage.h"
 #include "../include/Utilities.h"
 #include "../include/ShaderUtils.h"
+#include "Window.h"
 
 #include "../include/mckayla.h"
 
@@ -45,9 +46,16 @@ RixinSDL::BufferedImage bufferImage(const std::string& imgPath) {
 
 int main() {
     RixinSDL::RixinSDL rsdl;
-    //RixinSDL::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-fangirl.png");
+    //RixinSDL::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
     
-     /*
+    RixinSDL::Window* win = rsdl.GetWindowManager().GetWindow();
+    if (!win) {
+        std::cout << "No win" << std::endl;
+    }
+
+    win->bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
+    
+    /*
     int prog = RixinSDL::ShaderUtils::BuildShaderProgram(
         "/home/ant/Programming/RixinSDL/shaders/vertex.glsl",
         "/home/ant/Programming/RixinSDL/shaders/fragment-img.glsl");
@@ -55,10 +63,11 @@ int main() {
     int progCol = RixinSDL::ShaderUtils::BuildShaderProgram(
         "/home/ant/Programming/RixinSDL/shaders/vertex.glsl", 
         "/home/ant/Programming/RixinSDL/shaders/fragment-color.glsl");
-    //*/
+    */
 
     //RixinSDL::Mckayla mm(img, prog);
     
+    // Segfaults if Run() is not called
     rsdl.Run();
 
     std::cout << "Done!" << std::endl;
