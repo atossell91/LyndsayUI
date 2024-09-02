@@ -27,6 +27,8 @@ add_library(RixinSDL SHARED
     ${SRC}/mckayla.cpp
     ${SRC}/spiral.cpp
     ${SRC}/WindowDrawManager.cpp
+    ${SRC}/Vica.cpp
+    #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
 target_link_libraries(RixinSDL
