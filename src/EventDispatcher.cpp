@@ -11,7 +11,6 @@ void EventDispatcher::HandleEvent(SDL_Event& event) {
     switch (event.type)
     {
     case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
-    std::cout << "Window clsoe requested" << std::endl;
         for (auto handler : closeWindowHandlers) {
             handler(event.window.windowID);
         }
@@ -48,7 +47,6 @@ void EventDispatcher::HandleEvent(SDL_Event& event) {
         break;
 
     case SDL_EVENT_QUIT:
-    std::cout << "Event quit requested!" << std::endl;
         for (auto handler : this->quitHandlers) {
             handler();
         }

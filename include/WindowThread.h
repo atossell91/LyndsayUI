@@ -9,6 +9,7 @@ namespace RixinSDL
 {
     class WindowThread {
     public:
+        bool windowOpened = false;
         Window* window = nullptr;
         std::unique_ptr<std::thread> thread = nullptr;
     };

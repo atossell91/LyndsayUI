@@ -28,26 +28,22 @@ void RixinSDL::RixinSDL::initOpenGl() {
 }
 
 void RixinSDL::RixinSDL::init() {
-    std::cout << "Adding a window" << std::endl;
     windowManager.AddWindow(defaultWindowTitle, 1920, 1080);
 
     auto& con = gameContext;
     auto& wMan = windowManager;
-    eventDispatcher.AddCloseWindowHandler([&con, &wMan](int id){
-        wMan.CloseWindow(id);
+    eventDispatcher.AddCloseWindowHandler([this](int id){
+        windowManager.CloseWindow(id);
 
-        if (wMan.GetNumWindows() < 1) {
-            con.ShouldClose = true;
+        if (windowManager.GetNumWindows() < 1) {
+            gameContext.ShouldClose = true;
         }
     });
 }
 
 void RixinSDL::RixinSDL::mainLoop() {
     while (!gameContext.ShouldClose) {
-        std::cout << "Processing events" << std::endl;
         processEvents();
-        std::cout << "Events processed" << std::endl;
-        
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
     }

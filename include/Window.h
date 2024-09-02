@@ -16,8 +16,6 @@ namespace RixinSDL
         int width;
         int height;
 
-        std::thread thread;
-
         bool windowRunning = true;
 
         SDL_Window* window;

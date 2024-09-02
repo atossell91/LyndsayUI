@@ -2,6 +2,8 @@
 #include <string>
 #include <memory>
 #include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "../include/Window.h"
 #include "../include/WindowThread.h"
@@ -11,6 +13,8 @@ namespace RixinSDL
     class WindowManager {
      private:
         std::list<WindowThread> windows;
+        std::mutex mutex;
+        std::condition_variable cv;
      public:
         void AddWindow(const std::string& name, int width, int height);
         void CloseWindow(int sdlWinId);
