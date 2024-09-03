@@ -4,6 +4,8 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <iostream>
+
 using namespace RixinSDL;
 
 Mckayla::Mckayla(RixinSDL::BufferedImage image, GLuint shaderProgramRef) : DrawableBase(shaderProgramRef), image{image} {
@@ -31,24 +33,35 @@ Mckayla::Mckayla(RixinSDL::BufferedImage image, GLuint shaderProgramRef) : Drawa
 }
 
 void Mckayla::draw() {
+    std::cout << "Start draw" << std::endl;
     
     if (shaderID >= 0) {
+    std::cout << "Start draw" << std::endl;
         // Prepare the matrix
         auto transform = glm::mat4(1.0f);
         transform = glm::translate(transform, glm::vec3(xTranslate, yTranslate, 0.0f));
         transform = glm::scale(transform, glm::vec3(xScale, yScale, 1.0f));
         transform = glm::rotate(transform, glm::radians(zRotation), glm::vec3(0.0f, 0.0f, 1.0f));
 
-        glUseProgram(shaderID);
-        GLuint tMatrixLoc = glGetUniformLocation(shaderID, "Transform");
 
+        std::cout << "Setting the program" << std::endl;
+        glUseProgram(shaderID);
+
+        std::cout << "Setting the matrix uniform" << std::endl;
+        GLuint tMatrixLoc = glGetUniformLocation(shaderID, "Transform");
         glUniformMatrix4fv(tMatrixLoc, 1, GL_FALSE, glm::value_ptr(transform));
     }
 
     if (image.getBufferId() >= 0) {
+        std::cout << "Binding the image" << std::endl;
         glBindTexture(GL_TEXTURE_2D, image.getBufferId());
     }
 
+    std::cout << "Start draw" << std::endl;
     glBindVertexArray(vao);
+
+    std::cout << "Actually doing the drawing now" << std::endl;
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    std::cout << "Leaving draw" << std::endl;
 }
