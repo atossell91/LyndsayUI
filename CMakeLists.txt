@@ -27,6 +27,9 @@ add_library(RixinSDL SHARED
     ${SRC}/mckayla.cpp
     ${SRC}/spiral.cpp
     ${SRC}/WindowDrawManager.cpp
+    ${SRC}/EventQueue.cpp
+    ${SRC}/EventFactory.cpp
+    ${SRC}/EventProcessor.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
