@@ -53,19 +53,7 @@ int main() {
         std::cout << "No win" << std::endl;
     }
 
-    win->bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
-    
-    /*
-    int prog = RixinSDL::ShaderUtils::BuildShaderProgram(
-        "/home/ant/Programming/RixinSDL/shaders/vertex.glsl",
-        "/home/ant/Programming/RixinSDL/shaders/fragment-img.glsl");
-    
-    int progCol = RixinSDL::ShaderUtils::BuildShaderProgram(
-        "/home/ant/Programming/RixinSDL/shaders/vertex.glsl", 
-        "/home/ant/Programming/RixinSDL/shaders/fragment-color.glsl");
-    */
-
-    //RixinSDL::Mckayla mm(img, prog);
+    //win->LudoVica();
     
     // Segfaults if Run() is not called
     rsdl.Run();

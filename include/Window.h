@@ -2,12 +2,15 @@
 
 #include <string>
 #include <thread>
+#include <list>
+#include <vector>
 
 #include <SDL3/SDL.h>
 
 #include "glad/glad.h"
-#include "../include/WindowDrawManager.h"
 #include "BufferedImage.h"
+#include "DrawableBase.h"
+#include "ShaderUtils.h"
 
 namespace RixinSDL
 {
@@ -22,7 +25,7 @@ namespace RixinSDL
         SDL_Window* window;
         SDL_GLContext glContext;
 
-        WindowDrawManager drawManager;
+        std::list<std::unique_ptr<DrawableBase>> drawables;
 
         void init();
     public:
@@ -34,8 +37,20 @@ namespace RixinSDL
             glContext{SDL_GL_CreateContext(window)} { init(); }
         ~Window();
         void update();
+        void AddDrawable(std::unique_ptr<DrawableBase> drawable) {
+            drawables.push_back(std::move(drawable));
+        }
+        
+        int AddShaderProgram(const std::string& vertex, const std::string& fragment) {
+            SDL_GL_MakeCurrent(window, glContext);
+            return ShaderUtils::BuildShaderProgram(vertex, fragment);
+        }
+
+        void SetCurrentContext() { SDL_GL_MakeCurrent(window, glContext); }
 
         int GetWindowId() const { return SDL_GetWindowID(window); }
         RixinSDL::BufferedImage bufferImage(const std::string& imgPath);
+
+        void LudoVica();
     };
 } // namespace RixinSDL

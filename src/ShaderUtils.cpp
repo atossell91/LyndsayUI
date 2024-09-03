@@ -39,7 +39,7 @@ void RixinSDL::ShaderUtils::LinkProgram(int program) {
     if (!success) {
         char infoLog[512];
         glGetShaderInfoLog(program, 512, NULL, infoLog);
-        std::cout << infoLog << std::endl;   
+        std::cout << "Link Info: " <<  infoLog << std::endl;   
     }
 }
 

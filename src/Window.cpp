@@ -32,19 +32,27 @@ void RixinSDL::Window::init() {
 }
 
 void RixinSDL::Window::windowLoop() {
+    int loopCount = 0;
     while(windowRunning) {
+        if (loopCount == 0) {
+            LudoVica();
+        }
         SDL_GL_MakeCurrent(window, glContext);
 
         glClearColor(1.0, 0.0, 1.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        drawManager.drawAll();
+        
         update();
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
 }
 
 void RixinSDL::Window::update() {
+    SDL_GL_MakeCurrent(window, glContext);
+    for (auto& drawable : drawables) {
+        drawable->draw();
+    }
+
     SDL_GL_SwapWindow(window);
 }
 
@@ -81,14 +89,21 @@ RixinSDL::BufferedImage RixinSDL::Window::bufferImage(const std::string& imgPath
     
     int bytesPerPixel = SDL_BYTESPERPIXEL(sfc->format);
 
-    std::cout << "Bytes per pixel: " << bytesPerPixel << std::endl;
-
     int type = bytesPerPixel > 3 ? GL_RGBA : GL_RGB;
 
     glTexImage2D(GL_TEXTURE_2D, 0, type, sfc->w, sfc->h, 0, type, GL_UNSIGNED_BYTE, sfc->pixels);
-    std::cout << "Applied the Texture" << std::endl;
 
     RixinSDL::BufferedImage ref(tex, sfc->w, sfc->h);
     SDL_DestroySurface(sfc);
     return ref;
+}
+
+void RixinSDL::Window::LudoVica() {
+    auto img = bufferImage("/home/ant/Downloads/mckayla-fangirl.png");
+    auto prog = AddShaderProgram(
+        "/home/ant/Programming/RixinSDL/shaders/vertex.glsl",
+        "/home/ant/Programming/RixinSDL/shaders/fragment-img.glsl");
+
+    std::unique_ptr<Mckayla> mm = std::make_unique<Mckayla>(img, prog);
+    AddDrawable(std::move(mm));
 }
