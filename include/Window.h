@@ -13,6 +13,7 @@
 #include "ShaderUtils.h"
 #include "EventQueue.h"
 #include "EventProcessor.h"
+#include "promise.h"
 
 namespace RixinSDL
 {
@@ -59,6 +60,10 @@ namespace RixinSDL
         int GetWindowId() const { return SDL_GetWindowID(window); }
         IEventQueue& GetEventQueue();
         IEventProcessor& GetEventProcessor();
-        RixinSDL::BufferedImage bufferImage(const std::string& imgPath);
+        BufferedImage bufferImage(const std::string& imgPath);
+
+        //Called from main thread (probably)
+        promise<BufferedImage> bufferImage2(const std::string& imgPath);
+
     };
 } // namespace RixinSDL
