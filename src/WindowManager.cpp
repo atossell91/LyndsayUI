@@ -9,7 +9,6 @@
 
 #include <iostream>
 
-
 void RixinSDL::WindowManager::AddWindow(const std::string& name, int width, int height) {
 
     WindowThread windowThread;
@@ -21,6 +20,11 @@ void RixinSDL::WindowManager::AddWindow(const std::string& name, int width, int 
             std::lock_guard<std::mutex> lg(mutex);
             windowThread.window = &window;
         }
+
+        window.GetEventProcessor().addEventHandler(91,
+        [](std::unique_ptr<IEvent> event){
+            std::cout << "You are in love with promise" << std::endl;
+        });
 
         windowThread.windowOpened = true;
         cv.notify_one();

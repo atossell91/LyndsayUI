@@ -9,6 +9,7 @@
 #include "Window.h"
 
 #include "../include/mckayla.h"
+#include "Events.h"
 
 RixinSDL::BufferedImage bufferImage(const std::string& imgPath) {
     SDL_Surface* sfc = IMG_Load(imgPath.c_str());
@@ -52,6 +53,9 @@ int main() {
     if (!win) {
         std::cout << "No win" << std::endl;
     }
+
+    auto ev = std::make_unique<RixinSDL::TestEvent>();
+    rsdl.GetWindowManager().GetWindow()->GetEventQueue().queueEvent(std::move(ev));
 
     //win->LudoVica();
     

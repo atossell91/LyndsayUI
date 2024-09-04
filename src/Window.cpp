@@ -4,6 +4,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <exception>
 
 #include <SDL3_image/SDL_image.h>
 
@@ -17,6 +18,8 @@
 #include "../include/BufferedImage.h"
 #include "../include/mckayla.h"
 #include "../include/spiral.h"
+#include "IEventQueue.h"
+#include "IEventProcessor.h"
 
 void RixinSDL::Window::init() {
     SDL_GL_MakeCurrent(window, glContext);
@@ -34,11 +37,12 @@ void RixinSDL::Window::init() {
 void RixinSDL::Window::windowLoop() {
     int loopCount = 0;
     while(windowRunning) {
-        if (loopCount == 0) {
-            LudoVica();
-        }
         SDL_GL_MakeCurrent(window, glContext);
 
+        while (auto event = eventQueue->getEvent()) {
+            eventProcessor->processEvent(std::move(event));
+        }
+        
         glClearColor(1.0, 0.0, 1.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
         
@@ -98,12 +102,18 @@ RixinSDL::BufferedImage RixinSDL::Window::bufferImage(const std::string& imgPath
     return ref;
 }
 
-void RixinSDL::Window::LudoVica() {
-    auto img = bufferImage("/home/ant/Downloads/mckayla-fangirl.png");
-    auto prog = AddShaderProgram(
-        "/home/ant/Programming/RixinSDL/shaders/vertex.glsl",
-        "/home/ant/Programming/RixinSDL/shaders/fragment-img.glsl");
+RixinSDL::IEventQueue& RixinSDL::Window::GetEventQueue() {
+    if (!eventQueue) {
+        throw std::runtime_error("Event Queue is nullptr");
+    }
 
-    std::unique_ptr<Mckayla> mm = std::make_unique<Mckayla>(img, prog);
-    AddDrawable(std::move(mm));
+    return *eventQueue;
+}
+
+RixinSDL::IEventProcessor& RixinSDL::Window::GetEventProcessor() {
+    if (!eventProcessor) {
+        throw std::runtime_error("Event Queue is nullptr");
+    }
+
+    return *eventProcessor;
 }
