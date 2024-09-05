@@ -7,6 +7,7 @@ namespace RixinSDL {
     class BufferedImage {
     
     public:
+        BufferedImage() {}
         BufferedImage(GLuint buffer, size_t width, size_t height) :
             bufferId{buffer}, width{width}, height{height} {}
 
@@ -15,8 +16,8 @@ namespace RixinSDL {
         GLuint getBufferId() { return bufferId; }
     private:
         unsigned int imageId;
-        size_t width;
-        size_t height;
+        size_t width = -1;
+        size_t height = -1;
         GLuint bufferId  = -1;
     };
 }

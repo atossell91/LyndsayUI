@@ -20,6 +20,8 @@
 #include "../include/spiral.h"
 #include "IEventQueue.h"
 #include "IEventProcessor.h"
+#include "BufferImageEvent.h"
+#include "EventTypes.h"
 
 void RixinSDL::Window::init() {
     SDL_GL_MakeCurrent(window, glContext);
@@ -30,6 +32,14 @@ void RixinSDL::Window::init() {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return;
     }
+
+    eventProcessor->addEventHandler(
+        RixinSDL::EventTypes::BUFFER_IMAGE_EVENT,
+        [this](std::unique_ptr<IEvent> event){
+            auto ev = std::unique_ptr<BufferImageEvent>(static_cast<BufferImageEvent*>(event.release()));
+            BufferedImage img = bufferImage(ev->getImagePath());
+            ev->getPromise().set(img);
+        });
     
     glViewport(0, 0, width, height);
 }
@@ -116,4 +126,14 @@ RixinSDL::IEventProcessor& RixinSDL::Window::GetEventProcessor() {
     }
 
     return *eventProcessor;
+}
+
+void RixinSDL::Window::AddImageToBuffer(const std::string& path,
+    EmilyPromise::Promise<RixinSDL::BufferedImage>& promise) {
+    
+    //EmilyPromise::Promise<RixinSDL::BufferedImage> promise;
+    auto event = std::make_unique<BufferImageEvent>(promise);
+    event->setImagePath(path);
+
+    eventQueue->queueEvent(std::move(event));
 }

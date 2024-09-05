@@ -34,6 +34,7 @@ namespace RixinSDL
         std::unique_ptr<IEventProcessor> eventProcessor;
 
         void init();
+        BufferedImage bufferImage(const std::string& imgPath);
     public:
         void windowLoop();
         void stopLoop();
@@ -60,10 +61,8 @@ namespace RixinSDL
         int GetWindowId() const { return SDL_GetWindowID(window); }
         IEventQueue& GetEventQueue();
         IEventProcessor& GetEventProcessor();
-        BufferedImage bufferImage(const std::string& imgPath);
 
-        //Called from main thread (probably)
-        promise<BufferedImage> bufferImage2(const std::string& imgPath);
-
+        void AddImageToBuffer(const std::string& path,
+            EmilyPromise::Promise<RixinSDL::BufferedImage>& promise);
     };
 } // namespace RixinSDL
