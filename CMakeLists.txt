@@ -10,6 +10,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/include
     ${SDL_DIR}/include
     ${SDL_IMAGE_DIR}/include
+    ${EMILY_PROMISE_DIR}/include
 )
 
 #find_package(SDL3 REQUIRED)
@@ -29,7 +30,6 @@ add_library(RixinSDL SHARED
     ${SRC}/EventQueue.cpp
     ${SRC}/EventFactory.cpp
     ${SRC}/EventProcessor.cpp
-    ${SRC}/promise.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

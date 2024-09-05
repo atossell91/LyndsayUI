@@ -13,7 +13,7 @@
 #include "ShaderUtils.h"
 #include "EventQueue.h"
 #include "EventProcessor.h"
-#include "promise.h"
+#include "Promise.h"
 
 namespace RixinSDL
 {

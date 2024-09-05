@@ -5,6 +5,8 @@ set(SDL_IMAGE_DIR ${DEPS_DIR}/SDL_image)
 
 set(GLM_INCLUDE_DIR ${DEPS_DIR}/glm/glm)
 
+set(EMILY_PROMISE_DIR ${DEPS_DIR}/EmilyPromise)
+
 set(SDL_BUILD_CONFIG Debug)
 
 if (WIN32)
