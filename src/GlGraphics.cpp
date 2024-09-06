@@ -85,6 +85,13 @@ void GlGraphics::DrawString() {}
 
 void GlGraphics::DrawLine(const TransformParams& params) {}
 
+glm::vec2 calcPoint(float angleDeg, float rad) {
+    return glm::vec2(
+        glm::cos(angleDeg) * rad,
+        glm::sin(angleDeg) * rad
+    );
+}
+
 void GlGraphics::DrawSpiral(const TransformParams& params) {
     // Calculate the vertices
 
@@ -92,19 +99,26 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
 
         // This should be it's own function in it's own class
         std::vector<float> data;
-        float innerX = 0.0;
-        float innerY = 0.0;
-        float width = 0.02;
-        for (int a = 0; a < 360*5; ++a) {
-            float angle = glm::radians((float)a);
-            float radius = radius + 0.015;
-            
-            data.push_back(glm::cos(angle) * radius * 0.02 - width/2);
-            data.push_back(glm::sin(angle) * radius * 0.02 - width/2);
+        float innerRad = 0.5;
+        float outerRad = 0.6;
+        float turnAmt = 1.0f;
+        for (float angle = 0; angle < 360; angle += 1.0f) {
+            auto innerPoint = calcPoint(angle, innerRad);
+            auto outerPoint = calcPoint(angle, outerRad);
+            auto nextInner = calcPoint(angle + turnAmt, innerRad);
+            auto nextOuter = calcPoint(angle + turnAmt, outerRad);
+
+            data.push_back(nextInner[0]);
+            data.push_back(nextInner[1]);
             data.push_back(0.0f);
-            
-            data.push_back(glm::cos(angle) * radius * 0.02 + width/2);
-            data.push_back(glm::sin(angle) * radius * 0.02 + width/2);
+            data.push_back(innerPoint[0]);
+            data.push_back(innerPoint[1]);
+            data.push_back(0.0f);
+            data.push_back(outerPoint[0]);
+            data.push_back(outerPoint[1]);
+            data.push_back(0.0f);
+            data.push_back(nextOuter[0]);
+            data.push_back(nextOuter[1]);
             data.push_back(0.0f);
         }
 
