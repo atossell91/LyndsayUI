@@ -4,6 +4,7 @@
 #include <thread>
 #include <list>
 #include <vector>
+#include <memory>
 
 #include <SDL3/SDL.h>
 
@@ -14,6 +15,8 @@
 #include "EventQueue.h"
 #include "EventProcessor.h"
 #include "Promise.h"
+#include "IGraphics.h"
+#include "GlGraphics.h"
 
 namespace RixinSDL
 {
@@ -27,6 +30,7 @@ namespace RixinSDL
 
         SDL_Window* window;
         SDL_GLContext glContext;
+        std::unique_ptr<IGraphics> graphics;
 
         std::list<std::unique_ptr<DrawableBase>> drawables;
 
@@ -43,17 +47,13 @@ namespace RixinSDL
             window{SDL_CreateWindow(name.c_str(), width, height, SDL_WINDOW_OPENGL)},
             glContext{SDL_GL_CreateContext(window)},
             eventProcessor{std::make_unique<EventProcessor>()},
-            eventQueue{std::make_unique<Queue>()}
+            eventQueue{std::make_unique<Queue>()},
+            graphics{std::unique_ptr<IGraphics>(new GlGraphics(window))}
             { init(); }
         ~Window();
         void update();
         void AddDrawable(std::unique_ptr<DrawableBase> drawable) {
             drawables.push_back(std::move(drawable));
-        }
-        
-        int AddShaderProgram(const std::string& vertex, const std::string& fragment) {
-            SDL_GL_MakeCurrent(window, glContext);
-            return ShaderUtils::BuildShaderProgram(vertex, fragment);
         }
 
         void SetCurrentContext() { SDL_GL_MakeCurrent(window, glContext); }
@@ -61,6 +61,11 @@ namespace RixinSDL
         int GetWindowId() const { return SDL_GetWindowID(window); }
         IEventQueue& GetEventQueue();
         IEventProcessor& GetEventProcessor();
+        
+        int AddShaderProgram(const std::string& vertex, const std::string& fragment) {
+            SDL_GL_MakeCurrent(window, glContext);
+            return ShaderUtils::BuildShaderProgram(vertex, fragment);
+        }
 
         void AddImageToBuffer(const std::string& path,
             EmilyPromise::Promise<RixinSDL::BufferedImage>& promise);

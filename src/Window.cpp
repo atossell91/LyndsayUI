@@ -17,11 +17,11 @@
 #include "../include/Utilities.h"
 #include "../include/BufferedImage.h"
 #include "../include/mckayla.h"
-#include "../include/spiral.h"
 #include "IEventQueue.h"
 #include "IEventProcessor.h"
 #include "BufferImageEvent.h"
 #include "EventTypes.h"
+#include "TransformParams.h"
 
 void RixinSDL::Window::init() {
     SDL_GL_MakeCurrent(window, glContext);
@@ -46,6 +46,8 @@ void RixinSDL::Window::init() {
 
 void RixinSDL::Window::windowLoop() {
     int loopCount = 0;
+
+    TransformParams params;
     while(windowRunning) {
         SDL_GL_MakeCurrent(window, glContext);
 
@@ -53,15 +55,19 @@ void RixinSDL::Window::windowLoop() {
             eventProcessor->processEvent(std::move(event));
         }
         
-        glClearColor(1.0, 0.0, 1.0, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT);
-        
+        params.rotateDegrees += 1.2f;
+        graphics->Clear();
+        //graphics->DrawRectangle(params);
+        graphics->DrawSpiral(params);
+
         update();
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+        std::this_thread::sleep_for(std::chrono::milliseconds(15));
     }
 }
 
 void RixinSDL::Window::update() {
+    //graphics->Clear();
+
     SDL_GL_MakeCurrent(window, glContext);
     for (auto& drawable : drawables) {
         drawable->draw();
