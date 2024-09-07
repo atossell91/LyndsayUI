@@ -7,6 +7,7 @@
 
 #include "glad/glad.h"
 #include "IGraphics.h"
+#include "BufferedImage.h"
 
 namespace RixinSDL {
     class GlGraphics : public IGraphics {
@@ -24,12 +25,12 @@ namespace RixinSDL {
         int numSpiralData = 0;
         int spiralEbo;
 
-        static const int numQuadPoints = 12;
+        static const int numQuadPoints = 20;
         const float quadVertices[numQuadPoints] {
-            1.0f, -1.0f, 0.0f, // Bottom Right
-            1.0f, 1.0f, 0.0f, // Top Right
-            -1.0f, -1.0f, 0.0f, // Bottom Left
-            -1.0f, 1.0f, 0.0f, // Top Left
+            1.0f,   -1.0f,  0.0f,       0.1f, 0.0f, // Bottom Right
+            1.0f,   1.0f,   0.0f,       0.1f, 0.1f,// Top Right
+            -1.0f,  -1.0f,  0.0f,       0.0f, 0.0f,// Bottom Left
+            -1.0f,  1.0f,   0.0f,       0.0f, 0.1f// Top Left
         };
 
         void initOpenGl();
@@ -40,8 +41,10 @@ namespace RixinSDL {
             initOpenGl();
         }
         
+        BufferedImage BufferImage(const std::string& imgPath);
+        
         void DrawRectangle(const TransformParams& params);
-        void DrawImage(const std::string& imgPath, 
+        void DrawImage(BufferedImage image, 
             const Rectangle& sourceRect, const Rectangle& destRect);
         void DrawString();
         void DrawLine(const TransformParams& params);

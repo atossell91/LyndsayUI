@@ -37,7 +37,7 @@ void RixinSDL::Window::init() {
         RixinSDL::EventTypes::BUFFER_IMAGE_EVENT,
         [this](std::unique_ptr<IEvent> event){
             auto ev = std::unique_ptr<BufferImageEvent>(static_cast<BufferImageEvent*>(event.release()));
-            BufferedImage img = bufferImage(ev->getImagePath());
+            BufferedImage img = graphics->BufferImage(ev->getImagePath());//bufferImage(ev->getImagePath());
             ev->getPromise().set(img);
         });
     
@@ -48,6 +48,9 @@ void RixinSDL::Window::windowLoop() {
     int loopCount = 0;
 
     TransformParams params;
+        auto img = graphics->BufferImage("/home/ant/Downloads/corners.png");
+        Rectangle source(0, 0, 0.5, 0.5);
+        Rectangle dest(0, 0, 0.5, 0.5);
     while(windowRunning) {
         SDL_GL_MakeCurrent(window, glContext);
 
@@ -58,7 +61,8 @@ void RixinSDL::Window::windowLoop() {
         params.rotateDegrees += 2.4f;
         graphics->Clear();
         //graphics->DrawRectangle(params);
-        graphics->DrawSpiral(params);
+        graphics->DrawImage(img, source, dest);
+        //graphics->DrawSpiral(params);
 
         update();
         std::this_thread::sleep_for(std::chrono::milliseconds(15));
@@ -83,39 +87,6 @@ RixinSDL::Window::~Window() {
 
 void RixinSDL::Window::stopLoop() {
     windowRunning = false;
-}
-
-RixinSDL::BufferedImage RixinSDL::Window::bufferImage(const std::string& imgPath) {
-    SDL_GL_MakeCurrent(window, glContext);
-    
-    SDL_Surface* sfc = IMG_Load(imgPath.c_str());
-
-    if (!sfc) {
-        std::cout << "Failed to load image" << std::endl;
-    }
-
-    SDL_assert(sfc);
-
-    RixinSDL::Utilities::FlipImageSurface(sfc);
-    
-    GLuint tex;
-    glGenTextures(1, &tex);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, tex);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    
-    auto deets = SDL_GetPixelFormatDetails(sfc->format);
-    
-    int bytesPerPixel = SDL_BYTESPERPIXEL(sfc->format);
-
-    int type = bytesPerPixel > 3 ? GL_RGBA : GL_RGB;
-
-    glTexImage2D(GL_TEXTURE_2D, 0, type, sfc->w, sfc->h, 0, type, GL_UNSIGNED_BYTE, sfc->pixels);
-
-    RixinSDL::BufferedImage ref(tex, sfc->w, sfc->h);
-    SDL_DestroySurface(sfc);
-    return ref;
 }
 
 RixinSDL::IEventQueue& RixinSDL::Window::GetEventQueue() {

@@ -38,7 +38,6 @@ namespace RixinSDL
         std::unique_ptr<IEventProcessor> eventProcessor;
 
         void init();
-        BufferedImage bufferImage(const std::string& imgPath);
     public:
         void windowLoop();
         void stopLoop();

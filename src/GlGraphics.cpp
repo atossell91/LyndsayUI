@@ -6,8 +6,12 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <SDL3_image/SDL_image.h>
+
 #include "glad/glad.h"
 #include "ShaderUtils.h"
+#include "BufferedImage.h"
+#include "Utilities.h"
 
 using namespace RixinSDL;
 
@@ -34,8 +38,11 @@ GLuint GlGraphics::bufferPrimitive(const float vertices[], int size) {
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(float)*size, vertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*)3);
+    glEnableVertexAttribArray(1);
 
     return vao;
 }
@@ -71,18 +78,73 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
     glUniform3f(uColour, 1.0f, 0.0f, 0.0f);
 
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints/5);
 }
 
-void GlGraphics::DrawImage(const std::string& imgPath, 
+RixinSDL::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
+    SDL_GL_MakeCurrent(window, glContext);
+    
+    SDL_Surface* sfc = IMG_Load(imgPath.c_str());
+
+    if (!sfc) {
+        std::cout << "Failed to load image" << std::endl;
+    }
+
+    SDL_assert(sfc);
+
+    RixinSDL::Utilities::FlipImageSurface(sfc);
+    
+    GLuint tex;
+    glGenTextures(1, &tex);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    
+    auto deets = SDL_GetPixelFormatDetails(sfc->format);
+    
+    int bytesPerPixel = SDL_BYTESPERPIXEL(sfc->format);
+
+    int type = bytesPerPixel > 3 ? GL_RGBA : GL_RGB;
+
+    glTexImage2D(GL_TEXTURE_2D, 0, type, sfc->w, sfc->h, 0, type, GL_UNSIGNED_BYTE, sfc->pixels);
+
+    RixinSDL::BufferedImage ref(tex, sfc->w, sfc->h);
+    SDL_DestroySurface(sfc);
+    return ref;
+}
+
+void GlGraphics::DrawImage(BufferedImage image, 
             const Rectangle& sourceRect, const Rectangle& destRect) {
-    // If the image isn't buffered
-    //      Load the image
-    //      Shove the image into a glBuffer
-    // Use the buffered image (bind it?)
+    SDL_GL_MakeCurrent(window, glContext);
+
     // Use the image shader program
+    if (imgShader < 0) {
+        imgShader = ShaderUtils::BuildShaderProgram(
+            "/home/ant/Programming/RixinSDL/shaders/vertex-tex.glsl",
+            "/home/ant/Programming/RixinSDL/shaders/fragment-tex.glsl");
+    }
+    glUseProgram(imgShader);
+
+    auto transform = glm::mat4(1.0f);
+
+    GLuint uTransform = glGetUniformLocation(imgShader, "Transform");
+    glUniformMatrix4fv(uTransform, 1, GL_FALSE, glm::value_ptr(transform));
+
+    // Use the buffered image (bind it?)
+    glBindTexture(GL_TEXTURE_2D, image.getBufferId());
+
     // Set and transform the destination recatange (quad)
+    if (quadVao < 0) {
+        quadVao = bufferPrimitive(quadVertices, numQuadPoints);
+    }
+    glBindVertexArray(quadVao);
+
     // Draw the buffer(s)
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints/5);
+
+    std::cout << "Shader: " << imgShader << std::endl;
+    std::cout << "VAO: " << quadVao << std::endl;
 }
 
 void GlGraphics::DrawString() {}
@@ -119,9 +181,13 @@ std::vector<float> GlGraphics::calcArcVertices(
         data.push_back(glm::cos(rAngle) * (innerRad + innerIncrease*angle));
         data.push_back(glm::sin(rAngle) * (innerRad + innerIncrease*angle));
         data.push_back(0.0f);
+        data.push_back(0.0f);
+        data.push_back(0.0f);
 
         data.push_back(glm::cos(rAngle) * (outerRad + outerIncrease*angle));
         data.push_back(glm::sin(rAngle) * (outerRad + outerIncrease*angle));
+        data.push_back(0.0f);
+        data.push_back(0.0f);
         data.push_back(0.0f);
     }
     return data;
@@ -169,7 +235,7 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
 
     glEnable(GL_PROGRAM_POINT_SIZE);
     glPointSize(2);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, numSpiralData/3);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, numSpiralData/5);
     
     // Shove the vertices into a glBuffer
     // Draw the buffer
