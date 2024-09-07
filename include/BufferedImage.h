@@ -15,7 +15,6 @@ namespace RixinSDL {
         size_t getHeight() { return height; }
         GLuint getBufferId() { return bufferId; }
     private:
-        unsigned int imageId;
         size_t width = -1;
         size_t height = -1;
         GLuint bufferId  = -1;
