@@ -55,7 +55,7 @@ void RixinSDL::Window::windowLoop() {
             eventProcessor->processEvent(std::move(event));
         }
         
-        params.rotateDegrees += 0.0f;//1.2f;
+        params.rotateDegrees += 0.0f;//5;
         graphics->Clear();
         //graphics->DrawRectangle(params);
         graphics->DrawSpiral(params);

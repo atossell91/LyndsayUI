@@ -22,6 +22,7 @@ namespace RixinSDL {
 
         int spiralVao = -1;
         int numSpiralData = 0;
+        int spiralEbo;
 
         static const int numQuadPoints = 12;
         const float quadVertices[numQuadPoints] {
@@ -43,6 +44,11 @@ namespace RixinSDL {
         void DrawImage(const std::string& imgPath);
         void DrawString();
         void DrawLine(const TransformParams& params);
+
+        std::vector<float> calcArcVertices(
+            float startAngle, float arcAngle,
+            float innerRadStart, float innerRadEnd,
+            float outerRadStart, float outerRadEnd);
         void DrawSpiral(const TransformParams& params);
         void Clear();
     };

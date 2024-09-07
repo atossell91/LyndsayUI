@@ -24,7 +24,6 @@ void GlGraphics::initOpenGl() {
 }
 
 GLuint GlGraphics::bufferPrimitive(const float vertices[], int size) {
-
     GLuint vao;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
@@ -35,7 +34,7 @@ GLuint GlGraphics::bufferPrimitive(const float vertices[], int size) {
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(float)*size, vertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     return vao;
@@ -55,7 +54,8 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
     if (solidShader < 0) {
         solidShader = ShaderUtils::BuildShaderProgram(
             "/home/ant/Programming/RixinSDL/shaders/vertex-notex.glsl",
-            "/home/ant/Programming/RixinSDL/shaders/fragment-notex.glsl");
+            "/home/ant/Programming/RixinSDL/shaders/fragment-notex.glsl"
+        );
     }
     glUseProgram(solidShader);
     
@@ -92,38 +92,52 @@ glm::vec2 calcPoint(float angleDeg, float rad) {
     );
 }
 
+std::vector<float> GlGraphics::calcArcVertices(
+    float startAngle, float arcAngle,
+    float innerRadStart, float innerRadEnd,
+    float outerRadStart, float outerRadEnd) {
+    std::vector<float> data;
+
+    float turnAmt = 1.0f;
+
+    float innerIncrease = (innerRadEnd - innerRadStart)/((arcAngle/turnAmt));
+    float outerIncrease = (outerRadEnd - outerRadStart)/((arcAngle/turnAmt));
+
+    float innerRad = innerRadStart;
+    float outerRad = outerRadStart;
+    
+    for (float angle = startAngle; angle < (arcAngle + turnAmt); angle += turnAmt) {
+        float rAngle = glm::radians(angle);
+
+        float x = 0.0f;
+        float y = 0.0f;
+
+        data.push_back(glm::cos(rAngle) * (innerRad + innerIncrease*angle));
+        data.push_back(glm::sin(rAngle) * (innerRad + innerIncrease*angle));
+        data.push_back(0.0f);
+
+        data.push_back(glm::cos(rAngle) * (outerRad + outerIncrease*angle));
+        data.push_back(glm::sin(rAngle) * (outerRad + outerIncrease*angle));
+        data.push_back(0.0f);
+    }
+    return data;
+}
+
 void GlGraphics::DrawSpiral(const TransformParams& params) {
     // Calculate the vertices
 
     if (spiralVao < 0) {
 
         // This should be it's own function in it's own class
-        std::vector<float> data;
-        float innerRad = 0.5;
-        float outerRad = 0.6;
-        float turnAmt = 1.0f;
-        for (float angle = 0; angle < 360; angle += 1.0f) {
-            auto innerPoint = calcPoint(angle, innerRad);
-            auto outerPoint = calcPoint(angle, outerRad);
-            auto nextInner = calcPoint(angle + turnAmt, innerRad);
-            auto nextOuter = calcPoint(angle + turnAmt, outerRad);
 
-            data.push_back(nextInner[0]);
-            data.push_back(nextInner[1]);
-            data.push_back(0.0f);
-            data.push_back(innerPoint[0]);
-            data.push_back(innerPoint[1]);
-            data.push_back(0.0f);
-            data.push_back(outerPoint[0]);
-            data.push_back(outerPoint[1]);
-            data.push_back(0.0f);
-            data.push_back(nextOuter[0]);
-            data.push_back(nextOuter[1]);
-            data.push_back(0.0f);
-        }
-
+        float r1 = 0.25;
+        float width = 0.1f;
+        float spins = 3.75;
+        float space = 0.05f;
+        float increase = ((r1+ width) + space)*4;
+        auto data = calcArcVertices(360.0f * 0, 360*spins, r1, increase, r1, increase + width);
         numSpiralData = data.size();
-        spiralVao = bufferPrimitive(&data[0], data.size());
+        spiralVao = bufferPrimitive(&data[0], numSpiralData);
     }
     glBindVertexArray(spiralVao);
 
@@ -147,9 +161,11 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
     glUniformMatrix4fv(uTransform, 1, GL_FALSE, glm::value_ptr(transform));
 
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
-    glUniform3f(uColour, 1.0f, 0.0f, 0.0f);
+    glUniform3f(uColour, 0.0f, 1.0f, 0.0f);
 
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, numSpiralData);
+    glEnable(GL_PROGRAM_POINT_SIZE);
+    glPointSize(2);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, numSpiralData/3);
     
     // Shove the vertices into a glBuffer
     // Draw the buffer
