@@ -1,28 +1,29 @@
 #pragma once
 
-#include <SDL3/SDL.h>
-
 namespace RixinSDL {
     class Rectangle {
-     private:
-        SDL_FRect rectangle;
-     public:
-        Rectangle() {
-            rectangle.x = 0;
-            rectangle.y = 0;
-            rectangle.w = 0;
-            rectangle.h = 0;
-        }
+    private:
+        //  Private stuff here
+        float x;
+        float y;
+        float w;
+        float h;
+    public:
+        //  Public stuff here
+        Rectangle(float x, float y, float w, float h) : 
+            x{x}, y{y}, w{w}, h{h} {}
 
-        float GetWidth() { return rectangle.w; }
-        void SetWidth(float val) { rectangle.w = val; }
-        float GetHeight() { return rectangle.h; }
-        void SetHeight(float val) { rectangle.h = val; }
-        float GetX() { return rectangle.x; }
-        void SetX(float val) { rectangle.x = val; }
-        float GetY() { return rectangle.y; }
-        void SetY(float val) { rectangle.y = val; }
+        float getX() const  { return x; }
+        void setX(float val) { x = val; }
 
-        friend class DrawHelper;
+        float getY() const  { return y; }
+        void setY(float val) { y = val; }
+
+        float getW() const  { return w; }
+        void setW(float val) { w = val; }
+
+        float getH() const  { return h; }
+        void setH(float val) { h = val; }
+
     };
-}
+} // RixinSDL

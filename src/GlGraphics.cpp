@@ -130,11 +130,11 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
 
         // This should be it's own function in it's own class
 
-        float r1 = 0.25;
+        float r1 = 0.0;
         float width = 0.1f;
-        float spins = 3.75;
+        float spins = 10;
         float space = 0.05f;
-        float increase = ((r1+ width) + space)*4;
+        float increase = width*2*spins;
         auto data = calcArcVertices(360.0f * 0, 360*spins, r1, increase, r1, increase + width);
         numSpiralData = data.size();
         spiralVao = bufferPrimitive(&data[0], numSpiralData);
@@ -161,7 +161,7 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
     glUniformMatrix4fv(uTransform, 1, GL_FALSE, glm::value_ptr(transform));
 
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
-    glUniform3f(uColour, 0.0f, 1.0f, 0.0f);
+    glUniform3f(uColour, 0.25f, 0.5f, 1.0f);
 
     glEnable(GL_PROGRAM_POINT_SIZE);
     glPointSize(2);
@@ -172,6 +172,6 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
 }
 
 void GlGraphics::Clear() {
-    glClearColor(1.0f, 0.411f, 0.706f, 1.0f);
+    glClearColor(0.4f, 0.7f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);;
 }
