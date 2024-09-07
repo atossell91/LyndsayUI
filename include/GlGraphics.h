@@ -41,7 +41,8 @@ namespace RixinSDL {
         }
         
         void DrawRectangle(const TransformParams& params);
-        void DrawImage(const std::string& imgPath);
+        void DrawImage(const std::string& imgPath, 
+            const Rectangle& sourceRect, const Rectangle& destRect);
         void DrawString();
         void DrawLine(const TransformParams& params);
 

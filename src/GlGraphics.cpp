@@ -74,10 +74,14 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints);
 }
 
-void GlGraphics::DrawImage(const std::string& imgPath) {
-    // Load the image
-    // Shove the image into a glBuffer
+void GlGraphics::DrawImage(const std::string& imgPath, 
+            const Rectangle& sourceRect, const Rectangle& destRect) {
+    // If the image isn't buffered
+    //      Load the image
+    //      Shove the image into a glBuffer
+    // Use the buffered image (bind it?)
     // Use the image shader program
+    // Set and transform the destination recatange (quad)
     // Draw the buffer(s)
 }
 
