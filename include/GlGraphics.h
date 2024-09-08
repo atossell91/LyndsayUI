@@ -8,6 +8,7 @@
 #include "glad/glad.h"
 #include "IGraphics.h"
 #include "BufferedImage.h"
+#include "TransformParams.h"
 
 namespace RixinSDL {
     class GlGraphics : public IGraphics {
@@ -25,6 +26,8 @@ namespace RixinSDL {
         int numSpiralData = 0;
         int spiralEbo;
 
+        const char* TransformUniform = "Transform";
+
         static const int numQuadPoints = 20;
         const float quadVertices[numQuadPoints] {
             1.0f,   -1.0f,  0.0f,       1.0f, 0.0f, // Bottom Right
@@ -35,6 +38,9 @@ namespace RixinSDL {
 
         void initOpenGl();
         GLuint bufferPrimitive(const float vertices[], int size);
+
+        void applyShaders(GLuint targetProgram);
+        void applyTransforms(GLuint shaderProg, const TransformParams& params);
     public:
         //  Public stuff here
         GlGraphics(SDL_Window* window) : window{window}, glContext(SDL_GL_CreateContext(window)) {
@@ -45,7 +51,7 @@ namespace RixinSDL {
         
         void DrawRectangle(const TransformParams& params);
         void DrawImage(BufferedImage image, 
-            const Rectangle& sourceRect, const Rectangle& destRect);
+            const Rectangle& sourceRect, const Rectangle& destRect, const TransformParams& params);
         void DrawString();
         void DrawLine(const TransformParams& params);
 

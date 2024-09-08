@@ -47,6 +47,36 @@ GLuint GlGraphics::bufferPrimitive(const float vertices[], int size) {
     return vao;
 }
 
+void GlGraphics::applyShaders(GLuint targetProgram) {
+
+}
+
+void GlGraphics::applyTransforms(GLuint shaderProg, const TransformParams& params) {
+    
+    GLuint uTransform = glGetUniformLocation(shaderProg, TransformUniform);
+    // Setup the transform matrix, and set it as the uniform
+    auto transform = glm::mat4(1.0f);
+    transform = glm::translate(transform, glm::vec3(
+        params.getXtranslation(),
+        params.getYtranslation(),
+        params.getZtranslation()
+        )
+    );
+
+    // The first scale accounts for the aspect ratio of the screen - The second is the user defined scale
+    transform = glm::scale(transform, glm::vec3(1.0f*(1080.0f/1920.0f), 1.0f, 1.0f));
+    transform = glm::scale(transform, glm::vec3(
+        params.getXscale(),
+        params.getYscale(),
+        params.getZscale()
+    ));
+    
+    transform = glm::rotate(transform, glm::radians(params.getZrotation()), glm::vec3(0.0f, 0.0f, 1.0f));
+
+    glUniformMatrix4fv(uTransform, 1, GL_FALSE, glm::value_ptr(transform));
+    
+}
+
 void GlGraphics::DrawRectangle(const TransformParams& params) {
     SDL_GL_MakeCurrent(window, glContext);
     // Same as spiral - ShapePrimitive class?
@@ -65,15 +95,8 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
         );
     }
     glUseProgram(solidShader);
-    
-    GLuint uTransform = glGetUniformLocation(solidShader, "Transform");
-    // Setup the transform matrix, and set it as the uniform
-    auto transform = glm::mat4(1.0f);
-    transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
-    transform = glm::scale(transform, glm::vec3(0.5f*(1080.0f/1920.0f), 0.5f, 1.0f));
-    transform = glm::rotate(transform, glm::radians(params.rotateDegrees), glm::vec3(0.0f, 0.0f, 1.0f));
 
-    glUniformMatrix4fv(uTransform, 1, GL_FALSE, glm::value_ptr(transform));
+    applyTransforms(solidShader, params);
 
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
     glUniform3f(uColour, 1.0f, 0.0f, 0.0f);
@@ -115,7 +138,7 @@ RixinSDL::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
 }
 
 void GlGraphics::DrawImage(BufferedImage image, 
-            const Rectangle& sourceRect, const Rectangle& destRect) {
+            const Rectangle& sourceRect, const Rectangle& destRect, const TransformParams& params) {
     SDL_GL_MakeCurrent(window, glContext);
 
     // Use the image shader program
@@ -125,11 +148,8 @@ void GlGraphics::DrawImage(BufferedImage image,
             "/home/ant/Programming/RixinSDL/shaders/fragment-tex.glsl");
     }
     glUseProgram(imgShader);
-
-    auto transform = glm::mat4(1.0f);
-
-    GLuint uTransform = glGetUniformLocation(imgShader, "Transform");
-    glUniformMatrix4fv(uTransform, 1, GL_FALSE, glm::value_ptr(transform));
+    
+    applyTransforms(imgShader, params);
 
     // Use the buffered image (bind it?)
     glBindTexture(GL_TEXTURE_2D, image.getBufferId());
@@ -142,9 +162,6 @@ void GlGraphics::DrawImage(BufferedImage image,
 
     // Draw the buffer(s)
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints/5);
-
-    std::cout << "Shader: " << imgShader << std::endl;
-    std::cout << "VAO: " << quadVao << std::endl;
 }
 
 void GlGraphics::DrawString() {}
@@ -200,12 +217,7 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
 
         // This should be it's own function in it's own class
 
-        float r1 = 0.0;
-        float width = 0.1f;
-        float spins = 10;
-        float space = 0.05f;
-        float increase = width*2*spins;
-        auto data = calcArcVertices(360.0f * 0, 360*spins, r1, increase, r1, increase + width);
+        auto data = calcArcVertices(0.0f, 360*8, 0.0, 2.9, 0.0, 3);
         numSpiralData = data.size();
         spiralVao = bufferPrimitive(&data[0], numSpiralData);
     }
@@ -220,21 +232,14 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
     }
     glUseProgram(solidShader);
     
-    GLuint uTransform = glGetUniformLocation(solidShader, "Transform");
-    // Setup the transform matrix, and set it as the uniform
-    auto transform = glm::mat4(1.0f);
-    transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
-    transform = glm::scale(transform, glm::vec3(1.0f*(1080.0f/1920.0f), 1.0f, 1.0f));
-    transform = glm::rotate(transform, glm::radians(params.xRotationDegrees), glm::vec3(1.0f, 0.0f, 0.0f));
-    transform = glm::rotate(transform, glm::radians(params.rotateDegrees), glm::vec3(0.0f, 0.0f, 1.0f));
-
-    glUniformMatrix4fv(uTransform, 1, GL_FALSE, glm::value_ptr(transform));
+    applyTransforms(solidShader, params);
 
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
-    glUniform3f(uColour, 0.25f, 0.5f, 1.0f);
+    glUniform4f(uColour, 0.25f, 0.5f, 0.3f, 0.3f);
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 
-    glEnable(GL_PROGRAM_POINT_SIZE);
-    glPointSize(2);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numSpiralData/5);
     
     // Shove the vertices into a glBuffer
@@ -242,6 +247,8 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
 }
 
 void GlGraphics::Clear() {
-    glClearColor(0.4f, 0.7f, 1.0f, 1.0f);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+    glClearColor(0.6f, 0.6f, 0.4f, 0.3f);
     glClear(GL_COLOR_BUFFER_BIT);;
 }

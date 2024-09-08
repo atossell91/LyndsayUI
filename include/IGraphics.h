@@ -12,7 +12,7 @@ namespace RixinSDL {
         virtual BufferedImage BufferImage(const std::string& imgPath) = 0;
         virtual void DrawRectangle(const TransformParams& params) = 0;
         virtual void DrawImage(BufferedImage image, 
-            const Rectangle& sourceRect, const Rectangle& destRect) = 0;
+            const Rectangle& sourceRect, const Rectangle& destRect, const TransformParams& params) = 0;
         virtual void DrawString() = 0;
         virtual void DrawLine(const TransformParams& params) = 0;
         virtual void DrawSpiral(const TransformParams& params) = 0;
