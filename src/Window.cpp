@@ -48,7 +48,7 @@ void RixinSDL::Window::windowLoop() {
     int loopCount = 0;
 
     TransformParams params;
-        auto img = graphics->BufferImage("/home/ant/Downloads/corners.png");
+        auto img = graphics->BufferImage("/home/ant/Downloads/beach.jpg");
         Rectangle source(0, 0, 0.5, 0.5);
         Rectangle dest(0, 0, 0.5, 0.5);
     while(windowRunning) {

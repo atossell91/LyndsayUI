@@ -27,10 +27,10 @@ namespace RixinSDL {
 
         static const int numQuadPoints = 20;
         const float quadVertices[numQuadPoints] {
-            1.0f,   -1.0f,  0.0f,       0.1f, 0.0f, // Bottom Right
-            1.0f,   1.0f,   0.0f,       0.1f, 0.1f,// Top Right
+            1.0f,   -1.0f,  0.0f,       1.0f, 0.0f, // Bottom Right
+            1.0f,   1.0f,   0.0f,       1.0f, 1.0f,// Top Right
             -1.0f,  -1.0f,  0.0f,       0.0f, 0.0f,// Bottom Left
-            -1.0f,  1.0f,   0.0f,       0.0f, 0.1f// Top Left
+            -1.0f,  1.0f,   0.0f,       0.0f, 1.0f// Top Left
         };
 
         void initOpenGl();
