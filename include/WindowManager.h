@@ -13,9 +13,11 @@ namespace RixinSDL
     class WindowManager {
      private:
         std::list<WindowThread> windows;
+        std::unique_ptr<Window> singleWindow;
         std::mutex mutex;
         std::condition_variable cv;
      public:
+        void AddSingleWindow(); 
         void AddWindow(const std::string& name, int width, int height);
         void CloseWindow(int sdlWinId);
         Window* GetWindow();

@@ -16,15 +16,8 @@ int main() {
     
     RixinSDL::Window* win = rsdl.GetWindowManager().GetWindow();
     if (!win) {
-        std::cout << "No win" << std::endl;
+        std::cout << "No windows" << std::endl;
     }
-
-    RixinSDL::Window* window = rsdl.GetWindowManager().GetWindow();
-
-    EmilyPromise::Promise<RixinSDL::BufferedImage> promise;
-    window->AddImageToBuffer("/home/ant/Downloads/mckayla-smile.jpg", promise);
-    auto buf = promise.wait();
-    std::cout << "ID: " << buf.getBufferId() << std::endl;
 
     //RixinSDL::Mckayla mm()
     //window->AddDrawable()

@@ -30,6 +30,7 @@ add_library(RixinSDL SHARED
     ${SRC}/EventFactory.cpp
     ${SRC}/EventProcessor.cpp
     ${SRC}/GlGraphics.cpp
+    ${SRC}/SingleWindow.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

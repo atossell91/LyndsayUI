@@ -45,35 +45,17 @@ void RixinSDL::Window::init() {
 }
 
 void RixinSDL::Window::windowLoop() {
-    int loopCount = 0;
-
-    TransformParams defParams;
-    defParams.setXscale(0.3);
-    defParams.setYscale(0.3);
-    defParams.setXtranslation(0.05);
-    defParams.setYtranslation(-0.08);
 
     TransformParams params;
     params.setXtranslation(0.0);
     params.setYtranslation(0.0);
     
-    auto img = graphics->BufferImage("/home/ant/Downloads/beach.jpg");
-    Rectangle source(0, 0, 0.5, 0.5);
-    Rectangle dest(0, 0, 0.5, 0.5);
-    float rot = 0.0f;
     while(windowRunning) {
         SDL_GL_MakeCurrent(window, glContext);
 
         while (auto event = eventQueue->getEvent()) {
             eventProcessor->processEvent(std::move(event));
         }
-        
-        params.setZrotation(rot += 1.8f);
-        graphics->Clear();
-        //graphics->DrawRectangle(params);
-        //graphics->DrawRectangle(defParams);
-        graphics->DrawImage(img, source, dest, defParams);
-        graphics->DrawSpiral(params);
 
         update();
         std::this_thread::sleep_for(std::chrono::milliseconds(15));

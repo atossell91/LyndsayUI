@@ -55,6 +55,12 @@ void RixinSDL::WindowManager::CloseWindow(int sdlWinId) {
     }
 }
 
+void RixinSDL::WindowManager::AddSingleWindow() {
+    if (!singleWindow) {
+        singleWindow = std::make_unique<Window>("Emily", 1920, 1080);
+    }
+}
+
 RixinSDL::Window* RixinSDL::WindowManager::GetWindow(int sdlWinId) {
     auto iter = windows.begin();
     while (iter != windows.end()) {
@@ -67,12 +73,7 @@ RixinSDL::Window* RixinSDL::WindowManager::GetWindow(int sdlWinId) {
 }
 
 RixinSDL::Window* RixinSDL::WindowManager::GetWindow() {
-    if (windows.begin() == windows.end()) {
-        return nullptr;
-    }
-    else {
-        return windows.begin()->window;
-    }
+    return singleWindow.get();
 }
 
 void RixinSDL::WindowManager::UpdateAll() {

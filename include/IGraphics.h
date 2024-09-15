@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include "Rectangle.h"
 #include "TransformParams.h"
 #include "BufferedImage.h"
