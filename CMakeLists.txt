@@ -25,7 +25,6 @@ add_library(RixinSDL SHARED
     ${SRC}/EventDispatcher.cpp
     ${SRC}/WindowManager.cpp
     ${SRC}/RixinSDL.cpp
-    ${SRC}/mckayla.cpp
     ${SRC}/EventQueue.cpp
     ${SRC}/EventFactory.cpp
     ${SRC}/EventProcessor.cpp

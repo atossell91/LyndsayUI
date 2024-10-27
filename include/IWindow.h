@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IDrawable.h"
+#include "Drawing/IDrawable.h"
 
 namespace RixinSDL {
     class IWindow {

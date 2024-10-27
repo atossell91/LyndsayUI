@@ -15,13 +15,12 @@
 #include "glad/glad.h"
 #include "../include/ShaderUtils.h"
 #include "../include/Utilities.h"
-#include "../include/BufferedImage.h"
-#include "../include/mckayla.h"
+#include "Drawing/BufferedImage.h"
 #include "IEventQueue.h"
 #include "IEventProcessor.h"
-#include "BufferImageEvent.h"
+#include "Drawing/BufferImageEvent.h"
 #include "EventTypes.h"
-#include "TransformParams.h"
+#include "Drawing/TransformParams.h"
 
 void RixinSDL::Window::init() {
     SDL_GL_MakeCurrent(window, glContext);
@@ -66,9 +65,7 @@ void RixinSDL::Window::update() {
     //graphics->Clear();
 
     SDL_GL_MakeCurrent(window, glContext);
-    for (auto& drawable : drawables) {
-        drawable->draw();
-    }
+    drawables.DrawAll(graphics.get());
 
     SDL_GL_SwapWindow(window);
 }

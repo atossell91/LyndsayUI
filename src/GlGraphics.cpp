@@ -1,4 +1,4 @@
-#include "GlGraphics.h"
+#include "Drawing/GlGraphics.h"
 
 #include <iostream>
 
@@ -10,7 +10,7 @@
 
 #include "glad/glad.h"
 #include "ShaderUtils.h"
-#include "BufferedImage.h"
+#include "Drawing/BufferedImage.h"
 #include "Utilities.h"
 
 using namespace RixinSDL;

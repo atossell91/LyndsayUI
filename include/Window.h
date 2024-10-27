@@ -9,14 +9,15 @@
 #include <SDL3/SDL.h>
 
 #include "glad/glad.h"
-#include "BufferedImage.h"
-#include "DrawableBase.h"
+#include "Drawing/BufferedImage.h"
+#include "Drawing/DrawableBase.h"
 #include "ShaderUtils.h"
 #include "EventQueue.h"
 #include "EventProcessor.h"
 #include "Promise.h"
-#include "IGraphics.h"
-#include "GlGraphics.h"
+#include "Drawing/IGraphics.h"
+#include "Drawing/GlGraphics.h"
+#include "Drawing/DrawableCollection.h"
 
 namespace RixinSDL
 {
@@ -32,7 +33,7 @@ namespace RixinSDL
         SDL_GLContext glContext;
         std::unique_ptr<IGraphics> graphics;
 
-        std::list<std::unique_ptr<DrawableBase>> drawables;
+        DrawableCollection drawables;
 
         std::unique_ptr<IEventQueue> eventQueue;
         std::unique_ptr<IEventProcessor> eventProcessor;
@@ -51,15 +52,15 @@ namespace RixinSDL
             { init(); }
         ~Window();
         void update();
-        void AddDrawable(std::unique_ptr<DrawableBase> drawable) {
-            drawables.push_back(std::move(drawable));
-        }
 
         void SetCurrentContext() { SDL_GL_MakeCurrent(window, glContext); }
 
         int GetWindowId() const { return SDL_GetWindowID(window); }
         IEventQueue& GetEventQueue();
         IEventProcessor& GetEventProcessor();
+        DrawableCollection& GetDrawableCollection() {
+            return drawables;
+        }
         
         int AddShaderProgram(const std::string& vertex, const std::string& fragment) {
             SDL_GL_MakeCurrent(window, glContext);

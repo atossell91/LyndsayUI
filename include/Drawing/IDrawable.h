@@ -7,6 +7,6 @@ namespace RixinSDL {
     public:
         virtual ~IDrawable() {}
         //  Public stuff here
-        virtual void Draw(const IGraphics* graphics) = 0;
+        virtual void Draw(IGraphics* graphics) = 0;
     };
 } // RixinSDL

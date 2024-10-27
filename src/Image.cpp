@@ -1,4 +1,4 @@
-#include "../include/Image.h"
+#include "Drawing/Image.h"
 
 #include <string>
 #include <SDL3/SDL.h>

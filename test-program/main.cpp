@@ -1,23 +1,32 @@
 #include <iostream>
 #include "RixinSDL.h"
-
+#include <functional>
 #include <SDL3_image/SDL_image.h>
 
-#include "../include/BufferedImage.h"
-#include "../include/Utilities.h"
+#include "Drawing/TransformParams.h"
+#include "Drawing/IGraphics.h"
+#include "Drawing/DrawFunc.h"
+#include "Drawing/BufferedImage.h"
+#include "Utilities.h"
 #include "../include/ShaderUtils.h"
+#include "Drawing/DrawableCollection.h"
 #include "Window.h"
-
-#include "../include/mckayla.h"
 
 int main() {
     RixinSDL::RixinSDL rsdl;
     //RixinSDL::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
     
+    rsdl.GetWindowManager().AddSingleWindow();
     RixinSDL::Window* win = rsdl.GetWindowManager().GetWindow();
     if (!win) {
         std::cout << "No windows" << std::endl;
     }
+
+    RixinSDL::DrawFunc fun;
+    fun.DrawFunction = [](RixinSDL::IGraphics* g) {
+        RixinSDL::TransformParams elaine;
+        g->DrawRectangle(elaine);
+    };
 
     //RixinSDL::Mckayla mm()
     //window->AddDrawable()
