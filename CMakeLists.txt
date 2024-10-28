@@ -22,7 +22,6 @@ add_library(RixinSDL SHARED
     ${SRC}/ShaderUtils.cpp
     ${SRC}/Utilities.cpp
     ${SRC}/Image.cpp
-    ${SRC}/EventDispatcher.cpp
     ${SRC}/WindowManager.cpp
     ${SRC}/RixinSDL.cpp
     ${SRC}/EventQueue.cpp
@@ -30,6 +29,7 @@ add_library(RixinSDL SHARED
     ${SRC}/EventProcessor.cpp
     ${SRC}/GlGraphics.cpp
     ${SRC}/SingleWindow.cpp
+    ${SRC}/SDLEventManager.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
