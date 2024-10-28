@@ -16,6 +16,7 @@ namespace RixinSDL
         std::unique_ptr<Window> singleWindow;
         std::mutex mutex;
         std::condition_variable cv;
+        std::unique_ptr<Window> windowFactory();
      public:
         void AddSingleWindow(); 
         void AddWindow(const std::string& name, int width, int height);
@@ -23,6 +24,7 @@ namespace RixinSDL
         Window* GetWindow();
         Window* GetWindow(int sdlWinId);
         int GetNumWindows() const { return windows.size(); }
+        bool IsNoWindows() const;
         void UpdateAll();
     };
 } // namespace RixinSDL

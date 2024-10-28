@@ -8,8 +8,11 @@
 
 #include "../include/RixinSDLContext.h"
 #include "../include/interfaces/IUpdateable.h"
+#include "SDLEventManager.h"
 
 RixinSDL::RixinSDL::RixinSDL() {
+    eventManager = std::make_unique<SDLEventManager>();
+
     initSDL();
     initOpenGl();
     init();
@@ -28,30 +31,14 @@ void RixinSDL::RixinSDL::initOpenGl() {
 }
 
 void RixinSDL::RixinSDL::init() {
-
-    auto& con = gameContext;
-    auto& wMan = windowManager;
-    eventDispatcher.AddCloseWindowHandler([this](int id){
-        windowManager.CloseWindow(id);
-    });
+    // Empty function, maybe delete?
 }
 
 void RixinSDL::RixinSDL::mainLoop() {
     while (!gameContext.ShouldClose) {
-        processEvents();
+        eventManager->ProcessEvents();
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
-
-        if (windowManager.GetNumWindows() < 1) {
-            gameContext.ShouldClose = true;
-        }
-    }
-}
-
-void RixinSDL::RixinSDL::processEvents() {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        eventDispatcher.HandleEvent(event);
     }
 }
 

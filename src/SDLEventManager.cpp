@@ -1,13 +1,22 @@
-#include "../include/EventDispatcher.h"
+#include "SDLEventManager.h"
 
-#include <functional>
 #include <SDL3/SDL.h>
+#include <functional>
 
 #include <iostream>
 
 using namespace RixinSDL;
 
-void EventDispatcher::HandleEvent(SDL_Event& event) {
+//  Declare functions here
+void RixinSDL::SDLEventManager::ProcessEvents() {
+    SDL_Event event;
+    while(SDL_PollEvent(&event)) {
+        HandleEvent(event);
+    }
+}
+
+void SDLEventManager::HandleEvent(SDL_Event& event) {
+    std::cout << "Event type " << event.type << std::endl;
     switch (event.type)
     {
     case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
@@ -57,30 +66,30 @@ void EventDispatcher::HandleEvent(SDL_Event& event) {
     }
 }
 
-void EventDispatcher::AddQuitHandler(std::function<void()> handler) {
+void SDLEventManager::AddQuitHandler(std::function<void()> handler) {
     this->quitHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddKeyDownHandler(std::function<void(int)> handler) {
+void SDLEventManager::AddKeyDownHandler(std::function<void(int)> handler) {
     keyDownHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddKeyUpHandler(std::function<void(int)> handler) {
+void SDLEventManager::AddKeyUpHandler(std::function<void(int)> handler) {
     keyUpHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddMouseButtonDownHandler(std::function<void(int)> handler) {
+void SDLEventManager::AddMouseButtonDownHandler(std::function<void(int)> handler) {
     mouseButtonDownHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddMouseButtonUpHandler(std::function<void(int)> handler) {
+void SDLEventManager::AddMouseButtonUpHandler(std::function<void(int)> handler) {
     mouseButtonUpHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddMouseMoveHandler(std::function<void(float posX, float posY)> handler) {
+void SDLEventManager::AddMouseMoveHandler(std::function<void(float posX, float posY)> handler) {
     mouseMoveHandlers.push_back(handler);
 }
 
-void EventDispatcher::AddCloseWindowHandler(std::function<void(int id)> handler) {
+void SDLEventManager::AddCloseWindowHandler(std::function<void(int id)> handler) {
     closeWindowHandlers.push_back(handler);
 }

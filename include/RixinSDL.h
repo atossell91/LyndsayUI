@@ -6,8 +6,8 @@
 #include <iostream>
 
 #include "RixinSDLContext.h"
-#include "EventDispatcher.h"
 #include "WindowManager.h"
+#include "IEventManager.h"
 
 #include "interfaces/IUpdateable.h"
 
@@ -16,12 +16,11 @@ namespace RixinSDL {
    private:
 
       RixinSDLContext gameContext;
-      EventDispatcher eventDispatcher;
       WindowManager windowManager;
 
-      std::string defaultWindowTitle = "Rixin Window";
+      std::unique_ptr<IEventManager> eventManager;
 
-      const int kMainLoopDelay = 20; // Milliseconds
+      const int kMainLoopDelay = 5; // Milliseconds
 
       std::list<IUpdateable*> updateables;
 
@@ -29,7 +28,6 @@ namespace RixinSDL {
       void initOpenGl();
       void init();
       void mainLoop();
-      void processEvents();
       void update();
       void cleanup();
 
@@ -40,7 +38,6 @@ namespace RixinSDL {
       void AddUpdateable(IUpdateable* updateable);
       void RemoveUpdateable(IUpdateable* updateable);
       RixinSDLContext& GetRixinSDLContext() { return gameContext; }
-      EventDispatcher& GetEventDispatcher() { return eventDispatcher; }
       WindowManager& GetWindowManager() { return windowManager; }
    };
 }
