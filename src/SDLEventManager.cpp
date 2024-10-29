@@ -3,6 +3,8 @@
 #include <SDL3/SDL.h>
 #include <functional>
 
+#include "EventTypes.h"
+
 #include <iostream>
 
 using namespace RixinSDL;
@@ -20,6 +22,7 @@ void SDLEventManager::HandleEvent(SDL_Event& event) {
     {
     case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
         // Event
+        //auto evt = eventFactory->createEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT);
         break;
     case SDL_EVENT_KEY_DOWN:
         // Event

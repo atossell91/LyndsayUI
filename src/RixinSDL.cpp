@@ -4,6 +4,7 @@
 #include <chrono>
 #include <list>
 #include <iostream>
+#include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 
 #include "../include/RixinSDLContext.h"
