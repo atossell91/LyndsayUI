@@ -14,6 +14,7 @@
 
 #include "Event/IEventFactory.h"
 #include "Event/EventFactory.h"
+#include "Event/IEventRouter.h"
 
 namespace RixinSDL {
    class RixinSDL {
@@ -23,6 +24,8 @@ namespace RixinSDL {
       WindowManager windowManager;
 
       std::shared_ptr<IEventFactory> eventFactory;
+      std::shared_ptr<IEventRouter> eventRouter;
+
       std::unique_ptr<IEventManager> eventManager;
 
       const int kMainLoopDelay = 5; // Milliseconds
@@ -32,6 +35,7 @@ namespace RixinSDL {
       void initSDL();
       void initOpenGl();
       void init();
+      void registerEvents();
       void mainLoop();
       void update();
       void cleanup();

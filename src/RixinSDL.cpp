@@ -10,7 +10,11 @@
 
 #include "RixinSDLContext.h"
 #include "IUpdateable.h"
+#include "Event/EventTypes.h"
 #include "Event/SDLEventManager.h"
+#include "Event/IEventRouter.h"
+#include "Event/EventRouter.h"
+#include "Event/EventSpace.h"
 
 RixinSDL::RixinSDL::RixinSDL() {
     initSDL();
@@ -33,9 +37,12 @@ void RixinSDL::RixinSDL::initOpenGl() {
 void RixinSDL::RixinSDL::init() {
     // Empty function, maybe delete?
     eventFactory = std::make_shared<EventFactory>();
-    eventManager = std::make_unique<SDLEventManager>(eventFactory);
+    eventRouter = std::make_shared<EventRouter>();
+    eventManager = std::make_unique<SDLEventManager>(eventFactory, eventRouter);
+}
 
-
+void RixinSDL::RixinSDL::registerEvents() {
+    eventFactory->registerEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](){ return std::make_unique<CloseButtonPressedEvent>();});
 }
 
 void RixinSDL::RixinSDL::mainLoop() {
