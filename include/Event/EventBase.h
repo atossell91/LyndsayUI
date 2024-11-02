@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IEvent.h"
+#include "Event/IEvent.h"
 
 namespace RixinSDL {
     class EventBase : public IEvent {

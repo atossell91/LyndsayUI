@@ -1,5 +1,5 @@
-#include "EventQueue.h"
-#include "IEvent.h"
+#include "Event/EventQueue.h"
+#include "Event/IEvent.h"
 
 #include <memory>
 

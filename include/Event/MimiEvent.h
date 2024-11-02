@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "IEvent.h"
+#include "Event/IEvent.h"
 
 namespace RixinSDL {
     class MimiEvent : public EventQueue::IEvent {

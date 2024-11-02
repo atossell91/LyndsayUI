@@ -1,9 +1,7 @@
 #pragma once
 
-#include "IWindow.h"
-
 namespace RixinSDL {
-    class SingleWindow {
+    class EventRouter {
     private:
         //  Private stuff here
     public:

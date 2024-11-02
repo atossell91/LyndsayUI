@@ -5,7 +5,7 @@
 #include <list>
 #include <functional>
 
-#include "IEventManager.h"
+#include "Event/IEventManager.h"
 
 namespace RixinSDL {
     class SDLEventManager : public IEventManager {

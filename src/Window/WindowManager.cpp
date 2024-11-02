@@ -3,9 +3,9 @@
 #include <mutex>
 #include <condition_variable>
 
-#include "../include/WindowManager.h"
+#include "Window/WindowManager.h"
 
-#include "Window.h"
+#include "Window/Window.h"
 
 #include <iostream>
 

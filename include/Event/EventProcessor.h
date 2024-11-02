@@ -4,8 +4,8 @@
 #include <functional>
 #include <unordered_map>
 
-#include "IEvent.h"
-#include "IEventProcessor.h"
+#include "Event/IEvent.h"
+#include "Event/IEventProcessor.h"
 
 namespace RixinSDL {
     class EventProcessor : public IEventProcessor {

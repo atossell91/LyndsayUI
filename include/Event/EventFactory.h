@@ -4,8 +4,8 @@
 #include <memory>
 #include <unordered_map>
 
-#include "IEvent.h"
-#include "IEventFactory.h"
+#include "Event/IEvent.h"
+#include "Event/IEventFactory.h"
 
 namespace RixinSDL {
     class EventFactory : public IEventFactory {

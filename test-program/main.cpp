@@ -10,7 +10,7 @@
 #include "Utilities.h"
 #include "../include/ShaderUtils.h"
 #include "Drawing/DrawableCollection.h"
-#include "Window.h"
+#include "Window/Window.h"
 
 int main() {
     RixinSDL::RixinSDL rsdl;

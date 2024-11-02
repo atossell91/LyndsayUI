@@ -4,7 +4,7 @@
 #include <memory>
 #include <mutex>
 
-#include "IEvent.h"
+#include "Event/IEvent.h"
 
 namespace RixinSDL {
     class IEventQueue {

@@ -6,9 +6,9 @@
 #include <iostream>
 #include <SDL3_image/SDL_image.h>
 
-#include "../include/RixinSDLContext.h"
-#include "../include/interfaces/IUpdateable.h"
-#include "SDLEventManager.h"
+#include "RixinSDLContext.h"
+#include "IUpdateable.h"
+#include "Event/SDLEventManager.h"
 
 RixinSDL::RixinSDL::RixinSDL() {
     eventManager = std::make_unique<SDLEventManager>();

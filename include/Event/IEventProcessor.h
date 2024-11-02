@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "IEvent.h"
+#include "Event/IEvent.h"
 
 namespace RixinSDL {
     class IEventProcessor {

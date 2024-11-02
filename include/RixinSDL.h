@@ -6,10 +6,10 @@
 #include <iostream>
 
 #include "RixinSDLContext.h"
-#include "WindowManager.h"
-#include "IEventManager.h"
+#include "Window/WindowManager.h"
+#include "Event/IEventManager.h"
 
-#include "interfaces/IUpdateable.h"
+#include "IUpdateable.h"
 
 namespace RixinSDL {
    class RixinSDL {

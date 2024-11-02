@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "EventBase.h"
-#include "EventTypes.h"
+#include "Event/EventBase.h"
+#include "Event/EventTypes.h"
 #include "Promise.h"
 
 namespace RixinSDL {

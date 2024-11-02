@@ -5,8 +5,8 @@
 #include <mutex>
 #include <condition_variable>
 
-#include "../include/Window.h"
-#include "../include/WindowThread.h"
+#include "Window/Window.h"
+#include "Window/WindowThread.h"
 
 namespace RixinSDL
 {

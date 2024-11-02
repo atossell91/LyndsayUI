@@ -1,4 +1,4 @@
-#include "EventFactory.h"
+#include "Event/EventFactory.h"
 
 using namespace RixinSDL;
 

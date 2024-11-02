@@ -1,4 +1,4 @@
-#include "../include/Window.h"
+#include "Window/Window.h"
 
 #include <iostream>
 #include <vector>
@@ -16,10 +16,10 @@
 #include "../include/ShaderUtils.h"
 #include "../include/Utilities.h"
 #include "Drawing/BufferedImage.h"
-#include "IEventQueue.h"
-#include "IEventProcessor.h"
+#include "Event/IEventQueue.h"
+#include "Event/IEventProcessor.h"
 #include "Drawing/BufferImageEvent.h"
-#include "EventTypes.h"
+#include "Event/EventTypes.h"
 #include "Drawing/TransformParams.h"
 
 void RixinSDL::Window::init() {

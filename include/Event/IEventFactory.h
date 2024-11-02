@@ -3,7 +3,7 @@
 #include <memory>
 #include <functional>
 
-#include "IEvent.h"
+#include "Event/IEvent.h"
 
 namespace RixinSDL {
     class IEventFactory {

@@ -6,6 +6,10 @@ include(Required_Dirs.cmake)
 
 set(SRC ${CMAKE_SOURCE_DIR}/src)
 
+# Sub directories
+set(EVENT_DIR ${SRC}/Event)
+set(WINDOW_DIR ${SRC}/Window)
+
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
     ${SDL_DIR}/include
@@ -18,18 +22,19 @@ include_directories(
 
 add_library(RixinSDL SHARED
     ${SRC}/glad.c
-    ${SRC}/Window.cpp
+    ${WINDOW_DIR}/Window.cpp
     ${SRC}/ShaderUtils.cpp
     ${SRC}/Utilities.cpp
     ${SRC}/Image.cpp
-    ${SRC}/WindowManager.cpp
+    ${WINDOW_DIR}/WindowManager.cpp
     ${SRC}/RixinSDL.cpp
-    ${SRC}/EventQueue.cpp
-    ${SRC}/EventFactory.cpp
-    ${SRC}/EventProcessor.cpp
+    ${EVENT_DIR}/EventQueue.cpp
+    ${EVENT_DIR}/EventFactory.cpp
+    ${EVENT_DIR}/EventProcessor.cpp
     ${SRC}/GlGraphics.cpp
-    ${SRC}/SingleWindow.cpp
-    ${SRC}/SDLEventManager.cpp
+    ${WINDOW_DIR}/SingleWindow.cpp
+    ${EVENT_DIR}/SDLEventManager.cpp
+    ${EVENT_DIR}/EventRouter.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
