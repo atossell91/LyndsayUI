@@ -7,11 +7,11 @@ namespace RixinSDL {
     class CloseButtonPressedEvent : public EventBase {
     private:
         //  Private stuff here
-        int destinationId;
+        int windowId;
     public:
         //  Public stuff here
         CloseButtonPressedEvent() : EventBase(EventTypes::CLOSE_BUTTON_PRESSED_EVENT) {}
-        int GetDestinationID() { return destinationId; }
-        void SetDestinationID(int destination ) { destinationId = destination; }
+        int GetWindowID() { return windowId; }
+        void SetWindowID(int destination ) { windowId = destination; }
     };
 } // RixinSDL

@@ -35,6 +35,7 @@ add_library(RixinSDL SHARED
     ${WINDOW_DIR}/SingleWindow.cpp
     ${EVENT_DIR}/SDLEventManager.cpp
     ${EVENT_DIR}/EventRouter.cpp
+    ${SRC}/Utils.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
