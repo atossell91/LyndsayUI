@@ -4,6 +4,7 @@
 #include <chrono>
 #include <list>
 #include <iostream>
+#include <memory>
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 
@@ -12,8 +13,6 @@
 #include "Event/SDLEventManager.h"
 
 RixinSDL::RixinSDL::RixinSDL() {
-    eventManager = std::make_unique<SDLEventManager>();
-
     initSDL();
     initOpenGl();
     init();
@@ -33,6 +32,10 @@ void RixinSDL::RixinSDL::initOpenGl() {
 
 void RixinSDL::RixinSDL::init() {
     // Empty function, maybe delete?
+    eventFactory = std::make_shared<EventFactory>();
+    eventManager = std::make_unique<SDLEventManager>(eventFactory);
+
+
 }
 
 void RixinSDL::RixinSDL::mainLoop() {

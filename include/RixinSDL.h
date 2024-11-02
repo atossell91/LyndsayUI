@@ -4,12 +4,16 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include <memory>
 
 #include "RixinSDLContext.h"
 #include "Window/WindowManager.h"
 #include "Event/IEventManager.h"
 
 #include "IUpdateable.h"
+
+#include "Event/IEventFactory.h"
+#include "Event/EventFactory.h"
 
 namespace RixinSDL {
    class RixinSDL {
@@ -18,6 +22,7 @@ namespace RixinSDL {
       RixinSDLContext gameContext;
       WindowManager windowManager;
 
+      std::shared_ptr<IEventFactory> eventFactory;
       std::unique_ptr<IEventManager> eventManager;
 
       const int kMainLoopDelay = 5; // Milliseconds

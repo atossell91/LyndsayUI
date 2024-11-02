@@ -3,7 +3,7 @@
 #include <SDL3/SDL.h>
 #include <functional>
 
-#include "EventTypes.h"
+#include "Event/EventTypes.h"
 
 #include <iostream>
 
