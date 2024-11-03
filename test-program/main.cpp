@@ -16,8 +16,8 @@ int main() {
     RixinSDL::RixinSDL rsdl;
     //RixinSDL::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
     
-    rsdl.GetWindowManager().AddSingleWindow();
-    RixinSDL::Window* win = rsdl.GetWindowManager().GetWindow();
+    rsdl.GetWindowManager()->AddSingleWindow();
+    RixinSDL::Window* win = rsdl.GetWindowManager()->GetWindow();
     if (!win) {
         std::cout << "No windows" << std::endl;
     }

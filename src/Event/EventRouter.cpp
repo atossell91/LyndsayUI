@@ -8,5 +8,4 @@ using namespace RixinSDL;
 
 //  Declare functions here
 void EventRouter::RouteEvent(std::unique_ptr<IEvent> event) {
-    
 }

@@ -16,17 +16,20 @@
 #include "Event/EventFactory.h"
 #include "Event/IEventRouter.h"
 
+#include "IIndexResolver.h"
+
 namespace RixinSDL {
    class RixinSDL {
    private:
 
       RixinSDLContext gameContext;
-      WindowManager windowManager;
 
+      std::unique_ptr<WindowManager> windowManager;
+      std::unique_ptr<IEventManager> eventManager;
+
+      std::shared_ptr<IIndexResolver> windowResolver;
       std::shared_ptr<IEventFactory> eventFactory;
       std::shared_ptr<IEventRouter> eventRouter;
-
-      std::unique_ptr<IEventManager> eventManager;
 
       const int kMainLoopDelay = 5; // Milliseconds
 
@@ -47,6 +50,6 @@ namespace RixinSDL {
       void AddUpdateable(IUpdateable* updateable);
       void RemoveUpdateable(IUpdateable* updateable);
       RixinSDLContext& GetRixinSDLContext() { return gameContext; }
-      WindowManager& GetWindowManager() { return windowManager; }
+      WindowManager* GetWindowManager() { return windowManager.get(); }
    };
 }
