@@ -7,7 +7,7 @@
 
 #include "Window/Window.h"
 #include "Window/WindowThread.h"
-#include "IIndexResolver.h" 
+#include "IMappableIndexResolver.h" 
 
 namespace RixinSDL
 {
@@ -18,9 +18,11 @@ namespace RixinSDL
         std::mutex mutex;
         std::condition_variable cv;
         std::unique_ptr<Window> windowFactory();
-        std::shared_ptr<IIndexResolver> windowIndexResolver;
+        std::shared_ptr<IMappableIndexResolver> windowIndexResolver;
+
+        int currentWindowId = 1;
      public:
-        WindowManager(std::shared_ptr<IIndexResolver> resolver) : windowIndexResolver {resolver} {}
+        WindowManager(std::shared_ptr<IMappableIndexResolver> resolver) : windowIndexResolver {resolver} {}
         void AddSingleWindow(); 
         void AddWindow(const std::string& name, int width, int height);
         void CloseWindow(int sdlWinId);

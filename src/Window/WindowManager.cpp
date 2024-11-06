@@ -10,7 +10,7 @@
 #include <iostream>
 
 std::unique_ptr<RixinSDL::Window> RixinSDL::WindowManager::windowFactory() {
-    std::unique_ptr<Window> window = std::make_unique<Window>("Sammie is cute", 1920, 1080);
+    std::unique_ptr<Window> window = std::make_unique<Window>("Rebecca is cute", 1920, 1080);
 
     window->GetEventProcessor().addEventHandler(SDL_EVENT_QUIT, [&window](std::unique_ptr<IEvent> d){
         std::cout << "Stopping" << std::endl;
@@ -34,7 +34,7 @@ void RixinSDL::WindowManager::AddWindow(const std::string& name, int width, int 
 
         window.GetEventProcessor().addEventHandler(91,
         [](std::unique_ptr<IEvent> event){
-            std::cout << "You are in love with promise" << std::endl;
+            std::cout << "You are in love with Rebecca Orsolini" << std::endl;
         });
 
         windowThread.windowOpened = true;

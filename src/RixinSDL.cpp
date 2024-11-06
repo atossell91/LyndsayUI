@@ -37,20 +37,15 @@ void RixinSDL::RixinSDL::initOpenGl() {
 }
 
 void RixinSDL::RixinSDL::init() {
-    windowResolver = std::make_shared<MappedIndexResolver>();
+    auto resolver = std::make_shared<MappedIndexResolver>();
+    windowResolver = resolver;
 
     //  The WindowManager class needs to be modified to update the resolver
     //    when a new window is created
-    //  Also! The window manager depends on a specific implementation of the
-    //    index resolver. IIndexResolver only allows resoling, it doesn't
-    //    have methods for mapping (since not all resolvers will use a map).
-    //    You need to figure out if you want to couple the two classes together
-    //    that closely  or if you want to do something else.
-    //    You could add a new interface, like 'IMappableIndexResolver' that
-    //    allows mapping of indices.
-    windowManager = std::make_unique<WindowManager>(windowResolver);
+    //  Need to cast the windowResolver, or something
+    windowManager = std::make_unique<WindowManager>(resolver);
     eventFactory = std::make_shared<EventFactory>();
-    eventRouter = std::make_shared<EventRouter>(windowResolver);
+    eventRouter = std::make_shared<EventRouter>(resolver);
 
     // Might want to give this a 'copy' of the IndexResolver -- It makes more sense for this
     //  to resolve the window ID from the SDL window, no?
