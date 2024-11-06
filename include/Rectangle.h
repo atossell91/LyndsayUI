@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class Rectangle {
     private:
         //  Private stuff here
@@ -26,4 +26,4 @@ namespace RixinSDL {
         void setH(float val) { h = val; }
 
     };
-} // RixinSDL
+} // RebeccaUI

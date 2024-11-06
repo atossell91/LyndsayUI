@@ -4,7 +4,7 @@
 
 #include "Drawing/IDrawable.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class DrawFunc : public IDrawable {
     private:
         //  Private stuff here
@@ -15,4 +15,4 @@ namespace RixinSDL {
             DrawFunction(graphics);
         }
     };
-} // RixinSDL
+} // RebeccaUI

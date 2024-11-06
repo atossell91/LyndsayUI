@@ -6,7 +6,7 @@
 
 #include "Event/IEvent.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class IEventQueue {
     public:
         virtual ~IEventQueue() {}

@@ -2,7 +2,7 @@
 
 #include <SDL3/SDL_rect.h>
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class Point {
      private:
         SDL_FPoint point;

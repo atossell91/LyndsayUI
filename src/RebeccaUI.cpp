@@ -1,4 +1,4 @@
-#include "../include/RixinSDL.h"
+#include "../include/RebeccaUI.h"
 
 #include <thread>
 #include <chrono>
@@ -8,7 +8,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 
-#include "RixinSDLContext.h"
+#include "RebeccaUIContext.h"
 #include "IUpdateable.h"
 #include "Event/EventTypes.h"
 #include "Event/SDLEventManager.h"
@@ -18,13 +18,13 @@
 
 #include "MappedIndexResolver.h"
 
-RixinSDL::RixinSDL::RixinSDL() {
+RebeccaUI::RebeccaUI::RebeccaUI() {
     initSDL();
     initOpenGl();
     init();
 }
 
-void RixinSDL::RixinSDL::initSDL() {
+void RebeccaUI::RebeccaUI::initSDL() {
     if (!SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO)) {
         std::cout << "SDL Init failed." << std::endl;
     }
@@ -32,11 +32,11 @@ void RixinSDL::RixinSDL::initSDL() {
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 }
 
-void RixinSDL::RixinSDL::initOpenGl() {
+void RebeccaUI::RebeccaUI::initOpenGl() {
     // Nothing to be done here (at the moment)
 }
 
-void RixinSDL::RixinSDL::init() {
+void RebeccaUI::RebeccaUI::init() {
     auto resolver = std::make_shared<MappedIndexResolver>();
     windowResolver = resolver;
 
@@ -52,11 +52,11 @@ void RixinSDL::RixinSDL::init() {
     eventManager = std::make_unique<SDLEventManager>(eventFactory, eventRouter);
 }
 
-void RixinSDL::RixinSDL::registerEvents() {
+void RebeccaUI::RebeccaUI::registerEvents() {
     eventFactory->registerEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](){ return std::make_unique<CloseButtonPressedEvent>();});
 }
 
-void RixinSDL::RixinSDL::mainLoop() {
+void RebeccaUI::RebeccaUI::mainLoop() {
     while (!gameContext.ShouldClose) {
         eventManager->ProcessEvents();
         std::this_thread::sleep_for(
@@ -64,11 +64,11 @@ void RixinSDL::RixinSDL::mainLoop() {
     }
 }
 
-void RixinSDL::RixinSDL::Run() {
+void RebeccaUI::RebeccaUI::Run() {
     mainLoop();
     cleanup();
 }
 
-void RixinSDL::RixinSDL::cleanup() {
+void RebeccaUI::RebeccaUI::cleanup() {
     SDL_Quit();
 }

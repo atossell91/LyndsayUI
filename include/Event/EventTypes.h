@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RixinSDL {
+namespace RebeccaUI {
     namespace EventTypes {
     // Populate the namespace here
         const int BUFFER_IMAGE_EVENT = 1;

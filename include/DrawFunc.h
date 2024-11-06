@@ -1,10 +1,10 @@
 #pragma once
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class DrawFunc {
     private:
         //  Private stuff here
     public:
         //  Public stuff here
     };
-} // RixinSDL
+} // RebeccaUI

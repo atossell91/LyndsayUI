@@ -6,9 +6,9 @@
 
 #include <iostream>
 
-using namespace RixinSDL;
+using namespace RebeccaUI;
 
-Mckayla::Mckayla(RixinSDL::BufferedImage image, GLuint shaderProgramRef) : DrawableBase(shaderProgramRef), image{image} {
+Mckayla::Mckayla(RebeccaUI::BufferedImage image, GLuint shaderProgramRef) : DrawableBase(shaderProgramRef), image{image} {
 
     GLuint vbo;
     glGenBuffers(1, &vbo);

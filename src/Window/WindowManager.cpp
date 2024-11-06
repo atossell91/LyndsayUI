@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-std::unique_ptr<RixinSDL::Window> RixinSDL::WindowManager::windowFactory() {
+std::unique_ptr<RebeccaUI::Window> RebeccaUI::WindowManager::windowFactory() {
     std::unique_ptr<Window> window = std::make_unique<Window>("Rebecca is cute", 1920, 1080);
 
     window->GetEventProcessor().addEventHandler(SDL_EVENT_QUIT, [&window](std::unique_ptr<IEvent> d){
@@ -20,7 +20,7 @@ std::unique_ptr<RixinSDL::Window> RixinSDL::WindowManager::windowFactory() {
     return std::move(window);
 }
 
-void RixinSDL::WindowManager::AddWindow(const std::string& name, int width, int height) {
+void RebeccaUI::WindowManager::AddWindow(const std::string& name, int width, int height) {
 
     WindowThread windowThread;
 
@@ -53,7 +53,7 @@ void RixinSDL::WindowManager::AddWindow(const std::string& name, int width, int 
     lock.unlock();
 }
 
-void RixinSDL::WindowManager::CloseWindow(int sdlWinId) {
+void RebeccaUI::WindowManager::CloseWindow(int sdlWinId) {
     auto iter = windows.begin();
     while (iter != windows.end()) {
         if (iter->window && iter->window->GetWindowId() == sdlWinId) {
@@ -66,17 +66,17 @@ void RixinSDL::WindowManager::CloseWindow(int sdlWinId) {
     }
 }
 
-bool RixinSDL::WindowManager::IsNoWindows() const {
+bool RebeccaUI::WindowManager::IsNoWindows() const {
     return ((windows.size() < 1) && singleWindow == nullptr);
 }
 
-void RixinSDL::WindowManager::AddSingleWindow() {
+void RebeccaUI::WindowManager::AddSingleWindow() {
     if (!singleWindow) {
         singleWindow = windowFactory();
     }
 }
 
-RixinSDL::Window* RixinSDL::WindowManager::GetWindow(int sdlWinId) {
+RebeccaUI::Window* RebeccaUI::WindowManager::GetWindow(int sdlWinId) {
     auto iter = windows.begin();
     while (iter != windows.end()) {
         if (iter->window && iter->window->GetWindowId() == sdlWinId) {
@@ -87,11 +87,11 @@ RixinSDL::Window* RixinSDL::WindowManager::GetWindow(int sdlWinId) {
     return nullptr;
 }
 
-RixinSDL::Window* RixinSDL::WindowManager::GetWindow() {
+RebeccaUI::Window* RebeccaUI::WindowManager::GetWindow() {
     return singleWindow.get();
 }
 
-void RixinSDL::WindowManager::UpdateAll() {
+void RebeccaUI::WindowManager::UpdateAll() {
     auto winIter = windows.begin();
     while (winIter != windows.end()) {
         if (winIter->window) {

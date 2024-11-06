@@ -10,7 +10,7 @@
 #include "BufferedImage.h"
 #include "TransformParams.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class GlGraphics : public IGraphics {
     private:
         //  Private stuff here
@@ -62,4 +62,4 @@ namespace RixinSDL {
         void DrawSpiral(const TransformParams& params);
         void Clear();
     };
-} // RixinSDL
+} // RebeccaUI

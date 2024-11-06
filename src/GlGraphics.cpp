@@ -13,7 +13,7 @@
 #include "Drawing/BufferedImage.h"
 #include "Utilities.h"
 
-using namespace RixinSDL;
+using namespace RebeccaUI;
 
 //  Declare functions here
 void GlGraphics::initOpenGl() {
@@ -90,8 +90,8 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
     // Draw the buffer
     if (solidShader < 0) {
         solidShader = ShaderUtils::BuildShaderProgram(
-            "/home/ant/Programming/RixinSDL/shaders/vertex-notex.glsl",
-            "/home/ant/Programming/RixinSDL/shaders/fragment-notex.glsl"
+            "/home/ant/Programming/RebeccaUI/shaders/vertex-notex.glsl",
+            "/home/ant/Programming/RebeccaUI/shaders/fragment-notex.glsl"
         );
     }
     glUseProgram(solidShader);
@@ -104,7 +104,7 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints/5);
 }
 
-RixinSDL::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
+RebeccaUI::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
     SDL_GL_MakeCurrent(window, glContext);
     
     SDL_Surface* sfc = IMG_Load(imgPath.c_str());
@@ -115,7 +115,7 @@ RixinSDL::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
 
     SDL_assert(sfc);
 
-    RixinSDL::Utilities::FlipImageSurface(sfc);
+    RebeccaUI::Utilities::FlipImageSurface(sfc);
     
     GLuint tex;
     glGenTextures(1, &tex);
@@ -132,7 +132,7 @@ RixinSDL::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
 
     glTexImage2D(GL_TEXTURE_2D, 0, type, sfc->w, sfc->h, 0, type, GL_UNSIGNED_BYTE, sfc->pixels);
 
-    RixinSDL::BufferedImage ref(tex, sfc->w, sfc->h);
+    RebeccaUI::BufferedImage ref(tex, sfc->w, sfc->h);
     SDL_DestroySurface(sfc);
     return ref;
 }
@@ -144,8 +144,8 @@ void GlGraphics::DrawImage(BufferedImage image,
     // Use the image shader program
     if (imgShader < 0) {
         imgShader = ShaderUtils::BuildShaderProgram(
-            "/home/ant/Programming/RixinSDL/shaders/vertex-tex.glsl",
-            "/home/ant/Programming/RixinSDL/shaders/fragment-tex.glsl");
+            "/home/ant/Programming/RebeccaUI/shaders/vertex-tex.glsl",
+            "/home/ant/Programming/RebeccaUI/shaders/fragment-tex.glsl");
     }
     glUseProgram(imgShader);
     
@@ -227,8 +227,8 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
     // Draw the buffer
     if (solidShader < 0) {
         solidShader = ShaderUtils::BuildShaderProgram(
-            "/home/ant/Programming/RixinSDL/shaders/vertex-notex.glsl",
-            "/home/ant/Programming/RixinSDL/shaders/fragment-notex.glsl");
+            "/home/ant/Programming/RebeccaUI/shaders/vertex-notex.glsl",
+            "/home/ant/Programming/RebeccaUI/shaders/fragment-notex.glsl");
     }
     glUseProgram(solidShader);
     

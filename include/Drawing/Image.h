@@ -3,7 +3,7 @@
 #include <string>
 #include <SDL3/SDL.h>
 
-namespace RixinSDL
+namespace RebeccaUI
 {
     class Image {
      private:
@@ -16,5 +16,5 @@ namespace RixinSDL
 
         friend class TextureRepository;
     };
-} // namespace RixinSDL
+} // namespace RebeccaUI
 

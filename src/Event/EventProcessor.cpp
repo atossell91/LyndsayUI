@@ -1,6 +1,6 @@
 #include "Event/EventProcessor.h"
 
-using namespace RixinSDL;
+using namespace RebeccaUI;
 
 //  Declare functions here
 void EventProcessor::addEventHandler(int eventId, handlerFunc func) {

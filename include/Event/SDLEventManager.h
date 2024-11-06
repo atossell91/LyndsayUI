@@ -10,7 +10,7 @@
 #include "Event/IEventFactory.h"
 #include "Event/IEventRouter.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class SDLEventManager : public IEventManager {
     private:
         std::shared_ptr<IEventFactory> eventFactory;
@@ -23,4 +23,4 @@ namespace RixinSDL {
         SDLEventManager(std::shared_ptr<IEventFactory> factory, std::shared_ptr<IEventRouter> router) : 
             eventFactory {factory}, eventRouter {router} {}
     };
-} // RixinSDL
+} // RebeccaUI

@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include "GL/gl.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class BufferedImage {
     
     public:

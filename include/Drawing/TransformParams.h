@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class TransformParams {
     private:
         //  Private stuff here
@@ -36,4 +36,4 @@ namespace RixinSDL {
         float getZtranslation() const { return zTranslation; }
         void setZtranslation(float val) { zTranslation = val; }
     };
-} // RixinSDL
+} // RebeccaUI

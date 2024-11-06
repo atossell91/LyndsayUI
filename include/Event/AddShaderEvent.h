@@ -6,7 +6,7 @@
 #include "Event/EventTypes.h"
 #include "Promise.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class AddShaderEvent : public EventBase {
     private:
         //  Private stuff here
@@ -39,4 +39,4 @@ namespace RixinSDL {
             shaderPaths[shaderType] = path;
         }
     };
-} // RixinSDL
+} // RebeccaUI

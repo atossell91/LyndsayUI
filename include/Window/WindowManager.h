@@ -9,7 +9,7 @@
 #include "Window/WindowThread.h"
 #include "IMappableIndexResolver.h" 
 
-namespace RixinSDL
+namespace RebeccaUI
 {
     class WindowManager {
      private:
@@ -32,4 +32,4 @@ namespace RixinSDL
         bool IsNoWindows() const;
         void UpdateAll();
     };
-} // namespace RixinSDL
+} // namespace RebeccaUI

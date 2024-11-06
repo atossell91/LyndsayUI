@@ -5,7 +5,7 @@
 #include "BufferedImage.h"
 #include "../include/DrawableBase.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class Mckayla : public DrawableBase {
 
     private:

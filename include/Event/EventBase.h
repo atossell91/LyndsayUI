@@ -2,7 +2,7 @@
 
 #include "Event/IEvent.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class EventBase : public IEvent {
     protected:
         //  Private stuff here
@@ -12,4 +12,4 @@ namespace RixinSDL {
         EventBase(int type) : eventType{type} {}
         virtual int getType() const { return eventType; }
     };
-} // RixinSDL
+} // RebeccaUI

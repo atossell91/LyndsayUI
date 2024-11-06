@@ -4,7 +4,7 @@
 
 #include "Event/IEvent.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class IEventRouter {
     public:
         virtual ~IEventRouter() {}
@@ -12,4 +12,4 @@ namespace RixinSDL {
 
         virtual void RouteEvent(std::unique_ptr<IEvent> event) = 0;
     };
-} // RixinSDL
+} // RebeccaUI

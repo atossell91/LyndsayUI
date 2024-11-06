@@ -1,5 +1,5 @@
 #include "Window/SingleWindow.h"
 
-using namespace RixinSDL;
+using namespace RebeccaUI;
 
 //  Declare functions here

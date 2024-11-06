@@ -1,10 +1,10 @@
 #pragma once
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class IEventManager {
     public:
         virtual ~IEventManager() {}
         //  Public stuff here
         virtual void ProcessEvents() = 0;
     };
-} // RixinSDL
+} // RebeccaUI

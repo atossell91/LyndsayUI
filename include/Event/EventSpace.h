@@ -3,7 +3,7 @@
 #include "Event/EventTypes.h"
 #include "Event/EventBase.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class CloseButtonPressedEvent : public EventBase {
     private:
         //  Private stuff here
@@ -14,4 +14,4 @@ namespace RixinSDL {
         int GetWindowID() { return windowId; }
         void SetWindowID(int destination ) { windowId = destination; }
     };
-} // RixinSDL
+} // RebeccaUI

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "RixinSDL.h"
+#include "RebeccaUI.h"
 #include <functional>
 #include <SDL3_image/SDL_image.h>
 
@@ -13,22 +13,22 @@
 #include "Window/Window.h"
 
 int main() {
-    RixinSDL::RixinSDL rsdl;
-    //RixinSDL::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
+    RebeccaUI::RebeccaUI rsdl;
+    //RebeccaUI::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
     
     rsdl.GetWindowManager()->AddSingleWindow();
-    RixinSDL::Window* win = rsdl.GetWindowManager()->GetWindow();
+    RebeccaUI::Window* win = rsdl.GetWindowManager()->GetWindow();
     if (!win) {
         std::cout << "No windows" << std::endl;
     }
 
-    RixinSDL::DrawFunc fun;
-    fun.DrawFunction = [](RixinSDL::IGraphics* g) {
-        RixinSDL::TransformParams elaine;
+    RebeccaUI::DrawFunc fun;
+    fun.DrawFunction = [](RebeccaUI::IGraphics* g) {
+        RebeccaUI::TransformParams elaine;
         g->DrawRectangle(elaine);
     };
 
-    //RixinSDL::Mckayla mm()
+    //RebeccaUI::Mckayla mm()
     //window->AddDrawable()
 
     //imgRef ref = imgPromise.await();

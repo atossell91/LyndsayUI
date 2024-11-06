@@ -22,7 +22,7 @@
 #include "Event/EventTypes.h"
 #include "Drawing/TransformParams.h"
 
-void RixinSDL::Window::init() {
+void RebeccaUI::Window::init() {
     SDL_GL_MakeCurrent(window, glContext);
 
     // Seems to require a glContext, otherwise it segfaults
@@ -33,7 +33,7 @@ void RixinSDL::Window::init() {
     }
 
     eventProcessor->addEventHandler(
-        RixinSDL::EventTypes::BUFFER_IMAGE_EVENT,
+        RebeccaUI::EventTypes::BUFFER_IMAGE_EVENT,
         [this](std::unique_ptr<IEvent> event){
             auto ev = std::unique_ptr<BufferImageEvent>(static_cast<BufferImageEvent*>(event.release()));
             BufferedImage img = graphics->BufferImage(ev->getImagePath());//bufferImage(ev->getImagePath());
@@ -43,7 +43,7 @@ void RixinSDL::Window::init() {
     glViewport(0, 0, width, height);
 }
 
-void RixinSDL::Window::windowLoop() {
+void RebeccaUI::Window::windowLoop() {
 
     TransformParams params;
     params.setXtranslation(0.0);
@@ -61,7 +61,7 @@ void RixinSDL::Window::windowLoop() {
     }
 }
 
-void RixinSDL::Window::update() {
+void RebeccaUI::Window::update() {
     //graphics->Clear();
 
     SDL_GL_MakeCurrent(window, glContext);
@@ -70,16 +70,16 @@ void RixinSDL::Window::update() {
     SDL_GL_SwapWindow(window);
 }
 
-RixinSDL::Window::~Window() {
+RebeccaUI::Window::~Window() {
     SDL_DestroyWindow(window);
     //SDL_GL_DestroyContext(glContext);
 }
 
-void RixinSDL::Window::stopLoop() {
+void RebeccaUI::Window::stopLoop() {
     windowRunning = false;
 }
 
-RixinSDL::IEventQueue& RixinSDL::Window::GetEventQueue() {
+RebeccaUI::IEventQueue& RebeccaUI::Window::GetEventQueue() {
     if (!eventQueue) {
         throw std::runtime_error("Event Queue is nullptr");
     }
@@ -87,7 +87,7 @@ RixinSDL::IEventQueue& RixinSDL::Window::GetEventQueue() {
     return *eventQueue;
 }
 
-RixinSDL::IEventProcessor& RixinSDL::Window::GetEventProcessor() {
+RebeccaUI::IEventProcessor& RebeccaUI::Window::GetEventProcessor() {
     if (!eventProcessor) {
         throw std::runtime_error("Event Queue is nullptr");
     }
@@ -95,10 +95,10 @@ RixinSDL::IEventProcessor& RixinSDL::Window::GetEventProcessor() {
     return *eventProcessor;
 }
 
-void RixinSDL::Window::AddImageToBuffer(const std::string& path,
-    EmilyPromise::Promise<RixinSDL::BufferedImage>& promise) {
+void RebeccaUI::Window::AddImageToBuffer(const std::string& path,
+    EmilyPromise::Promise<RebeccaUI::BufferedImage>& promise) {
     
-    //EmilyPromise::Promise<RixinSDL::BufferedImage> promise;
+    //EmilyPromise::Promise<RebeccaUI::BufferedImage> promise;
     auto event = std::make_unique<BufferImageEvent>(promise);
     event->setImagePath(path);
 

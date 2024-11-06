@@ -4,7 +4,7 @@
 
 #include "Event/IEvent.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class MimiEvent : public EventQueue::IEvent {
     private:
         //  Private stuff here

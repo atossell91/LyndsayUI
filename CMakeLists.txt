@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11.2)
 
-project(RixinSDL)
+project(RebeccaUI)
 
 include(Required_Dirs.cmake)
 
@@ -16,14 +16,14 @@ include_directories(
 #find_package(SDL3 REQUIRED)
 #find_package(SDL3_image REQUIRED)
 
-add_library(RixinSDL SHARED
+add_library(RebeccaUI SHARED
     ${SRC}/glad.c
     ${SRC}/Window/Window.cpp
     ${SRC}/ShaderUtils.cpp
     ${SRC}/Utilities.cpp
     ${SRC}/Image.cpp
     ${SRC}/Window/WindowManager.cpp
-    ${SRC}/RixinSDL.cpp
+    ${SRC}/RebeccaUI.cpp
     ${SRC}/Event/EventQueue.cpp
     ${SRC}/Event/EventFactory.cpp
     ${SRC}/Event/EventProcessor.cpp
@@ -35,17 +35,17 @@ add_library(RixinSDL SHARED
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
-target_link_libraries(RixinSDL
+target_link_libraries(RebeccaUI
     ${SDL_LIB}
     ${SDL_IMAGE_LIB}
 )
 
-add_executable(RixinTest
+add_executable(RebeccaTest
     ${CMAKE_SOURCE_DIR}/test-program/main.cpp
 )
 
-target_link_libraries(RixinTest
-    ${CMAKE_SOURCE_DIR}/build/libRixinSDL.so
+target_link_libraries(RebeccaTest
+    ${CMAKE_SOURCE_DIR}/build/libRebeccaUI.so
     ${SDL_LIB}
     ${SDL_IMAGE_LIB}
 )

@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace RixinSDL
+namespace RebeccaUI
 {
     namespace ShaderUtils
     {
@@ -12,4 +12,4 @@ namespace RixinSDL
         int BuildShaderProgram(const std::string& vShaderPath, const std::string& fShaderPath);
     }
     
-} // namespace RixinSDL
+} // namespace RebeccaUI

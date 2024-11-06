@@ -7,14 +7,14 @@
 
 #include "../include/glad/glad.h"
 
-std::string RixinSDL::ShaderUtils::ReadFile(const std::string& path) {
+std::string RebeccaUI::ShaderUtils::ReadFile(const std::string& path) {
     std::ifstream fstream(path.c_str());
     std::stringstream strStream;
     strStream << fstream.rdbuf();
     return strStream.str();
 }
 
-int RixinSDL::ShaderUtils::CompileShader(int ShaderType, const std::string& text) {
+int RebeccaUI::ShaderUtils::CompileShader(int ShaderType, const std::string& text) {
     int shader = glCreateShader(ShaderType);
     const char* cStr = text.c_str();
     glShaderSource(shader, 1, &cStr, NULL);
@@ -31,7 +31,7 @@ int RixinSDL::ShaderUtils::CompileShader(int ShaderType, const std::string& text
     return shader;
 }
 
-void RixinSDL::ShaderUtils::LinkProgram(int program) {
+void RebeccaUI::ShaderUtils::LinkProgram(int program) {
     glLinkProgram(program);
     
     int success;
@@ -43,7 +43,7 @@ void RixinSDL::ShaderUtils::LinkProgram(int program) {
     }
 }
 
-int RixinSDL::ShaderUtils::BuildShaderProgram(const std::string& vShaderPath, const std::string& fShaderPath) {
+int RebeccaUI::ShaderUtils::BuildShaderProgram(const std::string& vShaderPath, const std::string& fShaderPath) {
     std::string vertShaderStr = ReadFile(vShaderPath);
     if (vertShaderStr.length() < 1) {
         std::cout << "Vertex shader is empty file." << std::endl;

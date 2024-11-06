@@ -1,6 +1,6 @@
 #include "Event/EventFactory.h"
 
-using namespace RixinSDL;
+using namespace RebeccaUI;
 
 //  Declare functions here
 std::unique_ptr<IEvent> EventFactory::createEvent(int eventId) {

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class IWindowManager {
     public:
         virtual ~IWindowManager() {}
@@ -10,4 +10,4 @@ namespace RixinSDL {
         virtual void AddWindow() = 0;
         virtual void RemoveWindow(int windowId) = 0;
     };
-} // RixinSDL
+} // RebeccaUI

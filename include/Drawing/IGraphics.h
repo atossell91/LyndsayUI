@@ -6,7 +6,7 @@
 #include "TransformParams.h"
 #include "BufferedImage.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class IGraphics {
     public:
         virtual ~IGraphics() {}
@@ -20,4 +20,4 @@ namespace RixinSDL {
         virtual void DrawSpiral(const TransformParams& params) = 0;
         virtual void Clear() = 0;
     };
-} // RixinSDL
+} // RebeccaUI

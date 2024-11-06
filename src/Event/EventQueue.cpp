@@ -3,7 +3,7 @@
 
 #include <memory>
 
-using namespace RixinSDL;
+using namespace RebeccaUI;
 
 //  Declare functions here
 void Queue::queueEvent(std::unique_ptr<IEvent> event) {

@@ -19,7 +19,7 @@
 #include "Drawing/GlGraphics.h"
 #include "Drawing/DrawableCollection.h"
 
-namespace RixinSDL
+namespace RebeccaUI
 {
     class Window
     {
@@ -68,6 +68,6 @@ namespace RixinSDL
         }
 
         void AddImageToBuffer(const std::string& path,
-            EmilyPromise::Promise<RixinSDL::BufferedImage>& promise);
+            EmilyPromise::Promise<RebeccaUI::BufferedImage>& promise);
     };
-} // namespace RixinSDL
+} // namespace RebeccaUI

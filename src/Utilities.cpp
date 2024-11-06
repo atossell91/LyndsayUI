@@ -1,6 +1,6 @@
 #include "../include/Utilities.h"
 
-void RixinSDL::Utilities::FlipImageSurface(SDL_Surface* sfc) {
+void RebeccaUI::Utilities::FlipImageSurface(SDL_Surface* sfc) {
     int bytesPerPixel = SDL_BITSPERPIXEL(sfc->format)/8;
     int rowWidth = sfc->w * bytesPerPixel;
 

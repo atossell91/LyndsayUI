@@ -2,6 +2,6 @@
 
 #include <memory>
 
-using namespace RixinSDL;
+using namespace RebeccaUI;
 
 //  Declare functions here

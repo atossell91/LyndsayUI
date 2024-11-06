@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class ImageReference {
      private:
         int id;

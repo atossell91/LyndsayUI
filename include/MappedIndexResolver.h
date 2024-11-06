@@ -5,7 +5,7 @@
 #include "IIndexResolver.h"
 #include "IMappableIndexResolver.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class MappedIndexResolver : public IIndexResolver, public IMappableIndexResolver {
     private:
         //  Private stuff here
@@ -26,4 +26,4 @@ namespace RixinSDL {
             indexMap[inIndex] = outIndex;
         }
     };
-} // RixinSDL
+} // RebeccaUI

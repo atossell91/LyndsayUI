@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace RixinSDL {
+namespace RebeccaUI {
     namespace Utils {
         template <typename F, typename T>
         std::unique_ptr<T> CastUniquePtr(std::unique_ptr<F> ptr) {
@@ -10,4 +10,4 @@ namespace RixinSDL {
             return p;
         }
     }
-} // RixinSDL
+} // RebeccaUI

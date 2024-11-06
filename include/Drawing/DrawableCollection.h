@@ -5,7 +5,7 @@
 
 #include "IDrawable.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class DrawableCollection {
     private:
         using d_ptr = std::shared_ptr<IDrawable>;
@@ -67,4 +67,4 @@ namespace RixinSDL {
             }
         }
     };
-} // RixinSDL
+} // RebeccaUI

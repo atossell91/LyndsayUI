@@ -6,7 +6,7 @@
 #include "Event/IEventRouter.h"
 #include "IIndexResolver.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class EventRouter : public IEventRouter {
     private:
         //  Private stuff here
@@ -16,4 +16,4 @@ namespace RixinSDL {
         EventRouter(std::shared_ptr<IIndexResolver> resolver) : windowResolver{resolver} {}
         void RouteEvent(std::unique_ptr<IEvent> event);
     };
-} // RixinSDL
+} // RebeccaUI

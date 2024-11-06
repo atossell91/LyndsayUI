@@ -5,7 +5,7 @@
 
 #include "Window/Window.h"
 
-namespace RixinSDL
+namespace RebeccaUI
 {
     class WindowThread {
     public:
@@ -13,5 +13,5 @@ namespace RixinSDL
         Window* window = nullptr;
         std::unique_ptr<std::thread> thread = nullptr;
     };
-} // namespace RixinSDL
+} // namespace RebeccaUI
 

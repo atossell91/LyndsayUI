@@ -1,7 +1,7 @@
 #pragma once
 
-namespace RixinSDL {
-    class RixinSDLContext {
+namespace RebeccaUI {
+    class RebeccaUIContext {
     private:
     public:
         bool ShouldClose = false;

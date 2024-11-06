@@ -6,7 +6,7 @@
 #include <iostream>
 #include <memory>
 
-#include "RixinSDLContext.h"
+#include "RebeccaUIContext.h"
 #include "Window/WindowManager.h"
 #include "Event/IEventManager.h"
 
@@ -18,11 +18,11 @@
 
 #include "IIndexResolver.h"
 
-namespace RixinSDL {
-   class RixinSDL {
+namespace RebeccaUI {
+   class RebeccaUI {
    private:
 
-      RixinSDLContext gameContext;
+      RebeccaUIContext gameContext;
 
       std::unique_ptr<WindowManager> windowManager;
       std::unique_ptr<IEventManager> eventManager;
@@ -44,12 +44,12 @@ namespace RixinSDL {
       void cleanup();
 
    public:
-      RixinSDL();
+      RebeccaUI();
 
       void Run();
       void AddUpdateable(IUpdateable* updateable);
       void RemoveUpdateable(IUpdateable* updateable);
-      RixinSDLContext& GetRixinSDLContext() { return gameContext; }
+      RebeccaUIContext& GetRebeccaUIContext() { return gameContext; }
       WindowManager* GetWindowManager() { return windowManager.get(); }
    };
 }

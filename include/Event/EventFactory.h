@@ -7,7 +7,7 @@
 #include "Event/IEvent.h"
 #include "Event/IEventFactory.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class EventFactory : public IEventFactory {
     private:
         //  Private stuff here

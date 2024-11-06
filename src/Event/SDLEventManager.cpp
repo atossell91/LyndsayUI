@@ -9,10 +9,10 @@
 
 #include <iostream>
 
-using namespace RixinSDL;
+using namespace RebeccaUI;
 
 //  Declare functions here
-void RixinSDL::SDLEventManager::ProcessEvents() {
+void RebeccaUI::SDLEventManager::ProcessEvents() {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
         HandleEvent(event);

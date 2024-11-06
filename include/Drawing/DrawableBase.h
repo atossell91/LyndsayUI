@@ -2,7 +2,7 @@
 
 #include "glad/glad.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class DrawableBase {
     protected:
         GLuint vao;

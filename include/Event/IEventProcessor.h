@@ -4,7 +4,7 @@
 
 #include "Event/IEvent.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class IEventProcessor {
     public:
         using handlerFunc = std::function<void(std::unique_ptr<IEvent>)>;

@@ -2,11 +2,11 @@
 
 #include "Window/IWindow.h"
 
-namespace RixinSDL {
+namespace RebeccaUI {
     class SingleWindow {
     private:
         //  Private stuff here
     public:
         //  Public stuff here
     };
-} // RixinSDL
+} // RebeccaUI
