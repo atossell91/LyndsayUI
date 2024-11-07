@@ -3,6 +3,8 @@
 #include <memory>
 #include <thread>
 
+#include "Window/WindowFactory.h"
+
 namespace RebeccaUI {
     class AsyncWindow {
     private:
@@ -15,13 +17,16 @@ namespace RebeccaUI {
 
         bool isRunning = true;
         time_t sleepDelay = 20;
+        int windowId;
 
         //  Runs in the thread
         void windowLoop();
         void threadMain();
+        AsyncWindow(int id) : windowId {id} {}
+
+        friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
     public:
         //  Public stuff here
-        AsyncWindow();
         ~AsyncWindow();
     };
 } // RebeccaUI

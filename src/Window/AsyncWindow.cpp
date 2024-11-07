@@ -5,10 +5,6 @@
 
 using namespace RebeccaUI;
 
-AsyncWindow::AsyncWindow() {
-    windowThread = std::make_unique<std::thread>(&AsyncWindow::threadMain, this);
-}
-
 //  Declare functions here
 void AsyncWindow::windowLoop() {
     while (isRunning) {
