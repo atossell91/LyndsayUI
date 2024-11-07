@@ -14,7 +14,7 @@
 
 int main() {
     RebeccaUI::RebeccaUI rsdl;
-    //RebeccaUI::BufferedImage img = bufferImage("/home/ant/Downloads/mckayla-fangirl.jpg");
+    //RebeccaUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");
     
     rsdl.GetWindowManager()->AddSingleWindow();
     RebeccaUI::Window* win = rsdl.GetWindowManager()->GetWindow();
@@ -28,7 +28,7 @@ int main() {
         g->DrawRectangle(elaine);
     };
 
-    //RebeccaUI::Mckayla mm()
+    //RebeccaUI::RebeccaImgTest mm()
     //window->AddDrawable()
 
     //imgRef ref = imgPromise.await();

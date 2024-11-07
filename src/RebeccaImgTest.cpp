@@ -1,4 +1,4 @@
-#include "../include/mckayla.h"
+#include "../include/RebeccaImgTest.h"
 
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_transform.hpp>
@@ -8,7 +8,7 @@
 
 using namespace RebeccaUI;
 
-Mckayla::Mckayla(RebeccaUI::BufferedImage image, GLuint shaderProgramRef) : DrawableBase(shaderProgramRef), image{image} {
+RebeccaImgTest::RebeccaImgTest(RebeccaUI::BufferedImage image, GLuint shaderProgramRef) : DrawableBase(shaderProgramRef), image{image} {
 
     GLuint vbo;
     glGenBuffers(1, &vbo);
@@ -32,7 +32,7 @@ Mckayla::Mckayla(RebeccaUI::BufferedImage image, GLuint shaderProgramRef) : Draw
 
 }
 
-void Mckayla::draw() {
+void RebeccaImgTest::draw() {
     std::cout << "Start draw" << std::endl;
     
     if (shaderID >= 0) {

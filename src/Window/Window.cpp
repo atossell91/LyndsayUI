@@ -32,6 +32,8 @@ void RebeccaUI::Window::init() {
         return;
     }
 
+    /*
+    //  Register a buffer image event (should do this elesewhere)
     eventProcessor->addEventHandler(
         RebeccaUI::EventTypes::BUFFER_IMAGE_EVENT,
         [this](std::unique_ptr<IEvent> event){
@@ -39,15 +41,13 @@ void RebeccaUI::Window::init() {
             BufferedImage img = graphics->BufferImage(ev->getImagePath());//bufferImage(ev->getImagePath());
             ev->getPromise().set(img);
         });
-    
+    */
+
     glViewport(0, 0, width, height);
 }
 
+// Only for async windows
 void RebeccaUI::Window::windowLoop() {
-
-    TransformParams params;
-    params.setXtranslation(0.0);
-    params.setYtranslation(0.0);
     
     while(windowRunning) {
         SDL_GL_MakeCurrent(window, glContext);
@@ -59,6 +59,11 @@ void RebeccaUI::Window::windowLoop() {
         update();
         std::this_thread::sleep_for(std::chrono::milliseconds(15));
     }
+}
+
+// Only for async windows
+void RebeccaUI::Window::stopLoop() {
+    windowRunning = false;
 }
 
 void RebeccaUI::Window::update() {
@@ -73,10 +78,6 @@ void RebeccaUI::Window::update() {
 RebeccaUI::Window::~Window() {
     SDL_DestroyWindow(window);
     //SDL_GL_DestroyContext(glContext);
-}
-
-void RebeccaUI::Window::stopLoop() {
-    windowRunning = false;
 }
 
 RebeccaUI::IEventQueue& RebeccaUI::Window::GetEventQueue() {

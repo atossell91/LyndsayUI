@@ -25,9 +25,9 @@ namespace RebeccaUI
         WindowManager(std::shared_ptr<IMappableIndexResolver> resolver) : windowIndexResolver {resolver} {}
         void AddSingleWindow(); 
         void AddWindow(const std::string& name, int width, int height);
-        void CloseWindow(int sdlWinId);
+        void CloseWindow(int windowId);
         Window* GetWindow();
-        Window* GetWindow(int sdlWinId);
+        Window* GetWindow(int windowId);
         int GetNumWindows() const { return windows.size(); }
         bool IsNoWindows() const;
         void UpdateAll();

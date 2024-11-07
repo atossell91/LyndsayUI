@@ -31,7 +31,7 @@ void SDLEventManager::HandleEvent(SDL_Event& event) {
                 eventFactory->createEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT)
             );
             
-            evt->SetWindowID(event.window.windowID);
+            evt->SetWindowID(windowResolver->ResolveIndex(event.window.windowID));
             
             eventRouter->RouteEvent(std::move(evt));
             break;

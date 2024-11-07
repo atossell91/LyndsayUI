@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Window/IWindow.h"
-
 namespace RebeccaUI {
-    class SingleWindow {
+    class SyncWindow {
     private:
         //  Private stuff here
+
+        //  Event Dispatcher
     public:
         //  Public stuff here
     };

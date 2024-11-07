@@ -1,4 +1,4 @@
-#include "Window/SingleWindow.h"
+#include "Window/SyncWindow.h"
 
 using namespace RebeccaUI;
 

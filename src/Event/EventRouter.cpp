@@ -7,5 +7,5 @@
 using namespace RebeccaUI;
 
 //  Declare functions here
-void EventRouter::RouteEvent(std::unique_ptr<IEvent> event) {
+void EventRouter::RouteEvent(std::unique_ptr<IEvent> event) { 
 }

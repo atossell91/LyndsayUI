@@ -37,7 +37,7 @@ void RebeccaUI::RebeccaUI::initOpenGl() {
 }
 
 void RebeccaUI::RebeccaUI::init() {
-    auto resolver = std::make_shared<MappedIndexResolver>();
+    std::shared_ptr<MappedIndexResolver> resolver = std::make_shared<MappedIndexResolver>();
     windowResolver = resolver;
 
     //  The WindowManager class needs to be modified to update the resolver
@@ -49,7 +49,7 @@ void RebeccaUI::RebeccaUI::init() {
 
     // Might want to give this a 'copy' of the IndexResolver -- It makes more sense for this
     //  to resolve the window ID from the SDL window, no?
-    eventManager = std::make_unique<SDLEventManager>(eventFactory, eventRouter);
+    eventManager = std::make_unique<SDLEventManager>(eventFactory, eventRouter, resolver);
 }
 
 void RebeccaUI::RebeccaUI::registerEvents() {

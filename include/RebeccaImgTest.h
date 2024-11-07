@@ -6,14 +6,14 @@
 #include "../include/DrawableBase.h"
 
 namespace RebeccaUI {
-    class Mckayla : public DrawableBase {
+    class RebeccaImgTest : public DrawableBase {
 
     private:
         BufferedImage image;
 
         public:
 
-        Mckayla(BufferedImage image, GLuint shaderProgramRef);
+        RebeccaImgTest(BufferedImage image, GLuint shaderProgramRef);
         void draw();
 
         static const int vertexArrayElems = 36;
