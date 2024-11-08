@@ -6,7 +6,7 @@
 #include "Window/WindowFactory.h"
 
 namespace RebeccaUI {
-    class AsyncWindow {
+    class AsyncWindow : public IWindow {
     private:
         //  Private stuff here
 
@@ -14,6 +14,7 @@ namespace RebeccaUI {
         //  Event queue
         //  Event poller
         std::unique_ptr<std::thread> windowThread;
+        std::unique_ptr<IWindow> platformWindow;
 
         bool isRunning = true;
         time_t sleepDelay = 20;
@@ -22,7 +23,7 @@ namespace RebeccaUI {
         //  Runs in the thread
         void windowLoop();
         void threadMain();
-        AsyncWindow(int id) : windowId {id} {}
+        AsyncWindow(int id, std::unique_ptr<IWindow> window) : windowId {id}, platformWindow{std::move(window)} {}
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
     public:

@@ -34,6 +34,8 @@ add_library(RebeccaUI SHARED
     ${SRC}/Window/WindowFactory.cpp
     ${SRC}/Window/AsyncWindow.cpp
     ${SRC}/Window/SyncWindow.cpp
+    ${SRC}/Window/SDLWindowFactory.cpp
+    ${SRC}/Window/SDLWindow.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

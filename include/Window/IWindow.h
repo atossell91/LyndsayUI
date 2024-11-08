@@ -7,6 +7,5 @@ namespace RebeccaUI {
     public:
         virtual ~IWindow() {}
         //  Public stuff here
-        virtual void Update() = 0;
     };
 } // RebeccaUI
