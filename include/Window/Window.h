@@ -13,7 +13,6 @@
 #include "Drawing/DrawableBase.h"
 #include "ShaderUtils.h"
 #include "Event/EventQueue.h"
-#include "Event/EventProcessor.h"
 #include "Promise.h"
 #include "Drawing/IGraphics.h"
 #include "Drawing/GlGraphics.h"
@@ -36,7 +35,6 @@ namespace RebeccaUI
         DrawableCollection drawables;
 
         std::unique_ptr<IEventQueue> eventQueue;
-        std::unique_ptr<IEventProcessor> eventProcessor;
 
         void init();
     public:
@@ -46,7 +44,6 @@ namespace RebeccaUI
             width{width}, height{height},
             window{SDL_CreateWindow(name.c_str(), width, height, SDL_WINDOW_OPENGL)},
             glContext{SDL_GL_CreateContext(window)},
-            eventProcessor{std::make_unique<EventProcessor>()},
             eventQueue{std::make_unique<Queue>()},
             graphics{std::unique_ptr<IGraphics>(new GlGraphics(window))}
             { init(); }
@@ -57,7 +54,6 @@ namespace RebeccaUI
 
         int GetWindowId() const { return SDL_GetWindowID(window); }
         IEventQueue& GetEventQueue();
-        IEventProcessor& GetEventProcessor();
         DrawableCollection& GetDrawableCollection() {
             return drawables;
         }

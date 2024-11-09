@@ -12,8 +12,6 @@
 #include "IUpdateable.h"
 #include "Event/EventTypes.h"
 #include "Event/SDLEventManager.h"
-#include "Event/IEventRouter.h"
-#include "Event/EventRouter.h"
 #include "Event/EventSpace.h"
 
 #include "MappedIndexResolver.h"
@@ -45,11 +43,11 @@ void RebeccaUI::RebeccaUI::init() {
     //  Need to cast the windowResolver, or something
     windowManager = std::make_unique<WindowManager>(resolver);
     eventFactory = std::make_shared<EventFactory>();
-    eventRouter = std::make_shared<EventRouter>(resolver);
+
+    eventManager = std::make_unique<SDLEventManager>(eventFactory, windowResolver);
 
     // Might want to give this a 'copy' of the IndexResolver -- It makes more sense for this
     //  to resolve the window ID from the SDL window, no?
-    eventManager = std::make_unique<SDLEventManager>(eventFactory, eventRouter, resolver);
 }
 
 void RebeccaUI::RebeccaUI::registerEvents() {

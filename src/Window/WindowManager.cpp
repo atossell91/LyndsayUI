@@ -12,10 +12,10 @@
 std::unique_ptr<RebeccaUI::Window> RebeccaUI::WindowManager::windowFactory() {
     std::unique_ptr<Window> window = std::make_unique<Window>("Rebecca is cute", 1920, 1080);
 
-    window->GetEventProcessor().addEventHandler(SDL_EVENT_QUIT, [&window](std::unique_ptr<IEvent> d){
-        std::cout << "Stopping" << std::endl;
-        window->stopLoop();
-    });
+    //window->GetEventProcessor().addEventHandler(SDL_EVENT_QUIT, [&window](std::unique_ptr<IEvent> d){
+    //    std::cout << "Stopping" << std::endl;
+    //    window->stopLoop();
+    //});
 
     return std::move(window);
 }
@@ -32,10 +32,10 @@ void RebeccaUI::WindowManager::AddWindow(const std::string& name, int width, int
             windowThread.window = &window;
         }
 
-        window.GetEventProcessor().addEventHandler(91,
-        [](std::unique_ptr<IEvent> event){
-            std::cout << "You are in love with Rebecca Orsolini" << std::endl;
-        });
+        //window.GetEventProcessor().addEventHandler(91,
+        //[](std::unique_ptr<IEvent> event){
+        //    std::cout << "You are in love with Rebecca Orsolini" << std::endl;
+        //});
 
         windowThread.windowOpened = true;
         cv.notify_one();

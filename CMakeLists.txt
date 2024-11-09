@@ -26,16 +26,15 @@ add_library(RebeccaUI SHARED
     ${SRC}/RebeccaUI.cpp
     ${SRC}/Event/EventQueue.cpp
     ${SRC}/Event/EventFactory.cpp
-    ${SRC}/Event/EventProcessor.cpp
     ${SRC}/GlGraphics.cpp
     ${SRC}/Event/SDLEventManager.cpp
-    ${SRC}/Event/EventRouter.cpp
     ${SRC}/Utils.cpp
     ${SRC}/Window/WindowFactory.cpp
     ${SRC}/Window/AsyncWindow.cpp
     ${SRC}/Window/SyncWindow.cpp
     ${SRC}/Window/SDLWindowFactory.cpp
     ${SRC}/Window/SDLWindow.cpp
+    ${SRC}/Event/EventTent.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

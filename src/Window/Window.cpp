@@ -17,7 +17,6 @@
 #include "../include/Utilities.h"
 #include "Drawing/BufferedImage.h"
 #include "Event/IEventQueue.h"
-#include "Event/IEventProcessor.h"
 #include "Drawing/BufferImageEvent.h"
 #include "Event/EventTypes.h"
 #include "Drawing/TransformParams.h"
@@ -52,9 +51,9 @@ void RebeccaUI::Window::windowLoop() {
     while(windowRunning) {
         SDL_GL_MakeCurrent(window, glContext);
 
-        while (auto event = eventQueue->getEvent()) {
-            eventProcessor->processEvent(std::move(event));
-        }
+        //while (auto event = eventQueue->getEvent()) {
+        //    eventProcessor->processEvent(std::move(event));
+        //}
 
         update();
         std::this_thread::sleep_for(std::chrono::milliseconds(15));
@@ -86,14 +85,6 @@ RebeccaUI::IEventQueue& RebeccaUI::Window::GetEventQueue() {
     }
 
     return *eventQueue;
-}
-
-RebeccaUI::IEventProcessor& RebeccaUI::Window::GetEventProcessor() {
-    if (!eventProcessor) {
-        throw std::runtime_error("Event Queue is nullptr");
-    }
-
-    return *eventProcessor;
 }
 
 void RebeccaUI::Window::AddImageToBuffer(const std::string& path,
