@@ -3,10 +3,11 @@
 #include <memory>
 #include <thread>
 
+#include "Window/WindowBase.h"
 #include "Window/WindowFactory.h"
 
 namespace RebeccaUI {
-    class AsyncWindow : public IWindow {
+    class AsyncWindow : public WindowBase {
     private:
         //  Private stuff here
 
@@ -26,7 +27,7 @@ namespace RebeccaUI {
         //  Runs in the thread
         void windowLoop();
         void threadMain();
-        AsyncWindow(int id) : windowId {id} {}
+        AsyncWindow(int id) : WindowBase(id) {}
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
     public:

@@ -15,7 +15,8 @@ using namespace RebeccaUI;
 //  Declare functions here
 std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
     auto platWindow = platformWinFactory->CreateWindow();
-    auto window = std::unique_ptr<SyncWindow>( new SyncWindow(generateWindowId(), std::move(platWindow)) );
+    auto window = std::unique_ptr<SyncWindow>( new SyncWindow(generateWindowId()) );
+    window->platformWindow = std::move(platWindow);
 
     return window;
 }

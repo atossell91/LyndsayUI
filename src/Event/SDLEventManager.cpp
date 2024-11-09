@@ -33,7 +33,10 @@ void SDLEventManager::HandleEvent(SDL_Event& event) {
             
             evt->SetWindowID(windowResolver->ResolveIndex(event.window.windowID));
             
-            //eventRouter->RouteEvent(std::move(evt));
+            if (receiver) {
+                receiver->RecieveEvent(std::move(evt));
+            }
+
             break;
         }
         case SDL_EVENT_KEY_DOWN:

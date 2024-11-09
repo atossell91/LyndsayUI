@@ -16,6 +16,7 @@ namespace RebeccaUI {
     public:
         //  Public stuff here
         ~SDLWindow() { SDL_DestroyWindow(window); }
+        int GetWindowId() { return SDL_GetWindowID(window); }
 
         friend std::unique_ptr<IWindow> SDLWindowFactory::CreateWindow();
     };

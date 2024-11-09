@@ -3,8 +3,10 @@
 #include <mutex>
 #include <condition_variable>
 
+#include "Utils.h"
 #include "Window/WindowManager.h"
 #include "Window/Window.h"
+#include "Event/EventSpace.h"
 #include "Event/EventTypes.h"
 
 #include <iostream>
@@ -21,7 +23,7 @@ std::unique_ptr<RebeccaUI::Window> RebeccaUI::WindowManager::windowFactory() {
 }
 
 void RebeccaUI::WindowManager::AddWindow(const std::string& name, int width, int height) {
-
+    /*
     WindowThread windowThread;
 
     //  Start the window thread
@@ -51,9 +53,11 @@ void RebeccaUI::WindowManager::AddWindow(const std::string& name, int width, int
     cv.wait(lock, [&windowThread]{ return windowThread.windowOpened; });
     windows.push_back(std::move(windowThread));
     lock.unlock();
+    */
 }
 
 void RebeccaUI::WindowManager::CloseWindow(int sdlWinId) {
+    /*
     auto iter = windows.begin();
     while (iter != windows.end()) {
         if (iter->window && iter->window->GetWindowId() == sdlWinId) {
@@ -64,6 +68,7 @@ void RebeccaUI::WindowManager::CloseWindow(int sdlWinId) {
         }
         iter = std::next(iter);
     }
+    */
 }
 
 bool RebeccaUI::WindowManager::IsNoWindows() const {
@@ -77,6 +82,7 @@ void RebeccaUI::WindowManager::AddSingleWindow() {
 }
 
 RebeccaUI::Window* RebeccaUI::WindowManager::GetWindow(int sdlWinId) {
+    /*
     auto iter = windows.begin();
     while (iter != windows.end()) {
         if (iter->window && iter->window->GetWindowId() == sdlWinId) {
@@ -85,6 +91,7 @@ RebeccaUI::Window* RebeccaUI::WindowManager::GetWindow(int sdlWinId) {
         iter = std::next(iter);
     }
     return nullptr;
+    */
 }
 
 RebeccaUI::Window* RebeccaUI::WindowManager::GetWindow() {
@@ -92,6 +99,7 @@ RebeccaUI::Window* RebeccaUI::WindowManager::GetWindow() {
 }
 
 void RebeccaUI::WindowManager::UpdateAll() {
+    /*
     auto winIter = windows.begin();
     while (winIter != windows.end()) {
         if (winIter->window) {
@@ -99,6 +107,7 @@ void RebeccaUI::WindowManager::UpdateAll() {
             ++winIter;
         }
     }
+    */
 }
 
 void RebeccaUI::WindowManager::registerEvents() {
@@ -107,8 +116,25 @@ void RebeccaUI::WindowManager::registerEvents() {
         return;
     }
 
-    eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](std::unique_ptr<IEvent> event){
+    eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [this](std::unique_ptr<IEvent> event){
+        auto evt = Utils::CastUniquePtr<IEvent, CloseButtonPressedEvent>(std::move(event));
+
         // Get the event's window ID
-        // Forward the event to the window's EventTent
+        int winId = evt->GetWindowID();
+
+        //  This could (should?) be its own function
+        auto winPtr = windows.begin();
+        while (winPtr != windows.end()) {
+            //  Check the window ID
+            if (winId == (*winPtr)->GetWindowId()) {
+                //  'Return' the window from the for-loop
+                break;
+            }
+        }
+
+        if (winPtr != windows.end()) {
+            //  Use winPtr to access the window
+            //  Add the event to the window's eventReceiver
+        }
     });
 }

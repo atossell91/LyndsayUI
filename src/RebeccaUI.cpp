@@ -49,7 +49,7 @@ void RebeccaUI::RebeccaUI::init() {
     windowManager = std::make_unique<WindowManager>(resolver, std::move(winMgrEventTent));
     eventFactory = std::make_shared<EventFactory>();
 
-    eventManager = std::make_unique<SDLEventManager>(eventFactory, windowResolver);
+    eventManager = std::make_unique<SDLEventManager>(eventFactory, windowResolver, eventTent.get());
 
     // Might want to give this a 'copy' of the IndexResolver -- It makes more sense for this
     //  to resolve the window ID from the SDL window, no?
@@ -58,8 +58,13 @@ void RebeccaUI::RebeccaUI::init() {
 void RebeccaUI::RebeccaUI::registerEvents() {
     eventFactory->registerEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](){ return std::make_unique<CloseButtonPressedEvent>();});
 
-    eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](std::unique_ptr<IEvent> event){
+    eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [this](std::unique_ptr<IEvent> event){
         // Send to the window manager
+        IEventReceiver* winReceiver = windowManager->GetEventReceiver();
+        
+        if(winReceiver) {
+            winReceiver->RecieveEvent(std::move(event));
+        }
     });
 }
 
