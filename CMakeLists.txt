@@ -18,6 +18,7 @@ include_directories(
 
 add_library(RebeccaUI SHARED
     ${SRC}/glad.c
+    ${SRC}/Event/EventTent.cpp
     ${SRC}/Window/Window.cpp
     ${SRC}/ShaderUtils.cpp
     ${SRC}/Utilities.cpp
@@ -34,7 +35,6 @@ add_library(RebeccaUI SHARED
     ${SRC}/Window/SyncWindow.cpp
     ${SRC}/Window/SDLWindowFactory.cpp
     ${SRC}/Window/SDLWindow.cpp
-    ${SRC}/Event/EventTent.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

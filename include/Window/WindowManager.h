@@ -9,6 +9,9 @@
 #include "Window/WindowThread.h"
 #include "IMappableIndexResolver.h" 
 
+#include "Event/IEvent.h"
+#include "Event/IEventTent.h"
+
 namespace RebeccaUI
 {
     class WindowManager {
@@ -18,11 +21,19 @@ namespace RebeccaUI
         std::mutex mutex;
         std::condition_variable cv;
         std::unique_ptr<Window> windowFactory();
+        std::unique_ptr<IEventTent> eventTent;
         std::shared_ptr<IMappableIndexResolver> windowIndexResolver;
 
         int currentWindowId = 1;
+
+        void registerEvents();
      public:
-        WindowManager(std::shared_ptr<IMappableIndexResolver> resolver) : windowIndexResolver {resolver} {}
+        WindowManager(
+            std::shared_ptr<IMappableIndexResolver> resolver,
+            std::unique_ptr<IEventTent> evTent) : windowIndexResolver {resolver}, eventTent{std::move(evTent)} {
+                registerEvents();
+            }
+            
         void AddSingleWindow(); 
         void AddWindow(const std::string& name, int width, int height);
         void CloseWindow(int windowId);

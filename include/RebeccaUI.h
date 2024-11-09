@@ -14,6 +14,7 @@
 
 #include "Event/IEventFactory.h"
 #include "Event/EventFactory.h"
+#include "Event/IEventTent.h"
 
 #include "IIndexResolver.h"
 
@@ -24,6 +25,7 @@ namespace RebeccaUI {
       RebeccaUIContext gameContext;
 
       std::unique_ptr<IEventManager> eventManager;
+      std::unique_ptr<IEventTent> eventTent;
       std::unique_ptr<WindowManager> windowManager;
 
       std::shared_ptr<IIndexResolver> windowResolver;

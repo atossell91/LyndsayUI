@@ -4,8 +4,8 @@
 #include <condition_variable>
 
 #include "Window/WindowManager.h"
-
 #include "Window/Window.h"
+#include "Event/EventTypes.h"
 
 #include <iostream>
 
@@ -99,4 +99,16 @@ void RebeccaUI::WindowManager::UpdateAll() {
             ++winIter;
         }
     }
+}
+
+void RebeccaUI::WindowManager::registerEvents() {
+    if (!eventTent) {
+        std::cout << "Event tent is null" << std::endl;
+        return;
+    }
+
+    eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](std::unique_ptr<IEvent> event){
+        // Get the event's window ID
+        // Forward the event to the window's EventTent
+    });
 }
