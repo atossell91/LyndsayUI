@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <mutex>
+#include <condition_variable>
 
 #include "Window/IPlatformWindowFactory.h"
 #include "Window/IWindowFactory.h"
