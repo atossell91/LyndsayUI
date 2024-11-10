@@ -4,6 +4,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <chrono>
 
 #include "Event/IEventTent.h"
 #include "Event/EventTent.h"
@@ -17,7 +18,6 @@
 
 using namespace RebeccaUI;
 
-//  Declare functions here
 std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
     auto platWindow = platformWinFactory->CreateWindow();
     auto winEvTent = std::make_unique<EventTent>();
@@ -31,16 +31,7 @@ std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
     return window;
 }
 
-//  SDLWindow's constructor (i.e the factory method that uses it) needs to be called inside the new thread
-//    for the glContext to work properly.
-//  That mostly applies to the SDLWindow stuff though. The AsyncWindow object can exist wherever the hell it
-//    likes, so long as the thread can access it's data. Actually, it makes sense for it to be declared outside
-//    the thread, since it's the program's main way of interacting with the async window.
 std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
-    //  Might want to modify the asyncWindow to take a thread instead? Or can I declare the platWindow outside
-    //    the thread, initialize it in the thread and then pass this in? But AsyncWindow still needs a thread
-    //    regardless.
-    //  That said, AsyncWindow will also need a pointer to the platformWindow too. It needs both.
     auto winEvTent = std::make_unique<EventTent>();
     auto winQueue = std::make_unique<EventQueue>();
     auto winPoller = std::make_unique<EventPoller>(winEvTent.get(), winQueue.get());
@@ -61,14 +52,20 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
             isWinset = true;
             lock.unlock();
             window->GetConditionVariable().notify_all();
+
             // Window loop behaviour
+            while (true) {
+                ////  I'd like to do this, but this lambda doesn't have access to these functions/variables
+                //window->PollEvents();
+                //std::this_thread::sleep_for(std::chrono::milliseconds(window->sleepDelay));
+            }
+
             // Cleanup behaviour
         }
     );
 
     window->GetConditionVariable().wait(lock, [isWinset](){ return isWinset; });
     int platWinId = innerwin->GetWindowId();
-    // put newWinId and platWinId into a resolver
     resolver->MapIndices(platWinId, newWinId);
 
     window->platformWindow = std::move(innerwin);
