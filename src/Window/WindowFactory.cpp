@@ -7,6 +7,8 @@
 
 #include "Event/IEventTent.h"
 #include "Event/EventTent.h"
+#include "Event/EventQueue.h"
+#include "Event/EventPoller.h"
 
 #include "Window/IWindow.h"
 #include "Window/AsyncWindow.h"
@@ -40,8 +42,10 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     //    regardless.
     //  That said, AsyncWindow will also need a pointer to the platformWindow too. It needs both.
     auto winEvTent = std::make_unique<EventTent>();
+    auto winQueue = std::make_unique<EventQueue>();
+    auto winPoller = std::make_unique<EventPoller>(winEvTent.get(), winQueue.get());
     int newWinId = generateWindowId();
-    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(newWinId, std::move(winEvTent)) );
+    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(newWinId, std::move(winEvTent), std::move(winQueue), std::move(winPoller)) );
 
     std::unique_ptr<IWindow> innerwin;
 

@@ -44,7 +44,7 @@ namespace RebeccaUI
             width{width}, height{height},
             window{SDL_CreateWindow(name.c_str(), width, height, SDL_WINDOW_OPENGL)},
             glContext{SDL_GL_CreateContext(window)},
-            eventQueue{std::make_unique<Queue>()},
+            eventQueue{std::make_unique<EventQueue>()},
             graphics{std::unique_ptr<IGraphics>(new GlGraphics(window))}
             { init(); }
         ~Window();

@@ -3,6 +3,8 @@
 #include <memory>
 #include <thread>
 
+#include "Event/IEventQueue.h"
+#include "Event/IEventPoller.h"
 #include "Window/WindowBase.h"
 #include "Window/WindowFactory.h"
 
@@ -12,8 +14,8 @@ namespace RebeccaUI {
         //  Private stuff here
 
         //  Event disptcher
-        //  Event queue
-        //  Event poller
+        std::unique_ptr<IEventQueue> eventQueue;
+        std::unique_ptr<IEventPoller> eventPoller;
         std::unique_ptr<std::thread> windowThread;
         std::unique_ptr<IWindow> platformWindow;
 
@@ -27,7 +29,9 @@ namespace RebeccaUI {
         //  Runs in the thread
         void windowLoop();
         void threadMain();
-        AsyncWindow(int id, std::unique_ptr<IEventTent> evTent) : WindowBase(id, std::move(evTent)) {}
+        AsyncWindow(int id, std::unique_ptr<IEventTent> evTent,
+            std::unique_ptr<IEventQueue> queue, std::unique_ptr<IEventPoller> poller) :
+            WindowBase(id, std::move(evTent)), eventQueue{std::move(queue)}, eventPoller{std::move(poller)} {}
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
     public:

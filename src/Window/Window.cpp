@@ -94,5 +94,5 @@ void RebeccaUI::Window::AddImageToBuffer(const std::string& path,
     auto event = std::make_unique<BufferImageEvent>(promise);
     event->setImagePath(path);
 
-    eventQueue->queueEvent(std::move(event));
+    eventQueue->QueueEvent(std::move(event));
 }

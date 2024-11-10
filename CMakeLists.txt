@@ -36,6 +36,7 @@ add_library(RebeccaUI SHARED
     ${SRC}/Window/SDLWindowFactory.cpp
     ${SRC}/Window/SDLWindow.cpp
     ${SRC}/Window/WindowBase.cpp
+    ${SRC}/Event/EventPoller.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

@@ -11,7 +11,7 @@ namespace RebeccaUI {
     public:
         virtual ~IEventQueue() {}
         //  Public stuff here
-        virtual void queueEvent(std::unique_ptr<IEvent> event) = 0;
-        virtual std::unique_ptr<IEvent> getEvent() = 0;
+        virtual void QueueEvent(std::unique_ptr<IEvent> event) = 0;
+        virtual std::unique_ptr<IEvent> GetEvent() = 0;
     };
 } // EventQueue

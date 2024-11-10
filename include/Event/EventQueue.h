@@ -8,14 +8,14 @@
 #include "Event/IEventQueue.h"
 
 namespace RebeccaUI {
-    class Queue : public IEventQueue {
+    class EventQueue : public IEventQueue {
     private:
         //  Private stuff here
         std::mutex mutex;
         std::queue<std::unique_ptr<IEvent>> eventQueue;
     public:
         //  Public stuff here
-        void queueEvent(std::unique_ptr<IEvent> event);
-        std::unique_ptr<IEvent> getEvent();
+        void QueueEvent(std::unique_ptr<IEvent> event);
+        std::unique_ptr<IEvent> GetEvent();
     };
 } // EventQueue
