@@ -5,6 +5,9 @@
 #include <mutex>
 #include <condition_variable>
 
+#include "Event/IEventTent.h"
+#include "Event/EventTent.h"
+
 #include "Window/IWindow.h"
 #include "Window/AsyncWindow.h"
 #include "Window/SyncWindow.h"
@@ -15,7 +18,12 @@ using namespace RebeccaUI;
 //  Declare functions here
 std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
     auto platWindow = platformWinFactory->CreateWindow();
-    auto window = std::unique_ptr<SyncWindow>( new SyncWindow(generateWindowId()) );
+    auto winEvTent = std::make_unique<EventTent>();
+    int newWinId = generateWindowId();
+    int platWinId = platWindow->GetWindowId();
+    // Put these IDs into the resolver
+    resolver->MapIndices(platWinId, newWinId);
+    auto window = std::unique_ptr<SyncWindow>( new SyncWindow(newWinId, std::move(winEvTent)) );
     window->platformWindow = std::move(platWindow);
 
     return window;
@@ -31,7 +39,9 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     //    the thread, initialize it in the thread and then pass this in? But AsyncWindow still needs a thread
     //    regardless.
     //  That said, AsyncWindow will also need a pointer to the platformWindow too. It needs both.
-    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(generateWindowId()) );
+    auto winEvTent = std::make_unique<EventTent>();
+    int newWinId = generateWindowId();
+    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(newWinId, std::move(winEvTent)) );
 
     std::unique_ptr<IWindow> innerwin;
 
@@ -53,6 +63,9 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     );
 
     window->GetConditionVariable().wait(lock, [isWinset](){ return isWinset; });
+    int platWinId = innerwin->GetWindowId();
+    // put newWinId and platWinId into a resolver
+    resolver->MapIndices(platWinId, newWinId);
 
     window->platformWindow = std::move(innerwin);
     window->windowThread = std::move(thread);

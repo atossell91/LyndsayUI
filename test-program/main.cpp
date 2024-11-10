@@ -10,23 +10,23 @@
 #include "Utilities.h"
 #include "../include/ShaderUtils.h"
 #include "Drawing/DrawableCollection.h"
-#include "Window/Window.h"
+#include "Window/IWindow.h"
 
 int main() {
     RebeccaUI::RebeccaUI rsdl;
     //RebeccaUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");
     
     rsdl.GetWindowManager()->AddSingleWindow();
-    RebeccaUI::Window* win = rsdl.GetWindowManager()->GetWindow();
+    RebeccaUI::IWindow* win = rsdl.GetWindowManager()->GetWindow();
     if (!win) {
         std::cout << "No windows" << std::endl;
     }
 
-    RebeccaUI::DrawFunc fun;
-    fun.DrawFunction = [](RebeccaUI::IGraphics* g) {
-        RebeccaUI::TransformParams elaine;
-        g->DrawRectangle(elaine);
-    };
+    //RebeccaUI::DrawFunc fun;
+    //fun.DrawFunction = [](RebeccaUI::IGraphics* g) {
+    //    RebeccaUI::TransformParams elaine;
+    //    g->DrawRectangle(elaine);
+    //};
 
     //RebeccaUI::RebeccaImgTest mm()
     //window->AddDrawable()

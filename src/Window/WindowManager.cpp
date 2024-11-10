@@ -6,6 +6,7 @@
 #include "Utils.h"
 #include "Window/WindowManager.h"
 #include "Window/Window.h"
+#include "Window/IWindow.h"
 #include "Event/EventSpace.h"
 #include "Event/EventTypes.h"
 
@@ -77,11 +78,11 @@ bool RebeccaUI::WindowManager::IsNoWindows() const {
 
 void RebeccaUI::WindowManager::AddSingleWindow() {
     if (!singleWindow) {
-        singleWindow = windowFactory();
+        singleWindow = factory->CreateSynchronousWindow();
     }
 }
 
-RebeccaUI::Window* RebeccaUI::WindowManager::GetWindow(int sdlWinId) {
+RebeccaUI::IWindow* RebeccaUI::WindowManager::GetWindow(int sdlWinId) {
     /*
     auto iter = windows.begin();
     while (iter != windows.end()) {
@@ -94,7 +95,7 @@ RebeccaUI::Window* RebeccaUI::WindowManager::GetWindow(int sdlWinId) {
     */
 }
 
-RebeccaUI::Window* RebeccaUI::WindowManager::GetWindow() {
+RebeccaUI::IWindow* RebeccaUI::WindowManager::GetWindow() {
     return singleWindow.get();
 }
 
@@ -118,16 +119,21 @@ void RebeccaUI::WindowManager::registerEvents() {
 
     eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [this](std::unique_ptr<IEvent> event){
         auto evt = Utils::CastUniquePtr<IEvent, CloseButtonPressedEvent>(std::move(event));
-
+            std::cout << "SDL Close event (Window Manager Event Tent)" << std::endl;
+        
         // Get the event's window ID
         int winId = evt->GetWindowID();
+
+        //  A simple test for making sure a basic event works
+        //    The following two lines are to be removed later
+        //    There will be no 'singleWindow', just a list of windows
+        singleWindow.reset(nullptr);
+        return;
 
         //  This could (should?) be its own function
         auto winPtr = windows.begin();
         while (winPtr != windows.end()) {
-            //  Check the window ID
             if (winId == (*winPtr)->GetWindowId()) {
-                //  'Return' the window from the for-loop
                 break;
             }
         }
@@ -135,6 +141,7 @@ void RebeccaUI::WindowManager::registerEvents() {
         if (winPtr != windows.end()) {
             //  Use winPtr to access the window
             //  Add the event to the window's eventReceiver
+            (*winPtr)->RecieveEvent(std::move(event));
         }
     });
 }

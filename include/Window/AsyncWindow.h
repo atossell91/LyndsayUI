@@ -27,7 +27,7 @@ namespace RebeccaUI {
         //  Runs in the thread
         void windowLoop();
         void threadMain();
-        AsyncWindow(int id) : WindowBase(id) {}
+        AsyncWindow(int id, std::unique_ptr<IEventTent> evTent) : WindowBase(id, std::move(evTent)) {}
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
     public:

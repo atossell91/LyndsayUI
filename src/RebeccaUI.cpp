@@ -10,6 +10,7 @@
 
 #include "RebeccaUIContext.h"
 #include "IUpdateable.h"
+
 #include "Event/EventTypes.h"
 #include "Event/SDLEventManager.h"
 #include "Event/EventSpace.h"
@@ -17,10 +18,15 @@
 
 #include "MappedIndexResolver.h"
 
+#include "Window/SDLWindowFactory.h"
+#include "Window/IWindowFactory.h"
+#include "Window/WindowFactory.h"
+
 RebeccaUI::RebeccaUI::RebeccaUI() {
     initSDL();
     initOpenGl();
     init();
+    registerEvents();
 }
 
 void RebeccaUI::RebeccaUI::initSDL() {
@@ -46,9 +52,12 @@ void RebeccaUI::RebeccaUI::init() {
     //  Need to cast the windowResolver, or something
 
     auto winMgrEventTent = std::make_unique<EventTent>();
-    windowManager = std::make_unique<WindowManager>(resolver, std::move(winMgrEventTent));
-    eventFactory = std::make_shared<EventFactory>();
 
+    auto sdlWinFactory = std::make_unique<SDLWindowFactory>();
+    auto winFactory = std::make_unique<WindowFactory>(std::move(sdlWinFactory), resolver);
+    windowManager = std::make_unique<WindowManager>(std::move(winFactory), resolver, std::move(winMgrEventTent));
+    eventFactory = std::make_shared<EventFactory>();
+    
     eventManager = std::make_unique<SDLEventManager>(eventFactory, windowResolver, eventTent.get());
 
     // Might want to give this a 'copy' of the IndexResolver -- It makes more sense for this
@@ -60,6 +69,7 @@ void RebeccaUI::RebeccaUI::registerEvents() {
 
     eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [this](std::unique_ptr<IEvent> event){
         // Send to the window manager
+            std::cout << "SDL Close event (RebeccaUI Event Tent handler)" << std::endl;
         IEventReceiver* winReceiver = windowManager->GetEventReceiver();
         
         if(winReceiver) {
@@ -70,6 +80,10 @@ void RebeccaUI::RebeccaUI::registerEvents() {
 
 void RebeccaUI::RebeccaUI::mainLoop() {
     while (!gameContext.ShouldClose) {
+        if (windowManager->IsNoWindows()) {
+            break;
+        }
+
         eventManager->ProcessEvents();
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));

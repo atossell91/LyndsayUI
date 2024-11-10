@@ -2,13 +2,17 @@
 
 using namespace RebeccaUI;
 
+#include <iostream>
+
 //  Declare functions here
 std::unique_ptr<IEvent> EventFactory::createEvent(int eventId) {
     auto facIter = eventFactories.find(eventId);
     if (facIter != eventFactories.end()) {
-        return facIter->second();
+        auto evPtr = facIter->second();
+        return evPtr;
     }
     else {
+        std::cout << "The event ID lookup failed. Is the event registered?" << std::endl;
         return nullptr;
     }
 }

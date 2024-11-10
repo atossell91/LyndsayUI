@@ -2,12 +2,11 @@
 
 #include <memory>
 
-#include "Window/IWindow.h"
-#include "Event/IEventReceiver.h"
+#include "IRebeccaWindow.h"
 #include "Event/EventTent.h"
 
 namespace RebeccaUI {
-    class WindowBase : public IWindow, public IEventReceiver {
+    class WindowBase : public IRebeccaWindow {
     private:
         //  Private stuff here
         int windowId;
@@ -17,6 +16,6 @@ namespace RebeccaUI {
     public:
         //  Public stuff here
         int GetWindowId() { return windowId; }
-        void RecieveEvent(std::unique_ptr<IEvent> event);
+        void RecieveEvent(std::unique_ptr<IEvent> event) { eventTent->RecieveEvent(std::move(event)); }
     };
 } // RebeccaUI

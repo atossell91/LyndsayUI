@@ -10,6 +10,6 @@ namespace RebeccaUI {
     public:
         //  Public stuff here
         EventBase(int type) : eventType{type} {}
-        virtual int getType() const { return eventType; }
+        int getType() const { return eventType; }
     };
 } // RebeccaUI

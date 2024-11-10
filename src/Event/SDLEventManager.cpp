@@ -23,18 +23,20 @@ void SDLEventManager::HandleEvent(SDL_Event& event) {
     switch (event.type)
     {
         case SDL_EVENT_WINDOW_CLOSE_REQUESTED: {
-            
             //  If this causes a problem, try using std::move
             //    Though ChatGPT suggested that the factory returns an r-value
             //    which allows it to be moved without callning std::move
-            auto evt = Utils::CastUniquePtr<IEvent, CloseButtonPressedEvent>(
-                eventFactory->createEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT)
-            );
+
+            auto oldEv = eventFactory->createEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT);
+            auto evt = Utils::CastUniquePtr<IEvent, CloseButtonPressedEvent>(std::move(oldEv));
             
             evt->SetWindowID(windowResolver->ResolveIndex(event.window.windowID));
-            
+
             if (receiver) {
                 receiver->RecieveEvent(std::move(evt));
+            }
+            else {
+                std::cout << "Receiver is nullptr" << std::endl;
             }
 
             break;

@@ -14,9 +14,9 @@
 namespace RebeccaUI {
     class SDLEventManager : public IEventManager {
     private:
-        std::shared_ptr<IEventFactory> eventFactory;
-        std::shared_ptr<IIndexResolver> windowResolver;
-        IEventReceiver* receiver;
+        std::shared_ptr<IEventFactory> eventFactory = nullptr;
+        std::shared_ptr<IIndexResolver> windowResolver = nullptr;
+        IEventReceiver* receiver = nullptr;
     public:
         //  Public stuff here
         void ProcessEvents();
@@ -27,7 +27,8 @@ namespace RebeccaUI {
             std::shared_ptr<IIndexResolver> resolver,
             IEventReceiver* receiver) : 
             eventFactory {factory},
-            windowResolver{resolver}
+            windowResolver{resolver},
+            receiver {receiver}
             {}
     };
 } // RebeccaUI

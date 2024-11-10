@@ -10,8 +10,9 @@ namespace RebeccaUI {
         //  Private stuff here
         int windowId;
         std::unique_ptr<IWindow> platformWindow;
-        SyncWindow(int id) : WindowBase(id) {}
+        SyncWindow(int id, std::unique_ptr<IEventTent> evTent) : WindowBase(id, std::move(evTent)) {}
 
+        
         //  Event Dispatcher
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow();
