@@ -2,10 +2,13 @@
 
 #include <memory>
 #include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include "Event/IEventQueue.h"
 #include "Event/IEventPoller.h"
 #include "Window/WindowBase.h"
+
 #include "Window/WindowFactory.h"
 
 namespace RebeccaUI {
@@ -32,8 +35,10 @@ namespace RebeccaUI {
         AsyncWindow(int id, std::unique_ptr<IEventTent> evTent,
             std::unique_ptr<IEventQueue> queue, std::unique_ptr<IEventPoller> poller) :
             WindowBase(id, std::move(evTent)), eventQueue{std::move(queue)}, eventPoller{std::move(poller)} {}
+        void makeThread();
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
+        //friend std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
     public:
         //  Public stuff here
         ~AsyncWindow();

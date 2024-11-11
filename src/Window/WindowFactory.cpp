@@ -44,25 +44,7 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     std::unique_lock<std::mutex> lock(window->GetMutex(), std::defer_lock);
 
     //  Start the thread, and get a pointer to it. The SDLWindow can be setup in here
-    auto thread = std::make_unique<std::thread>(
-        [this, &window, &innerwin, &isWinset](){
-            // Creation behaviour
-            std::unique_lock<std::mutex> lock(window->GetMutex());
-            innerwin = platformWinFactory->CreateWindow();
-            isWinset = true;
-            lock.unlock();
-            window->GetConditionVariable().notify_all();
-
-            // Window loop behaviour
-            while (true) {
-                ////  I'd like to do this, but this lambda doesn't have access to these functions/variables
-                //window->PollEvents();
-                //std::this_thread::sleep_for(std::chrono::milliseconds(window->sleepDelay));
-            }
-
-            // Cleanup behaviour
-        }
-    );
+    auto thread = std::make_unique<std::thread>(CreateWindowThread, window.get(), innerwin, isWinset);
 
     window->GetConditionVariable().wait(lock, [isWinset](){ return isWinset; });
     int platWinId = innerwin->GetWindowId();
@@ -72,4 +54,23 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     window->windowThread = std::move(thread);
 
     return window;
+}
+
+// Runs in the new thread (i.e not on the main thread - be careful)
+std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset) {
+        // Creation behaviour
+        std::unique_lock<std::mutex> lock(window->GetMutex());
+        innerWin = platformWinFactory->CreateWindow();
+        isWinset = true;
+        lock.unlock();
+        window->GetConditionVariable().notify_all();
+
+        // Window loop behaviour
+        while (true) {
+            ////  I'd like to do this, but this lambda doesn't have access to these functions/variables
+            //window->PollEvents();
+            //std::this_thread::sleep_for(std::chrono::milliseconds(window->sleepDelay));
+        }
+
+        // Cleanup behaviour
 }
