@@ -1,6 +1,6 @@
 #include "Event/EventFactory.h"
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 #include <iostream>
 

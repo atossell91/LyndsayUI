@@ -3,7 +3,7 @@
 #include "Event/EventTypes.h"
 #include "Event/EventBase.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class CloseButtonPressedEvent : public EventBase {
     private:
         //  Private stuff here
@@ -14,4 +14,4 @@ namespace RebeccaUI {
         int GetWindowID() { return windowId; }
         void SetWindowID(int destination ) { windowId = destination; }
     };
-} // RebeccaUI
+} // LyndsayUI

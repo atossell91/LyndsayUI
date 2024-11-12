@@ -2,7 +2,7 @@
 
 #include "Event/IEvent.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class EventBase : public IEvent {
     protected:
         //  Private stuff here
@@ -12,4 +12,4 @@ namespace RebeccaUI {
         EventBase(int type) : eventType{type} {}
         int getType() const { return eventType; }
     };
-} // RebeccaUI
+} // LyndsayUI

@@ -6,7 +6,7 @@
 
 #include "Event/IEvent.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IEventQueue {
     public:
         virtual ~IEventQueue() {}

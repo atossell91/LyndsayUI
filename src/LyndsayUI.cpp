@@ -1,4 +1,4 @@
-#include "../include/RebeccaUI.h"
+#include "../include/LyndsayUI.h"
 
 #include <thread>
 #include <chrono>
@@ -8,7 +8,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 
-#include "RebeccaUIContext.h"
+#include "LyndsayUIContext.h"
 #include "IUpdateable.h"
 
 #include "Event/EventTypes.h"
@@ -22,14 +22,14 @@
 #include "Window/IWindowFactory.h"
 #include "Window/WindowFactory.h"
 
-RebeccaUI::RebeccaUI::RebeccaUI() {
+LyndsayUI::LyndsayUI::LyndsayUI() {
     initSDL();
     initOpenGl();
     init();
     registerEvents();
 }
 
-void RebeccaUI::RebeccaUI::initSDL() {
+void LyndsayUI::LyndsayUI::initSDL() {
     if (!SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO)) {
         std::cout << "SDL Init failed." << std::endl;
     }
@@ -37,11 +37,11 @@ void RebeccaUI::RebeccaUI::initSDL() {
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 }
 
-void RebeccaUI::RebeccaUI::initOpenGl() {
+void LyndsayUI::LyndsayUI::initOpenGl() {
     // Nothing to be done here (at the moment)
 }
 
-void RebeccaUI::RebeccaUI::init() {
+void LyndsayUI::LyndsayUI::init() {
     std::shared_ptr<MappedIndexResolver> resolver = std::make_shared<MappedIndexResolver>();
     windowResolver = resolver;
 
@@ -64,12 +64,12 @@ void RebeccaUI::RebeccaUI::init() {
     //  to resolve the window ID from the SDL window, no?
 }
 
-void RebeccaUI::RebeccaUI::registerEvents() {
+void LyndsayUI::LyndsayUI::registerEvents() {
     eventFactory->registerEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](){ return std::make_unique<CloseButtonPressedEvent>();});
 
     eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [this](std::unique_ptr<IEvent> event){
         // Send to the window manager
-            std::cout << "SDL Close event (RebeccaUI Event Tent handler)" << std::endl;
+            std::cout << "SDL Close event (LyndsayUI Event Tent handler)" << std::endl;
         IEventReceiver* winReceiver = windowManager->GetEventReceiver();
         
         if(winReceiver) {
@@ -78,7 +78,7 @@ void RebeccaUI::RebeccaUI::registerEvents() {
     });
 }
 
-void RebeccaUI::RebeccaUI::mainLoop() {
+void LyndsayUI::LyndsayUI::mainLoop() {
     while (!gameContext.ShouldClose) {
         if (windowManager->IsNoWindows()) {
             break;
@@ -90,11 +90,11 @@ void RebeccaUI::RebeccaUI::mainLoop() {
     }
 }
 
-void RebeccaUI::RebeccaUI::Run() {
+void LyndsayUI::LyndsayUI::Run() {
     mainLoop();
     cleanup();
 }
 
-void RebeccaUI::RebeccaUI::cleanup() {
+void LyndsayUI::LyndsayUI::cleanup() {
     SDL_Quit();
 }

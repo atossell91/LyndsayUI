@@ -3,7 +3,7 @@
 #include <mutex>
 #include <condition_variable>
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IAsyncWindow {
     protected:
         virtual void threadMain() = 0;
@@ -13,4 +13,4 @@ namespace RebeccaUI {
         virtual std::mutex& GetMutex() = 0;
         virtual std::condition_variable& GetConditionVariable() = 0;
     };
-} // RebeccaUI
+} // LyndsayUI

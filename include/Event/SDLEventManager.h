@@ -11,7 +11,7 @@
 #include "Event/IEventFactory.h"
 #include "IIndexResolver.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class SDLEventManager : public IEventManager {
     private:
         std::shared_ptr<IEventFactory> eventFactory = nullptr;
@@ -31,4 +31,4 @@ namespace RebeccaUI {
             receiver {receiver}
             {}
     };
-} // RebeccaUI
+} // LyndsayUI

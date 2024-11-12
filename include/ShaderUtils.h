@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace RebeccaUI
+namespace LyndsayUI
 {
     namespace ShaderUtils
     {
@@ -12,4 +12,4 @@ namespace RebeccaUI
         int BuildShaderProgram(const std::string& vShaderPath, const std::string& fShaderPath);
     }
     
-} // namespace RebeccaUI
+} // namespace LyndsayUI

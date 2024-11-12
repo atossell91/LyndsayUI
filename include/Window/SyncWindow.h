@@ -4,7 +4,7 @@
 #include "Window/WindowBase.h"
 #include "Window/WindowFactory.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class SyncWindow : public WindowBase {
     private:
         //  Private stuff here
@@ -19,4 +19,4 @@ namespace RebeccaUI {
     public:
         //  Public stuff here
     };
-} // RebeccaUI
+} // LyndsayUI

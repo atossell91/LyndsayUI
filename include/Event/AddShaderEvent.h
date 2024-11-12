@@ -6,7 +6,7 @@
 #include "Event/EventTypes.h"
 #include "Promise.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class AddShaderEvent : public EventBase {
     private:
         //  Private stuff here
@@ -39,4 +39,4 @@ namespace RebeccaUI {
             shaderPaths[shaderType] = path;
         }
     };
-} // RebeccaUI
+} // LyndsayUI

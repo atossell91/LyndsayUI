@@ -17,7 +17,7 @@
 #include "Window/SyncWindow.h"
 #include "Promise.h"
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
     auto platWindow = platformWinFactory->CreateWindow();

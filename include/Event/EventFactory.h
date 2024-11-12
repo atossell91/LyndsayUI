@@ -7,7 +7,7 @@
 #include "Event/IEvent.h"
 #include "Event/IEventFactory.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class EventFactory : public IEventFactory {
     private:
         //  Private stuff here

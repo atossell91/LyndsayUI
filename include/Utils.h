@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     namespace Utils {
         template <typename F, typename T>
         std::unique_ptr<T> CastUniquePtr(std::unique_ptr<F> ptr) {
@@ -10,4 +10,4 @@ namespace RebeccaUI {
             return std::move(p);
         }
     }
-} // RebeccaUI
+} // LyndsayUI

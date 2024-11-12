@@ -5,7 +5,7 @@
 
 #include "IDrawable.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class DrawableCollection {
     private:
         using d_ptr = std::shared_ptr<IDrawable>;
@@ -67,4 +67,4 @@ namespace RebeccaUI {
             }
         }
     };
-} // RebeccaUI
+} // LyndsayUI

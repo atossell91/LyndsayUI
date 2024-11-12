@@ -21,7 +21,7 @@
 #include "Event/EventTypes.h"
 #include "Drawing/TransformParams.h"
 
-void RebeccaUI::Window::init() {
+void LyndsayUI::Window::init() {
     SDL_GL_MakeCurrent(window, glContext);
 
     // Seems to require a glContext, otherwise it segfaults
@@ -34,7 +34,7 @@ void RebeccaUI::Window::init() {
     /*
     //  Register a buffer image event (should do this elesewhere)
     eventProcessor->addEventHandler(
-        RebeccaUI::EventTypes::BUFFER_IMAGE_EVENT,
+        LyndsayUI::EventTypes::BUFFER_IMAGE_EVENT,
         [this](std::unique_ptr<IEvent> event){
             auto ev = std::unique_ptr<BufferImageEvent>(static_cast<BufferImageEvent*>(event.release()));
             BufferedImage img = graphics->BufferImage(ev->getImagePath());//bufferImage(ev->getImagePath());
@@ -46,7 +46,7 @@ void RebeccaUI::Window::init() {
 }
 
 // Only for async windows
-void RebeccaUI::Window::windowLoop() {
+void LyndsayUI::Window::windowLoop() {
     
     while(windowRunning) {
         SDL_GL_MakeCurrent(window, glContext);
@@ -61,11 +61,11 @@ void RebeccaUI::Window::windowLoop() {
 }
 
 // Only for async windows
-void RebeccaUI::Window::stopLoop() {
+void LyndsayUI::Window::stopLoop() {
     windowRunning = false;
 }
 
-void RebeccaUI::Window::update() {
+void LyndsayUI::Window::update() {
     //graphics->Clear();
 
     SDL_GL_MakeCurrent(window, glContext);
@@ -74,12 +74,12 @@ void RebeccaUI::Window::update() {
     SDL_GL_SwapWindow(window);
 }
 
-RebeccaUI::Window::~Window() {
+LyndsayUI::Window::~Window() {
     SDL_DestroyWindow(window);
     //SDL_GL_DestroyContext(glContext);
 }
 
-RebeccaUI::IEventQueue& RebeccaUI::Window::GetEventQueue() {
+LyndsayUI::IEventQueue& LyndsayUI::Window::GetEventQueue() {
     if (!eventQueue) {
         throw std::runtime_error("Event Queue is nullptr");
     }
@@ -87,10 +87,10 @@ RebeccaUI::IEventQueue& RebeccaUI::Window::GetEventQueue() {
     return *eventQueue;
 }
 
-void RebeccaUI::Window::AddImageToBuffer(const std::string& path,
-    EmilyPromise::Promise<RebeccaUI::BufferedImage>& promise) {
+void LyndsayUI::Window::AddImageToBuffer(const std::string& path,
+    EmilyPromise::Promise<LyndsayUI::BufferedImage>& promise) {
     
-    //EmilyPromise::Promise<RebeccaUI::BufferedImage> promise;
+    //EmilyPromise::Promise<LyndsayUI::BufferedImage> promise;
     auto event = std::make_unique<BufferImageEvent>(promise);
     event->setImagePath(path);
 

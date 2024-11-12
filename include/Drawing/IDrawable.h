@@ -2,11 +2,11 @@
 
 #include "IGraphics.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IDrawable {
     public:
         virtual ~IDrawable() {}
         //  Public stuff here
         virtual void Draw(IGraphics* graphics) = 0;
     };
-} // RebeccaUI
+} // LyndsayUI

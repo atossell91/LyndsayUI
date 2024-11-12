@@ -12,7 +12,7 @@
 
 #include "Window/WindowFactory.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class AsyncWindow : public WindowBase, public IAsyncWindow {
     private:
         //  Private stuff here
@@ -46,4 +46,4 @@ namespace RebeccaUI {
         std::mutex& GetMutex() { return mutex; }
         std::condition_variable& GetConditionVariable() { return conditionVariable; }
     };
-} // RebeccaUI
+} // LyndsayUI

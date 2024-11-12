@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 //  Declare functions here
 void EventTent::RecieveEvent(std::unique_ptr<IEvent> event) {

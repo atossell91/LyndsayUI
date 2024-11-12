@@ -6,7 +6,7 @@
 #include <iostream>
 #include <memory>
 
-#include "RebeccaUIContext.h"
+#include "LyndsayUIContext.h"
 #include "Window/WindowManager.h"
 #include "Event/IEventManager.h"
 
@@ -18,11 +18,11 @@
 
 #include "IIndexResolver.h"
 
-namespace RebeccaUI {
-   class RebeccaUI {
+namespace LyndsayUI {
+   class LyndsayUI {
    private:
 
-      RebeccaUIContext gameContext;
+      LyndsayUIContext gameContext;
 
       std::unique_ptr<IEventManager> eventManager;
       std::unique_ptr<IEventTent> eventTent;
@@ -44,12 +44,12 @@ namespace RebeccaUI {
       void cleanup();
 
    public:
-      RebeccaUI();
+      LyndsayUI();
 
       void Run();
       void AddUpdateable(IUpdateable* updateable);
       void RemoveUpdateable(IUpdateable* updateable);
-      RebeccaUIContext& GetRebeccaUIContext() { return gameContext; }
+      LyndsayUIContext& GetLyndsayUIContext() { return gameContext; }
       WindowManager* GetWindowManager() { return windowManager.get(); }
    };
 }

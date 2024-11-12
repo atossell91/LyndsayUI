@@ -2,11 +2,11 @@
 
 #include "Drawing/IDrawable.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IWindow {
     public:
         virtual ~IWindow() {}
         virtual int GetWindowId() = 0;
         //  Public stuff here
     };
-} // RebeccaUI
+} // LyndsayUI

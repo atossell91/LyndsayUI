@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-std::unique_ptr<RebeccaUI::Window> RebeccaUI::WindowManager::windowFactory() {
+std::unique_ptr<LyndsayUI::Window> LyndsayUI::WindowManager::windowFactory() {
     std::unique_ptr<Window> window = std::make_unique<Window>("Rebecca is cute", 1920, 1080);
 
     //window->GetEventProcessor().addEventHandler(SDL_EVENT_QUIT, [&window](std::unique_ptr<IEvent> d){
@@ -23,7 +23,7 @@ std::unique_ptr<RebeccaUI::Window> RebeccaUI::WindowManager::windowFactory() {
     return std::move(window);
 }
 
-void RebeccaUI::WindowManager::AddWindow(const std::string& name, int width, int height) {
+void LyndsayUI::WindowManager::AddWindow(const std::string& name, int width, int height) {
     /*
     WindowThread windowThread;
 
@@ -57,7 +57,7 @@ void RebeccaUI::WindowManager::AddWindow(const std::string& name, int width, int
     */
 }
 
-void RebeccaUI::WindowManager::CloseWindow(int sdlWinId) {
+void LyndsayUI::WindowManager::CloseWindow(int sdlWinId) {
     /*
     auto iter = windows.begin();
     while (iter != windows.end()) {
@@ -72,17 +72,17 @@ void RebeccaUI::WindowManager::CloseWindow(int sdlWinId) {
     */
 }
 
-bool RebeccaUI::WindowManager::IsNoWindows() const {
+bool LyndsayUI::WindowManager::IsNoWindows() const {
     return ((windows.size() < 1) && singleWindow == nullptr);
 }
 
-void RebeccaUI::WindowManager::AddSingleWindow() {
+void LyndsayUI::WindowManager::AddSingleWindow() {
     if (!singleWindow) {
         singleWindow = factory->CreateSynchronousWindow();
     }
 }
 
-RebeccaUI::IWindow* RebeccaUI::WindowManager::GetWindow(int sdlWinId) {
+LyndsayUI::IWindow* LyndsayUI::WindowManager::GetWindow(int sdlWinId) {
     /*
     auto iter = windows.begin();
     while (iter != windows.end()) {
@@ -95,11 +95,11 @@ RebeccaUI::IWindow* RebeccaUI::WindowManager::GetWindow(int sdlWinId) {
     */
 }
 
-RebeccaUI::IWindow* RebeccaUI::WindowManager::GetWindow() {
+LyndsayUI::IWindow* LyndsayUI::WindowManager::GetWindow() {
     return singleWindow.get();
 }
 
-void RebeccaUI::WindowManager::UpdateAll() {
+void LyndsayUI::WindowManager::UpdateAll() {
     /*
     auto winIter = windows.begin();
     while (winIter != windows.end()) {
@@ -111,7 +111,7 @@ void RebeccaUI::WindowManager::UpdateAll() {
     */
 }
 
-void RebeccaUI::WindowManager::registerEvents() {
+void LyndsayUI::WindowManager::registerEvents() {
     if (!eventTent) {
         std::cout << "Event tent is null" << std::endl;
         return;

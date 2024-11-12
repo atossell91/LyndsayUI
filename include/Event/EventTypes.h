@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     namespace EventTypes {
     // Populate the namespace here
         const int BUFFER_IMAGE_EVENT = 1;

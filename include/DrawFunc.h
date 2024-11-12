@@ -1,10 +1,10 @@
 #pragma once
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class DrawFunc {
     private:
         //  Private stuff here
     public:
         //  Public stuff here
     };
-} // RebeccaUI
+} // LyndsayUI

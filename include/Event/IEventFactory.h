@@ -5,7 +5,7 @@
 
 #include "Event/IEvent.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IEventFactory {
     public:
         using EventFunc = std::function<std::unique_ptr<IEvent>()>;

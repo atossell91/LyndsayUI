@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class Rectangle {
     private:
         //  Private stuff here
@@ -26,4 +26,4 @@ namespace RebeccaUI {
         void setH(float val) { h = val; }
 
     };
-} // RebeccaUI
+} // LyndsayUI

@@ -2,7 +2,7 @@
 
 #include <SDL3/SDL_rect.h>
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class Point {
      private:
         SDL_FPoint point;

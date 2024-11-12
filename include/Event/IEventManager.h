@@ -1,10 +1,10 @@
 #pragma once
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IEventManager {
     public:
         virtual ~IEventManager() {}
         //  Public stuff here
         virtual void ProcessEvents() = 0;
     };
-} // RebeccaUI
+} // LyndsayUI

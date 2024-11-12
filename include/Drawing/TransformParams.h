@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class TransformParams {
     private:
         //  Private stuff here
@@ -36,4 +36,4 @@ namespace RebeccaUI {
         float getZtranslation() const { return zTranslation; }
         void setZtranslation(float val) { zTranslation = val; }
     };
-} // RebeccaUI
+} // LyndsayUI

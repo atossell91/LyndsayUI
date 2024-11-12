@@ -6,7 +6,7 @@
 #include "TransformParams.h"
 #include "BufferedImage.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IGraphics {
     public:
         virtual ~IGraphics() {}
@@ -20,4 +20,4 @@ namespace RebeccaUI {
         virtual void DrawSpiral(const TransformParams& params) = 0;
         virtual void Clear() = 0;
     };
-} // RebeccaUI
+} // LyndsayUI

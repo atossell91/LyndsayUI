@@ -1,5 +1,5 @@
 #include <iostream>
-#include "RebeccaUI.h"
+#include "LyndsayUI.h"
 #include <functional>
 #include <SDL3_image/SDL_image.h>
 
@@ -13,22 +13,22 @@
 #include "Window/IWindow.h"
 
 int main() {
-    RebeccaUI::RebeccaUI rsdl;
-    //RebeccaUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");
+    LyndsayUI::LyndsayUI rsdl;
+    //LyndsayUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");
     
     rsdl.GetWindowManager()->AddSingleWindow();
-    RebeccaUI::IWindow* win = rsdl.GetWindowManager()->GetWindow();
+    LyndsayUI::IWindow* win = rsdl.GetWindowManager()->GetWindow();
     if (!win) {
         std::cout << "No windows" << std::endl;
     }
 
-    //RebeccaUI::DrawFunc fun;
-    //fun.DrawFunction = [](RebeccaUI::IGraphics* g) {
-    //    RebeccaUI::TransformParams elaine;
+    //LyndsayUI::DrawFunc fun;
+    //fun.DrawFunction = [](LyndsayUI::IGraphics* g) {
+    //    LyndsayUI::TransformParams elaine;
     //    g->DrawRectangle(elaine);
     //};
 
-    //RebeccaUI::RebeccaImgTest mm()
+    //LyndsayUI::RebeccaImgTest mm()
     //window->AddDrawable()
 
     //imgRef ref = imgPromise.await();

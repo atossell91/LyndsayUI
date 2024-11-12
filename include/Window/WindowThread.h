@@ -5,7 +5,7 @@
 
 #include "Window/Window.h"
 
-namespace RebeccaUI
+namespace LyndsayUI
 {
     class WindowThread {
     public:
@@ -13,5 +13,5 @@ namespace RebeccaUI
         Window* window = nullptr;
         std::unique_ptr<std::thread> thread = nullptr;
     };
-} // namespace RebeccaUI
+} // namespace LyndsayUI
 

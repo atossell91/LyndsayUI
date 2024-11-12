@@ -5,7 +5,7 @@
 
 #include "Window/SDLWindow.h"
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 //  Declare functions here
 std::unique_ptr<IWindow> SDLWindowFactory::CreateWindow() {

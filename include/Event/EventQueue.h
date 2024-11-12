@@ -7,7 +7,7 @@
 #include "Event/IEvent.h"
 #include "Event/IEventQueue.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class EventQueue : public IEventQueue {
     private:
         //  Private stuff here

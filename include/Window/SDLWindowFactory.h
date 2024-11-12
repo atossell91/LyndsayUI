@@ -3,7 +3,7 @@
 #include "Window/IWindow.h"
 #include "IPlatformWindowFactory.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class SDLWindowFactory : public IPlatformWindowFactory {
     private:
         //  Private stuff here
@@ -11,4 +11,4 @@ namespace RebeccaUI {
         //  Public stuff here
         std::unique_ptr<IWindow> CreateWindow();
     };
-} // RebeccaUI
+} // LyndsayUI

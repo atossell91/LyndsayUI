@@ -3,7 +3,7 @@
 
 #include <memory>
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 //  Declare functions here
 void EventQueue::QueueEvent(std::unique_ptr<IEvent> event) {

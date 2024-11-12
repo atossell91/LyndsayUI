@@ -7,7 +7,7 @@
 #include "Event/IEvent.h"
 #include "Event/IEventTent.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class EventTent : public IEventTent {
     private:
         //  Private stuff here
@@ -17,4 +17,4 @@ namespace RebeccaUI {
         void RecieveEvent(std::unique_ptr<IEvent> event);
         void AddEventResponse(int eventType, std::function<void(std::unique_ptr<IEvent>)> func);
     };
-} // RebeccaUI
+} // LyndsayUI

@@ -9,10 +9,10 @@
 
 #include <iostream>
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 //  Declare functions here
-void RebeccaUI::SDLEventManager::ProcessEvents() {
+void LyndsayUI::SDLEventManager::ProcessEvents() {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
         HandleEvent(event);

@@ -2,7 +2,7 @@
 
 #include "Event/IEventReceiver.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IWindowManager {
     public:
         virtual ~IWindowManager() {}
@@ -13,4 +13,4 @@ namespace RebeccaUI {
         virtual void RemoveWindow(int windowId) = 0;
         virtual IEventReceiver* GetEventReceiver() = 0;
     };
-} // RebeccaUI
+} // LyndsayUI

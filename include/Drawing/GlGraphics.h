@@ -10,7 +10,7 @@
 #include "BufferedImage.h"
 #include "TransformParams.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class GlGraphics : public IGraphics {
     private:
         //  Private stuff here
@@ -62,4 +62,4 @@ namespace RebeccaUI {
         void DrawSpiral(const TransformParams& params);
         void Clear();
     };
-} // RebeccaUI
+} // LyndsayUI

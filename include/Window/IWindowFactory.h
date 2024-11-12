@@ -4,7 +4,7 @@
 
 #include "IWindow.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IWindowFactory {
     public:
         virtual ~IWindowFactory() {}
@@ -12,4 +12,4 @@ namespace RebeccaUI {
         virtual std::unique_ptr<IWindow> CreateSynchronousWindow() = 0;
         virtual std::unique_ptr<IWindow> CreateAsynchronousWindow() = 0;
     };
-} // RebeccaUI
+} // LyndsayUI

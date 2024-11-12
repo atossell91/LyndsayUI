@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class IEvent {
     public:
         virtual ~IEvent() {}

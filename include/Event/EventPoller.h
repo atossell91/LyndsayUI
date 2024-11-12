@@ -4,7 +4,7 @@
 #include "Event/IEventReceiver.h"
 #include "Event/IEventQueue.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class EventPoller : public IEventPoller {
     private:
         //  Private stuff here
@@ -15,4 +15,4 @@ namespace RebeccaUI {
         EventPoller(IEventReceiver* evTent, IEventQueue* queue) : eventTent{evTent}, eventQueue{queue} {}
         void PollEvents();
     };
-} // RebeccaUI
+} // LyndsayUI

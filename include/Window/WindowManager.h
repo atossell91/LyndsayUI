@@ -16,7 +16,7 @@
 #include "Event/IEventTent.h"
 #include "Event/IEventReceiver.h"
 
-namespace RebeccaUI
+namespace LyndsayUI
 {
     class WindowManager {
      private:
@@ -51,4 +51,4 @@ namespace RebeccaUI
         bool IsNoWindows() const;
         void UpdateAll();
     };
-} // namespace RebeccaUI
+} // namespace LyndsayUI

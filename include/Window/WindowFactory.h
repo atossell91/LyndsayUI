@@ -12,7 +12,7 @@
 #include "Window/IAsyncWindow.h"
 #include "Window/IWindow.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
 
     class AsyncWindow;
 
@@ -31,4 +31,4 @@ namespace RebeccaUI {
         std::unique_ptr<IWindow> CreateAsynchronousWindow();
         std::unique_ptr<std::thread> CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
     };
-} // RebeccaUI
+} // LyndsayUI

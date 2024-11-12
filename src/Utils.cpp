@@ -2,6 +2,6 @@
 
 #include <memory>
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 //  Declare functions here

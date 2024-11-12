@@ -5,7 +5,7 @@
 #include "IIndexResolver.h"
 #include "IMappableIndexResolver.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class MappedIndexResolver : public IIndexResolver, public IMappableIndexResolver {
     private:
         //  Private stuff here
@@ -26,4 +26,4 @@ namespace RebeccaUI {
             indexMap[inIndex] = outIndex;
         }
     };
-} // RebeccaUI
+} // LyndsayUI

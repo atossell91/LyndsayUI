@@ -4,7 +4,7 @@
 
 #include "Event/IEvent.h"
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 //  Declare functions here
 void EventPoller::PollEvents() {

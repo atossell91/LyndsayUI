@@ -5,7 +5,7 @@
 #include "IRebeccaWindow.h"
 #include "Event/EventTent.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class WindowBase : public IRebeccaWindow {
     private:
         //  Private stuff here
@@ -18,4 +18,4 @@ namespace RebeccaUI {
         int GetWindowId() { return windowId; }
         void RecieveEvent(std::unique_ptr<IEvent> event) { eventTent->RecieveEvent(std::move(event)); }
     };
-} // RebeccaUI
+} // LyndsayUI

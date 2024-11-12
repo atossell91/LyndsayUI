@@ -1,5 +1,5 @@
 #include "Window/SyncWindow.h"
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 //  Declare functions here

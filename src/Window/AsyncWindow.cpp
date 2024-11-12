@@ -3,7 +3,7 @@
 #include <thread>
 #include <chrono>
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 //  Declare functions here
 void AsyncWindow::windowLoop() {

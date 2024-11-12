@@ -1,7 +1,7 @@
 #pragma once
 
-namespace RebeccaUI {
-    class RebeccaUIContext {
+namespace LyndsayUI {
+    class LyndsayUIContext {
     private:
     public:
         bool ShouldClose = false;

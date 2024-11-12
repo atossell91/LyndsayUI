@@ -6,7 +6,7 @@
 #include "Window/IWindow.h"
 #include "Window/SDLWindowFactory.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class SDLWindow : public IWindow {
     private:
         //  Private stuff here
@@ -20,4 +20,4 @@ namespace RebeccaUI {
 
         friend std::unique_ptr<IWindow> SDLWindowFactory::CreateWindow();
     };
-} // RebeccaUI
+} // LyndsayUI

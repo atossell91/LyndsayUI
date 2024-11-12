@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11.2)
 
-project(RebeccaUI)
+project(LyndsayUI)
 
 include(Required_Dirs.cmake)
 
@@ -16,7 +16,7 @@ include_directories(
 #find_package(SDL3 REQUIRED)
 #find_package(SDL3_image REQUIRED)
 
-add_library(RebeccaUI SHARED
+add_library(LyndsayUI SHARED
     ${SRC}/glad.c
     ${SRC}/Event/EventTent.cpp
     ${SRC}/Window/Window.cpp
@@ -24,7 +24,7 @@ add_library(RebeccaUI SHARED
     ${SRC}/Utilities.cpp
     ${SRC}/Image.cpp
     ${SRC}/Window/WindowManager.cpp
-    ${SRC}/RebeccaUI.cpp
+    ${SRC}/LyndsayUI.cpp
     ${SRC}/Event/EventQueue.cpp
     ${SRC}/Event/EventFactory.cpp
     ${SRC}/GlGraphics.cpp
@@ -40,17 +40,17 @@ add_library(RebeccaUI SHARED
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
-target_link_libraries(RebeccaUI
+target_link_libraries(LyndsayUI
     ${SDL_LIB}
     ${SDL_IMAGE_LIB}
 )
 
-add_executable(RebeccaTest
+add_executable(LyndsayTest
     ${CMAKE_SOURCE_DIR}/test-program/main.cpp
 )
 
-target_link_libraries(RebeccaTest
-    ${CMAKE_SOURCE_DIR}/build/libRebeccaUI.so
+target_link_libraries(LyndsayTest
+    ${CMAKE_SOURCE_DIR}/build/libLyndsayUI.so
     ${SDL_LIB}
     ${SDL_IMAGE_LIB}
 )

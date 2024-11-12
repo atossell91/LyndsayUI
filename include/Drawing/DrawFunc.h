@@ -4,7 +4,7 @@
 
 #include "Drawing/IDrawable.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class DrawFunc : public IDrawable {
     private:
         //  Private stuff here
@@ -15,4 +15,4 @@ namespace RebeccaUI {
             DrawFunction(graphics);
         }
     };
-} // RebeccaUI
+} // LyndsayUI

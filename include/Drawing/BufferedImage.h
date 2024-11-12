@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include "GL/gl.h"
 
-namespace RebeccaUI {
+namespace LyndsayUI {
     class BufferedImage {
     
     public:

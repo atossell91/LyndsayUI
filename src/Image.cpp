@@ -4,7 +4,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 
-using namespace RebeccaUI;
+using namespace LyndsayUI;
 
 int Image::GetHeight() const {
     if (surface != nullptr) {

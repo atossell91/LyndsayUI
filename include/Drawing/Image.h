@@ -3,7 +3,7 @@
 #include <string>
 #include <SDL3/SDL.h>
 
-namespace RebeccaUI
+namespace LyndsayUI
 {
     class Image {
      private:
@@ -16,5 +16,5 @@ namespace RebeccaUI
 
         friend class TextureRepository;
     };
-} // namespace RebeccaUI
+} // namespace LyndsayUI
 
