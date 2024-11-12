@@ -3,13 +3,16 @@
 #include <memory>
 #include <mutex>
 #include <condition_variable>
+#include <thread>
 
 #include "IMappableIndexResolver.h"
 
 #include "Window/IPlatformWindowFactory.h"
 #include "Window/IWindowFactory.h"
-#include "Window/AsyncWindow.h"
+#include "Window/IAsyncWindow.h"
 #include "Window/IWindow.h"
+
+class AsyncWindow;
 
 namespace RebeccaUI {
     class WindowFactory : public IWindowFactory {

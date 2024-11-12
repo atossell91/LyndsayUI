@@ -8,11 +8,12 @@
 #include "Event/IEventQueue.h"
 #include "Event/IEventPoller.h"
 #include "Window/WindowBase.h"
+#include "Window/IAsyncWindow.h"
 
 #include "Window/WindowFactory.h"
 
 namespace RebeccaUI {
-    class AsyncWindow : public WindowBase {
+    class AsyncWindow : public WindowBase, public IAsyncWindow {
     private:
         //  Private stuff here
 
@@ -38,7 +39,7 @@ namespace RebeccaUI {
         void makeThread();
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
-        //friend std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
+        friend std::unique_ptr<std::thread> CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
     public:
         //  Public stuff here
         ~AsyncWindow();

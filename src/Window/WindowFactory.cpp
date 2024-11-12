@@ -12,6 +12,7 @@
 #include "Event/EventPoller.h"
 
 #include "Window/IWindow.h"
+#include "Window/IAsyncWindow.h"
 #include "Window/AsyncWindow.h"
 #include "Window/SyncWindow.h"
 #include "Promise.h"
@@ -44,7 +45,10 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     std::unique_lock<std::mutex> lock(window->GetMutex(), std::defer_lock);
 
     //  Start the thread, and get a pointer to it. The SDLWindow can be setup in here
-    auto thread = std::make_unique<std::thread>(CreateWindowThread, window.get(), innerwin, isWinset);
+    //auto thread = std::make_unique<std::thread>(CreateWindowThread, window.get(), innerwin, isWinset);
+    auto thread = std::make_unique<std::thread>(
+        &WindowFactory::CreateWindowThread, this, window.get(), std::ref(innerwin), std::ref(isWinset)
+    );
 
     window->GetConditionVariable().wait(lock, [isWinset](){ return isWinset; });
     int platWinId = innerwin->GetWindowId();
@@ -67,6 +71,7 @@ std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* wind
 
         // Window loop behaviour
         while (true) {
+            window->threadMain();
             ////  I'd like to do this, but this lambda doesn't have access to these functions/variables
             //window->PollEvents();
             //std::this_thread::sleep_for(std::chrono::milliseconds(window->sleepDelay));
