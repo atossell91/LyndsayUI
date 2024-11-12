@@ -70,12 +70,7 @@ std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* wind
         window->GetConditionVariable().notify_all();
 
         // Window loop behaviour
-        while (true) {
-            //window->threadMain();
-            ////  I'd like to do this, but this lambda doesn't have access to these functions/variables
-            //window->PollEvents();
-            //std::this_thread::sleep_for(std::chrono::milliseconds(window->sleepDelay));
-        }
+        window->windowLoop();
 
         // Cleanup behaviour
 }

@@ -20,7 +20,3 @@ AsyncWindow::~AsyncWindow() {
         windowThread->join();
     }
 }
-
-void AsyncWindow::threadMain() {
-    windowLoop();
-}

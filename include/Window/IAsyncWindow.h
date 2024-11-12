@@ -5,8 +5,6 @@
 
 namespace LyndsayUI {
     class IAsyncWindow {
-    protected:
-        virtual void threadMain() = 0;
     public:
         virtual ~IAsyncWindow() {}
         //  Public stuff here

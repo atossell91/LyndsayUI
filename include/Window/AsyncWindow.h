@@ -32,14 +32,12 @@ namespace LyndsayUI {
 
         //  Runs in the thread
         void windowLoop();
-        void threadMain();
         AsyncWindow(int id, std::unique_ptr<IEventTent> evTent,
             std::unique_ptr<IEventQueue> queue, std::unique_ptr<IEventPoller> poller) :
             WindowBase(id, std::move(evTent)), eventQueue{std::move(queue)}, eventPoller{std::move(poller)} {}
-        void makeThread();
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
-        friend std::unique_ptr<std::thread> CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
+        friend std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
     public:
         //  Public stuff here
         ~AsyncWindow();
