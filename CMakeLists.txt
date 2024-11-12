@@ -30,8 +30,8 @@ add_library(RebeccaUI SHARED
     ${SRC}/GlGraphics.cpp
     ${SRC}/Event/SDLEventManager.cpp
     ${SRC}/Utils.cpp
-    ${SRC}/Window/WindowFactory.cpp
     ${SRC}/Window/AsyncWindow.cpp
+    ${SRC}/Window/WindowFactory.cpp
     ${SRC}/Window/SyncWindow.cpp
     ${SRC}/Window/SDLWindowFactory.cpp
     ${SRC}/Window/SDLWindow.cpp

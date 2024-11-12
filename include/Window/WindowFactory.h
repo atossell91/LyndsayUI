@@ -12,9 +12,10 @@
 #include "Window/IAsyncWindow.h"
 #include "Window/IWindow.h"
 
-class AsyncWindow;
-
 namespace RebeccaUI {
+
+    class AsyncWindow;
+
     class WindowFactory : public IWindowFactory {
     private:
         //  Private stuff here
