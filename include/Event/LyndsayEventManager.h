@@ -8,7 +8,7 @@
 #include "Event/IEventTent.h"
 
 namespace LyndsayUI {
-    class LyndsayEventManager {
+    class LyndsayEventManager : public IEventManager {
     private:
         //  Private stuff here
         std::unique_ptr<IQueuedEventGetter> eventGetter;

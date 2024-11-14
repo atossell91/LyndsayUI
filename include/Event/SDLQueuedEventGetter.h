@@ -4,9 +4,10 @@
 
 #include "Event/IEvent.h"
 #include "Event/IEventFactory.h"
+#include "Event/IQueuedEventGetter.h"
 
 namespace LyndsayUI {
-    class SDLQueuedEventGetter {
+    class SDLQueuedEventGetter : public IQueuedEventGetter{
     private:
         //  Private stuff here
         std::unique_ptr<IEventFactory> eventFactory;

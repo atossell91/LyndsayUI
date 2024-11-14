@@ -14,6 +14,7 @@
 #include "Event/IEventFactory.h"
 #include "Event/EventFactory.h"
 #include "Event/IEventTent.h"
+#include "Event/IEventManager.h"
 
 #include "IIndexResolver.h"
 
@@ -23,11 +24,12 @@ namespace LyndsayUI {
 
       LyndsayUIContext gameContext;
 
-      std::unique_ptr<IEventTent> eventTent;
       std::unique_ptr<WindowManager> windowManager;
 
       std::shared_ptr<IIndexResolver> windowResolver;
       std::shared_ptr<IEventFactory> eventFactory;
+
+      std::unique_ptr<IEventManager> eventManager;
 
       const int kMainLoopDelay = 5; // Milliseconds
 

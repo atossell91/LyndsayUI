@@ -15,6 +15,9 @@
 #include "Event/SDLEventManager.h"
 #include "Event/EventSpace.h"
 #include "Event/EventTent.h"
+#include "Event/IQueuedEventGetter.h"
+#include "Event/SDLQueuedEventGetter.h"
+#include "Event/LyndsayEventManager.h"
 
 #include "MappedIndexResolver.h"
 
@@ -45,7 +48,12 @@ void LyndsayUI::LyndsayUI::init() {
     std::shared_ptr<MappedIndexResolver> resolver = std::make_shared<MappedIndexResolver>();
     windowResolver = resolver;
 
-    eventTent = std::make_unique<EventTent>();
+    std::unique_ptr<IQueuedEventGetter> eventGetter = std::make_unique<SDLQueuedEventGetter>();
+    std::unique_ptr<IEventTent> eventTent = std::make_unique<EventTent>();
+    eventManager = std::make_unique<LyndsayEventManager>(
+        std::move(eventGetter),
+        std::move(eventTent)
+    );
 
     //  The WindowManager class needs to be modified to update the resolver
     //    when a new window is created
@@ -63,6 +71,7 @@ void LyndsayUI::LyndsayUI::init() {
 }
 
 void LyndsayUI::LyndsayUI::registerEvents() {
+    /*
     eventFactory->registerEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](){ return std::make_unique<CloseButtonPressedEvent>();});
 
     eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [this](std::unique_ptr<IEvent> event){
@@ -74,6 +83,7 @@ void LyndsayUI::LyndsayUI::registerEvents() {
             winReceiver->RecieveEvent(std::move(event));
         }
     });
+    */
 }
 
 void LyndsayUI::LyndsayUI::mainLoop() {
@@ -83,6 +93,7 @@ void LyndsayUI::LyndsayUI::mainLoop() {
         }
 
         //// Process events
+        eventManager->ProcessEvents();
 
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));

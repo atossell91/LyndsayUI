@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Event/IEvent.h"
+#include "Event/IQueuedEventGetter.h"
 
 namespace LyndsayUI {
     class IQueuedEventGetter {
