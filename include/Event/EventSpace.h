@@ -14,4 +14,10 @@ namespace LyndsayUI {
         int GetWindowID() { return windowId; }
         void SetWindowID(int destination ) { windowId = destination; }
     };
+
+    class WeirdEventEvent : public EventBase {
+        private:
+        public:
+        WeirdEventEvent() : EventBase(EventTypes::WEIRD_EVENT_EVENT) {}
+    };
 } // LyndsayUI

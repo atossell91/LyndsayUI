@@ -13,7 +13,9 @@ using namespace LyndsayUI;
 //  Declare functions here
 std::unique_ptr<IEvent> SDLQueuedEventGetter::GetQueuedEvent() {
     SDL_Event sdlEvent;
-    SDL_PollEvent(&sdlEvent);
+    if (!SDL_PollEvent(&sdlEvent)) {
+        return nullptr;
+    }
 
     switch (sdlEvent.type)
     {
@@ -27,6 +29,6 @@ std::unique_ptr<IEvent> SDLQueuedEventGetter::GetQueuedEvent() {
         return std::move(evt);
     }
     default:
-        return nullptr;
+        return std::make_unique<WeirdEventEvent>();
     }
 }

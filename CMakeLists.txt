@@ -38,6 +38,7 @@ add_library(LyndsayUI SHARED
     ${SRC}/Window/WindowBase.cpp
     ${SRC}/Event/EventPoller.cpp
     ${SRC}/Event/SDLQueuedEventGetter.cpp
+    ${SRC}/Event/LyndsayEventManager.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
