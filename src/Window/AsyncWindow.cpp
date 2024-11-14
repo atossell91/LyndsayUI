@@ -3,6 +3,10 @@
 #include <thread>
 #include <chrono>
 
+#include <iostream>
+
+#include <SDL3/SDL.h>
+
 using namespace LyndsayUI;
 
 //  Declare functions here

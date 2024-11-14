@@ -8,7 +8,6 @@
 
 #include "LyndsayUIContext.h"
 #include "Window/WindowManager.h"
-#include "Event/IEventManager.h"
 
 #include "IUpdateable.h"
 
@@ -24,7 +23,6 @@ namespace LyndsayUI {
 
       LyndsayUIContext gameContext;
 
-      std::unique_ptr<IEventManager> eventManager;
       std::unique_ptr<IEventTent> eventTent;
       std::unique_ptr<WindowManager> windowManager;
 

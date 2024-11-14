@@ -78,7 +78,7 @@ bool LyndsayUI::WindowManager::IsNoWindows() const {
 
 void LyndsayUI::WindowManager::AddSingleWindow() {
     if (!singleWindow) {
-        singleWindow = factory->CreateSynchronousWindow();
+        singleWindow = factory->CreateAsynchronousWindow();
     }
 }
 
@@ -127,6 +127,7 @@ void LyndsayUI::WindowManager::registerEvents() {
         //  A simple test for making sure a basic event works
         //    The following two lines are to be removed later
         //    There will be no 'singleWindow', just a list of windows
+        std::cout << "Closing" << std::endl;
         singleWindow.reset(nullptr);
         return;
 

@@ -57,8 +57,6 @@ void LyndsayUI::LyndsayUI::init() {
     auto winFactory = std::make_unique<WindowFactory>(std::move(sdlWinFactory), resolver);
     windowManager = std::make_unique<WindowManager>(std::move(winFactory), resolver, std::move(winMgrEventTent));
     eventFactory = std::make_shared<EventFactory>();
-    
-    eventManager = std::make_unique<SDLEventManager>(eventFactory, windowResolver, eventTent.get());
 
     // Might want to give this a 'copy' of the IndexResolver -- It makes more sense for this
     //  to resolve the window ID from the SDL window, no?
@@ -84,7 +82,8 @@ void LyndsayUI::LyndsayUI::mainLoop() {
             break;
         }
 
-        eventManager->ProcessEvents();
+        //// Process events
+
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
     }
