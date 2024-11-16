@@ -15,7 +15,6 @@ namespace LyndsayUI {
     class SDLEventManager : public IEventManager {
     private:
         std::shared_ptr<IEventFactory> eventFactory = nullptr;
-        std::shared_ptr<IIndexResolver> windowResolver = nullptr;
         IEventReceiver* receiver = nullptr;
     public:
         //  Public stuff here
@@ -27,7 +26,6 @@ namespace LyndsayUI {
             std::shared_ptr<IIndexResolver> resolver,
             IEventReceiver* receiver) : 
             eventFactory {factory},
-            windowResolver{resolver},
             receiver {receiver}
             {}
     };

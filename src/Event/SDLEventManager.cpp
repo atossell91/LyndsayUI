@@ -29,8 +29,8 @@ void SDLEventManager::HandleEvent(SDL_Event& event) {
 
             auto oldEv = eventFactory->createEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT);
             auto evt = Utils::CastUniquePtr<IEvent, CloseButtonPressedEvent>(std::move(oldEv));
-            
-            evt->SetWindowID(windowResolver->ResolveIndex(event.window.windowID));
+
+            evt->SetWindowID(event.window.windowID);
 
             if (receiver) {
                 receiver->RecieveEvent(std::move(evt));
