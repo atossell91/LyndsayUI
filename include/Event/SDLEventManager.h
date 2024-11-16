@@ -23,7 +23,6 @@ namespace LyndsayUI {
 
         SDLEventManager(
             std::shared_ptr<IEventFactory> factory,
-            std::shared_ptr<IIndexResolver> resolver,
             IEventReceiver* receiver) : 
             eventFactory {factory},
             receiver {receiver}
