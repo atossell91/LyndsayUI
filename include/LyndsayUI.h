@@ -26,8 +26,7 @@ namespace LyndsayUI {
 
       std::unique_ptr<WindowManager> windowManager;
 
-      std::shared_ptr<IIndexResolver> windowResolver;
-      std::shared_ptr<IEventFactory> eventFactory;
+      //std::shared_ptr<IEventFactory> eventFactory;
 
       std::unique_ptr<IEventManager> eventManager;
 

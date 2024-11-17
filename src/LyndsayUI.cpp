@@ -18,6 +18,7 @@
 #include "Event/IQueuedEventGetter.h"
 #include "Event/SDLQueuedEventGetter.h"
 #include "Event/LyndsayEventManager.h"
+#include "Event/ExecutiveEventManager.h"
 
 #include "MappedIndexResolver.h"
 
@@ -45,26 +46,35 @@ void LyndsayUI::LyndsayUI::initOpenGl() {
 }
 
 void LyndsayUI::LyndsayUI::init() {
-    std::shared_ptr<MappedIndexResolver> resolver = std::make_shared<MappedIndexResolver>();
-    windowResolver = resolver;
 
+    //  Build the SDL Event Manager
+    auto eventFactory = std::make_shared<EventFactory>();
+    std::shared_ptr<IEventTent> eventTent = std::make_unique<EventTent>();
+    std::unique_ptr<IEventManager> sdlMgr = std::make_unique<SDLEventManager>(eventFactory, eventTent);
+
+    //  Build the Lyndsay Event Manager (for inter-thread communication)
+    //    This is using an SDLQueuedEventGetter, but it shouldn't be
     std::unique_ptr<IQueuedEventGetter> eventGetter = std::make_unique<SDLQueuedEventGetter>();
-    std::unique_ptr<IEventTent> eventTent = std::make_unique<EventTent>();
-    eventManager = std::make_unique<LyndsayEventManager>(
+    auto lyndsayMgr = std::make_unique<LyndsayEventManager>(
         std::move(eventGetter),
-        std::move(eventTent)
+        eventTent
     );
 
-    //  The WindowManager class needs to be modified to update the resolver
-    //    when a new window is created
-    //  Need to cast the windowResolver, or something
+    //  Add both of the previous event managers to the excective event manager
+    std::unique_ptr<ExecutiveEventManager> execMgr = std::make_unique<ExecutiveEventManager>();
+    execMgr->AddManager(std::move(sdlMgr));
+    execMgr->AddManager(std::move(lyndsayMgr));
+    eventManager = std::move(execMgr);
 
+    //  Build the window manager and it's dependencies
+    //    The WindowManager class needs to be modified to update the resolver
+    //      when a new window is created
+    //    Need to cast the windowResolver, or something
     auto winMgrEventTent = std::make_unique<EventTent>();
-
     auto sdlWinFactory = std::make_unique<SDLWindowFactory>();
+    std::shared_ptr<MappedIndexResolver> resolver = std::make_shared<MappedIndexResolver>();
     auto winFactory = std::make_unique<WindowFactory>(std::move(sdlWinFactory), resolver);
     windowManager = std::make_unique<WindowManager>(std::move(winFactory), resolver, std::move(winMgrEventTent));
-    eventFactory = std::make_shared<EventFactory>();
 
     // Might want to give this a 'copy' of the IndexResolver -- It makes more sense for this
     //  to resolve the window ID from the SDL window, no?

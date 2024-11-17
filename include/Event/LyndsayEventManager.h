@@ -12,13 +12,13 @@ namespace LyndsayUI {
     private:
         //  Private stuff here
         std::unique_ptr<IQueuedEventGetter> eventGetter;
-        std::unique_ptr<IEventTent> eventTent;
+        std::shared_ptr<IEventTent> eventTent;
     public:
         //  Public stuff here
         LyndsayEventManager(
             std::unique_ptr<IQueuedEventGetter> evGetter,
-            std::unique_ptr<IEventTent> evTent) :
-            eventGetter{std::move(evGetter)}, eventTent{std::move(evTent)} {}
+            std::shared_ptr<IEventTent> evTent) :
+            eventGetter{std::move(evGetter)}, eventTent{evTent} {}
 
         void ProcessEvents();
     };

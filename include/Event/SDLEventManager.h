@@ -15,7 +15,8 @@ namespace LyndsayUI {
     class SDLEventManager : public IEventManager {
     private:
         std::shared_ptr<IEventFactory> eventFactory = nullptr;
-        IEventReceiver* receiver = nullptr;
+        //IEventReceiver* receiver = nullptr;
+        std::shared_ptr<IEventReceiver> receiver;
     public:
         //  Public stuff here
         void ProcessEvents();
@@ -23,7 +24,7 @@ namespace LyndsayUI {
 
         SDLEventManager(
             std::shared_ptr<IEventFactory> factory,
-            IEventReceiver* receiver) : 
+            std::shared_ptr<IEventReceiver> receiver) : 
             eventFactory {factory},
             receiver {receiver}
             {}
