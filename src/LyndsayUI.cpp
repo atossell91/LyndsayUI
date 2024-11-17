@@ -17,7 +17,7 @@
 #include "Event/EventTent.h"
 #include "Event/IQueuedEventGetter.h"
 #include "Event/SDLQueuedEventGetter.h"
-#include "Event/LyndsayEventManager.h"
+#include "Event/ThreadEventManager.h"
 #include "Event/ExecutiveEventManager.h"
 
 #include "MappedIndexResolver.h"
@@ -55,7 +55,7 @@ void LyndsayUI::LyndsayUI::init() {
     //  Build the Lyndsay Event Manager (for inter-thread communication)
     //    This is using an SDLQueuedEventGetter, but it shouldn't be
     std::unique_ptr<IQueuedEventGetter> eventGetter = std::make_unique<SDLQueuedEventGetter>();
-    auto lyndsayMgr = std::make_unique<LyndsayEventManager>(
+    auto lyndsayMgr = std::make_unique<ThreadEventManager>(
         std::move(eventGetter),
         eventTent
     );

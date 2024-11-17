@@ -1,9 +1,9 @@
-#include "Event/LyndsayEventManager.h"
+#include "Event/ThreadEventManager.h"
 
 using namespace LyndsayUI;
 
 //  Declare functions here
-void LyndsayEventManager::ProcessEvents() {
+void ThreadEventManager::ProcessEvents() {
     std::unique_ptr<IEvent> event;
     while ((event = eventGetter->GetQueuedEvent())) {
         eventTent->RecieveEvent(std::move(event));
