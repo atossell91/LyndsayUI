@@ -4,7 +4,7 @@
 #include "Event/IEventManager.h"
 
 #include "Event/SDLEventManager.h"
-#include "Event/ExecutiveEventManager.h"
+#include "Event/ExecutiveEventProcessor.h"
 
 namespace LyndsayUI {
     class SDLEventManagerFactory : public IEventManagerFactory {

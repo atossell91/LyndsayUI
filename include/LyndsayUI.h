@@ -15,6 +15,9 @@
 #include "Event/EventFactory.h"
 #include "Event/IEventTent.h"
 #include "Event/IEventManager.h"
+#include "Event/IEventProcessor.h"
+
+#include "ILyndsayDependencyFactory.h"
 
 #include "IIndexResolver.h"
 
@@ -24,11 +27,11 @@ namespace LyndsayUI {
 
       LyndsayUIContext gameContext;
 
-      std::unique_ptr<WindowManager> windowManager;
+      std::unique_ptr<IWindowManager> windowManager;
 
       //std::shared_ptr<IEventFactory> eventFactory;
 
-      std::unique_ptr<IEventManager> eventManager;
+      std::unique_ptr<IEventProcessor> eventManager;
 
       const int kMainLoopDelay = 5; // Milliseconds
 
@@ -44,11 +47,15 @@ namespace LyndsayUI {
 
    public:
       LyndsayUI();
+      LyndsayUI(ILyndsayDependencyFactory* depFactory) : 
+         windowManager{std::move(depFactory->CreateWindowManager())},
+         eventManager{std::move(depFactory->CreateEventProcessor())} 
+         { initSDL(); }
 
       void Run();
       void AddUpdateable(IUpdateable* updateable);
       void RemoveUpdateable(IUpdateable* updateable);
       LyndsayUIContext& GetLyndsayUIContext() { return gameContext; }
-      WindowManager* GetWindowManager() { return windowManager.get(); }
+      IWindowManager* GetWindowManager() { return windowManager.get(); }
    };
 }

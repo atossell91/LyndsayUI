@@ -6,7 +6,7 @@
 #include "Event/IEventManager.h"
 #include "Event/SDLEventManager.h"
 #include "Event/ThreadEventManager.h"
-#include "Event/ExecutiveEventManager.h"
+#include "Event/ExecutiveEventProcessor.h"
 
 using namespace LyndsayUI;
 

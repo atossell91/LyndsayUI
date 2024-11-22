@@ -18,7 +18,8 @@
 #include "Event/IQueuedEventGetter.h"
 #include "Event/SDLQueuedEventGetter.h"
 #include "Event/ThreadEventManager.h"
-#include "Event/ExecutiveEventManager.h"
+#include "Event/ExecutiveEventProcessor.h"
+#include "Event/IEventProcessor.h"
 
 #include "MappedIndexResolver.h"
 
@@ -46,6 +47,7 @@ void LyndsayUI::LyndsayUI::initOpenGl() {
 }
 
 void LyndsayUI::LyndsayUI::init() {
+    /*
 
     //  Build the SDL Event Manager
     auto eventFactory = std::make_shared<EventFactory>();
@@ -61,9 +63,10 @@ void LyndsayUI::LyndsayUI::init() {
     );
 
     //  Add both of the previous event managers to the excective event manager
-    std::unique_ptr<ExecutiveEventManager> execMgr = std::make_unique<ExecutiveEventManager>();
-    execMgr->AddManager(std::move(sdlMgr));
-    execMgr->AddManager(std::move(lyndsayMgr));
+    std::unique_ptr<ExecutiveEventProcessor> execMgr = std::make_unique<ExecutiveEventProcessor>(
+        std::move(lyndsayMgr),
+        std::move(sdlMgr)
+    );
     eventManager = std::move(execMgr);
 
     //  Build the window manager and it's dependencies
@@ -78,6 +81,7 @@ void LyndsayUI::LyndsayUI::init() {
 
     // Might want to give this a 'copy' of the IndexResolver -- It makes more sense for this
     //  to resolve the window ID from the SDL window, no?
+    */
 }
 
 void LyndsayUI::LyndsayUI::registerEvents() {
@@ -98,9 +102,9 @@ void LyndsayUI::LyndsayUI::registerEvents() {
 
 void LyndsayUI::LyndsayUI::mainLoop() {
     while (!gameContext.ShouldClose) {
-        if (windowManager->IsNoWindows()) {
-            break;
-        }
+        //if (windowManager->IsNoWindows()) {
+        //    break;
+        //}
 
         //// Process events
         eventManager->ProcessEvents();

@@ -4,9 +4,9 @@
 #include "Event/IEventReceiver.h"
 
 namespace LyndsayUI {
-    class IRebeccaWindow : public IWindow, public IEventReceiver {
+    class ILyndsayWindow : public IWindow, public IEventReceiver {
     public:
-        virtual ~IRebeccaWindow() {}
+        virtual ~ILyndsayWindow() {}
         //  Public stuff here
     };
 } // LyndsayUI

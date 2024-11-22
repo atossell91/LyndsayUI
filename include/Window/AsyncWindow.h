@@ -6,7 +6,6 @@
 #include <condition_variable>
 
 #include "Event/IEventQueue.h"
-#include "Event/IEventPoller.h"
 #include "Window/WindowBase.h"
 #include "Window/IAsyncWindow.h"
 
@@ -17,14 +16,12 @@ namespace LyndsayUI {
     private:
         //  Private stuff here
 
-        //  Event disptcher
-        std::unique_ptr<IEventQueue> eventQueue;
-        std::unique_ptr<IEventPoller> eventPoller;
-        std::unique_ptr<std::thread> windowThread;
         std::unique_ptr<IWindow> platformWindow;
 
         std::mutex mutex;
         std::condition_variable conditionVariable;
+
+        std::unique_ptr<std::thread> windowThread;
 
         bool isRunning = true;
         time_t sleepDelay = 20;
@@ -32,9 +29,8 @@ namespace LyndsayUI {
 
         //  Runs in the thread
         void windowLoop();
-        AsyncWindow(int id, std::unique_ptr<IEventTent> evTent,
-            std::unique_ptr<IEventQueue> queue, std::unique_ptr<IEventPoller> poller) :
-            WindowBase(id, std::move(evTent)), eventQueue{std::move(queue)}, eventPoller{std::move(poller)} {}
+        AsyncWindow(int id) :
+            WindowBase(id) {}
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
         friend std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);

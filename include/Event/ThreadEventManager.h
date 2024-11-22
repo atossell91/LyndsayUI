@@ -21,5 +21,6 @@ namespace LyndsayUI {
             eventGetter{std::move(evGetter)}, eventTent{evTent} {}
 
         void ProcessEvents();
+        void PushEvent(std::unique_ptr<IEvent> event);
     };
 } // LyndsayUI

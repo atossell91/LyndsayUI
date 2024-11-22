@@ -5,11 +5,9 @@
 #include <mutex>
 #include <condition_variable>
 
-#include "Window/Window.h"
+#include "Window/IWindowManager.h"
 #include "Window/IWindow.h"
-#include "Window/WindowThread.h"
-#include "Window/IRebeccaWindow.h"
-#include "IMappableIndexResolver.h" 
+#include "Window/ILyndsayWindow.h"
 #include "Window/IWindowFactory.h"
 
 #include "Event/IEvent.h"
@@ -18,17 +16,15 @@
 
 namespace LyndsayUI
 {
-    class WindowManager {
+    class WindowManager : public IWindowManager {
      private:
-        std::list<std::unique_ptr<IRebeccaWindow>> windows;
+        std::list<std::unique_ptr<ILyndsayWindow>> windows;
         std::unique_ptr<IWindow> singleWindow;
         std::mutex mutex;
         std::condition_variable cv;
-        std::unique_ptr<Window> windowFactory();
 
         std::unique_ptr<IWindowFactory> factory;
         std::unique_ptr<IEventTent> eventTent;
-        std::shared_ptr<IMappableIndexResolver> windowIndexResolver;
 
         int currentWindowId = 1;
 
@@ -36,8 +32,7 @@ namespace LyndsayUI
      public:
         WindowManager(
             std::unique_ptr<IWindowFactory> winFactory,
-            std::shared_ptr<IMappableIndexResolver> resolver,
-            std::unique_ptr<IEventTent> evTent) : factory{std::move(winFactory)}, windowIndexResolver {resolver}, eventTent{std::move(evTent)} {
+            std::unique_ptr<IEventTent> evTent) : factory{std::move(winFactory)}, eventTent{std::move(evTent)} {
                 registerEvents();
             }
             

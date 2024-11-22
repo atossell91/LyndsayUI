@@ -5,23 +5,11 @@
 
 #include "Utils.h"
 #include "Window/WindowManager.h"
-#include "Window/Window.h"
 #include "Window/IWindow.h"
 #include "Event/EventSpace.h"
 #include "Event/EventTypes.h"
 
 #include <iostream>
-
-std::unique_ptr<LyndsayUI::Window> LyndsayUI::WindowManager::windowFactory() {
-    std::unique_ptr<Window> window = std::make_unique<Window>("Rebecca is cute", 1920, 1080);
-
-    //window->GetEventProcessor().addEventHandler(SDL_EVENT_QUIT, [&window](std::unique_ptr<IEvent> d){
-    //    std::cout << "Stopping" << std::endl;
-    //    window->stopLoop();
-    //});
-
-    return std::move(window);
-}
 
 void LyndsayUI::WindowManager::AddWindow(const std::string& name, int width, int height) {
     /*

@@ -6,6 +6,7 @@
 #include <functional>
 #include <memory>
 
+#include "Event/IEvent.h"
 #include "Event/IEventReceiver.h"
 #include "Event/IEventManager.h"
 #include "Event/IEventFactory.h"
@@ -20,6 +21,7 @@ namespace LyndsayUI {
     public:
         //  Public stuff here
         void ProcessEvents();
+        void PushEvent(std::unique_ptr<IEvent> event);
         void HandleEvent(SDL_Event&);
 
         SDLEventManager(

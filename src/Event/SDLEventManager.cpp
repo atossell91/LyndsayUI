@@ -2,7 +2,9 @@
 
 #include <SDL3/SDL.h>
 #include <functional>
+#include <memory>
 
+#include "Event/IEvent.h"
 #include "Event/EventTypes.h"
 #include "Event/EventSpace.h"
 #include "Utils.h"
@@ -17,6 +19,10 @@ void LyndsayUI::SDLEventManager::ProcessEvents() {
     while(SDL_PollEvent(&event)) {
         HandleEvent(event);
     }
+}
+
+void SDLEventManager::PushEvent(std::unique_ptr<IEvent> event) {
+
 }
 
 void SDLEventManager::HandleEvent(SDL_Event& event) {

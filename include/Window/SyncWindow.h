@@ -10,10 +10,7 @@ namespace LyndsayUI {
         //  Private stuff here
         int windowId;
         std::unique_ptr<IWindow> platformWindow;
-        SyncWindow(int id, std::unique_ptr<IEventTent> evTent) : WindowBase(id, std::move(evTent)) {}
-
-        
-        //  Event Dispatcher
+        SyncWindow(int id) : WindowBase(id) {}
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow();
     public:

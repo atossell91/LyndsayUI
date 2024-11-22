@@ -1,16 +1,12 @@
 #pragma once
 
-#include "Event/IEventReceiver.h"
+#include "Window/IWindow.h"
 
 namespace LyndsayUI {
     class IWindowManager {
     public:
         virtual ~IWindowManager() {}
         //  Public stuff here
-        virtual void Update() = 0;
-        virtual void GetWindow(int windowId) = 0;
-        virtual void AddWindow() = 0;
-        virtual void RemoveWindow(int windowId) = 0;
-        virtual IEventReceiver* GetEventReceiver() = 0;
+        virtual IWindow* GetWindow(int windowId) = 0;
     };
 } // LyndsayUI

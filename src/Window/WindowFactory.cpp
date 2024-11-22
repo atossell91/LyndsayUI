@@ -22,11 +22,8 @@ using namespace LyndsayUI;
 std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
     auto platWindow = platformWinFactory->CreateWindow();
     auto winEvTent = std::make_unique<EventTent>();
-    int newWinId = generateWindowId();
     int platWinId = platWindow->GetWindowId();
-    // Put these IDs into the resolver
-    resolver->MapIndices(platWinId, newWinId);
-    auto window = std::unique_ptr<SyncWindow>( new SyncWindow(newWinId, std::move(winEvTent)) );
+    auto window = std::unique_ptr<SyncWindow>( new SyncWindow(platWinId) );
     window->platformWindow = std::move(platWindow);
 
     return window;
@@ -35,9 +32,9 @@ std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
 std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     auto winEvTent = std::make_unique<EventTent>();
     auto winQueue = std::make_unique<EventQueue>();
-    auto winPoller = std::make_unique<EventPoller>(winEvTent.get(), winQueue.get());
-    int newWinId = generateWindowId();
-    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(newWinId, std::move(winEvTent), std::move(winQueue), std::move(winPoller)) );
+    auto winPoller = std::make_unique<EventPoller>( winEvTent.get(), winQueue.get() );
+    
+    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(0) );
 
     std::unique_ptr<IWindow> innerwin;
 
@@ -52,7 +49,8 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
 
     window->GetConditionVariable().wait(lock, [isWinset](){ return isWinset; });
     int platWinId = innerwin->GetWindowId();
-    resolver->MapIndices(platWinId, newWinId);
+
+    window->windowId = platWinId;
 
     window->platformWindow = std::move(innerwin);
     window->windowThread = std::move(thread);
