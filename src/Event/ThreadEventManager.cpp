@@ -9,7 +9,7 @@ using namespace LyndsayUI;
 //  Declare functions here
 void ThreadEventManager::ProcessEvents() {
     std::unique_ptr<IEvent> event;
-    while ((event = eventGetter->GetQueuedEvent())) {
+    while ((event = eventQueue->GetEvent())) {
         eventTent->RecieveEvent(std::move(event));
     }
 }
