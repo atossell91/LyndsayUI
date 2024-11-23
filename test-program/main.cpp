@@ -1,23 +1,22 @@
 #include <iostream>
-#include "LyndsayUI.h"
-#include <functional>
-#include <SDL3_image/SDL_image.h>
 
+#include "LyndsayUI.h"
 #include "ILyndsayDependencyFactory.h"
 #include "SDLLyndsayDependencyFactory.h"
 
-#include "Drawing/TransformParams.h"
-#include "Drawing/IGraphics.h"
-#include "Drawing/DrawFunc.h"
-#include "Drawing/BufferedImage.h"
-#include "Utilities.h"
-#include "../include/ShaderUtils.h"
-#include "Drawing/DrawableCollection.h"
-#include "Window/IWindow.h"
+#include <SDL3/SDL.h>
 
 int main() {
     std::unique_ptr<LyndsayUI::ILyndsayDependencyFactory> factory = std::make_unique<LyndsayUI::SDLLyndsayDependencyFactory>();
-    LyndsayUI::LyndsayUI lyndsay(factory.get());
+    auto evMgr = factory->CreateEventProcessor();
+
+    SDL_UserEvent ev;
+    ev.data1 = (void*)("I Love Lyndsay");
+    ev.type = 1991;
+
+    SDL_PushEvent((SDL_Event)&ev);
+
+    //LyndsayUI::LyndsayUI lyndsay(factory.get());
     //LyndsayUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");
     
     //rsdl.GetWindowManager()->AddSingleWindow();
@@ -39,7 +38,7 @@ int main() {
     //win->LudoVica();
     
     // Segfaults if Run() is not called
-    lyndsay.Run();
+    //lyndsay.Run();
 
     std::cout << "Done!" << std::endl;
     return 0;

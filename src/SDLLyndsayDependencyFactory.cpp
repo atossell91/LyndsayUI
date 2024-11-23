@@ -80,6 +80,10 @@ std::shared_ptr<IEventTent> SDLLyndsayDependencyFactory::createMainEventTent() {
 }
 
 void SDLLyndsayDependencyFactory::registerEvents(IWindowManager* windowManager) {
+    if (mainEventTent.expired()) {
+        return;
+    }
+
     mainEventTent.lock()->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](std::unique_ptr<IEvent> event){
 
     });
