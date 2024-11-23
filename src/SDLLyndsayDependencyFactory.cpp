@@ -2,11 +2,13 @@
 
 #include <memory>
 
+#include "Utils.h"
 #include "Window/WindowManager.h"
 #include "Window/WindowFactory.h"
 #include "Window/SDLWindowFactory.h"
 #include "Event/EventTent.h"
-
+#include "Event/EventTypes.h"
+#include "Event/EventSpace.h"
 #include "Event/EventQueue.h"
 #include "Event/ThreadEventManager.h"
 #include "Event/SDLEventManager.h"
@@ -31,13 +33,15 @@ std::unique_ptr<IWindowManager> SDLLyndsayDependencyFactory::CreateWindowManager
         std::move(eventTent)
     );
 
+    registerEvents(winMgr.get());
+
     return std::move(winMgr);
 }
 
 std::unique_ptr<IEventProcessor> SDLLyndsayDependencyFactory::CreateEventProcessor() {
 
     // Both components of the Executive processor share an Event Tent
-    auto evTent = std::make_shared<EventTent>();
+    auto evTent = createMainEventTent();
 
     //  Create the thread event manager
     auto evQueue = std::make_unique<EventQueue>();
@@ -60,4 +64,23 @@ std::unique_ptr<IEventProcessor> SDLLyndsayDependencyFactory::CreateEventProcess
     );
 
     return std::move(evMgr);
+}
+
+std::shared_ptr<IEventTent> SDLLyndsayDependencyFactory::createMainEventTent() {
+
+    if (mainEventTent.expired()) {
+        auto evTent = std::make_shared<EventTent>();
+        mainEventTent = evTent;
+        return evTent;
+    }
+    else {
+        return mainEventTent.lock();
+    }
+
+}
+
+void SDLLyndsayDependencyFactory::registerEvents(IWindowManager* windowManager) {
+    mainEventTent.lock()->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](std::unique_ptr<IEvent> event){
+
+    });
 }

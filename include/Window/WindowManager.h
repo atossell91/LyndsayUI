@@ -45,5 +45,6 @@ namespace LyndsayUI
         int GetNumWindows() const { return windows.size(); }
         bool IsNoWindows() const;
         void UpdateAll();
+        void RecieveEvent(std::unique_ptr<IEvent> event);
     };
 } // namespace LyndsayUI

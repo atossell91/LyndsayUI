@@ -134,3 +134,7 @@ void LyndsayUI::WindowManager::registerEvents() {
         }
     });
 }
+
+void LyndsayUI::WindowManager::RecieveEvent(std::unique_ptr<IEvent> event) {
+    
+}
