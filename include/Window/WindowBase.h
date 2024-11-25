@@ -3,7 +3,6 @@
 #include <memory>
 
 #include "Window/IWindow.h"
-#include "Event/EventTent.h"
 
 namespace LyndsayUI {
     class WindowBase : public IWindow {

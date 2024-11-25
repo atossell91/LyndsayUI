@@ -3,11 +3,11 @@
 #include <string>
 
 #include "Event/EventBase.h"
-#include "Event/EventTypes.h"
 #include "Promise.h"
 #include "BufferedImage.h"
 
 namespace LyndsayUI {
+    /**
     class BufferImageEvent : public EventBase {
     private:
         //  Private stuff here
@@ -23,4 +23,5 @@ namespace LyndsayUI {
         std::string getImagePath() { return imgPath; }
         EmilyPromise::Promise<LyndsayUI::BufferedImage>& getPromise() { return imgPromise; }
     };
+    */
 } // LyndsayUI

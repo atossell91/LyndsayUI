@@ -18,7 +18,6 @@ include_directories(
 
 add_library(LyndsayUI SHARED
     ${SRC}/glad.c
-    ${SRC}/Event/EventTent.cpp
     ${SRC}/Window/Window.cpp
     ${SRC}/ShaderUtils.cpp
     ${SRC}/Utilities.cpp
@@ -26,7 +25,6 @@ add_library(LyndsayUI SHARED
     ${SRC}/Window/WindowManager.cpp
     ${SRC}/LyndsayUI.cpp
     ${SRC}/Event/EventQueue.cpp
-    ${SRC}/Event/EventFactory.cpp
     ${SRC}/GlGraphics.cpp
     ${SRC}/Event/SDLEventManager.cpp
     ${SRC}/Utils.cpp
@@ -36,10 +34,7 @@ add_library(LyndsayUI SHARED
     ${SRC}/Window/SDLWindowFactory.cpp
     ${SRC}/Window/SDLWindow.cpp
     ${SRC}/Window/WindowBase.cpp
-    ${SRC}/Event/EventPoller.cpp
-    ${SRC}/Event/SDLQueuedEventGetter.cpp
     ${SRC}/Event/ThreadEventManager.cpp
-    ${SRC}/Event/SDLEventManagerFactory.cpp
     ${SRC}/SDLLyndsayDependencyFactory.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )

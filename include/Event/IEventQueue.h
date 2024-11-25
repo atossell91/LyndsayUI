@@ -4,14 +4,14 @@
 #include <memory>
 #include <mutex>
 
-#include "Event/IEvent.h"
+#include "Event/IEventData.h"
 
 namespace LyndsayUI {
     class IEventQueue {
     public:
         virtual ~IEventQueue() {}
         //  Public stuff here
-        virtual void QueueEvent(std::unique_ptr<IEvent> event) = 0;
-        virtual std::unique_ptr<IEvent> GetEvent() = 0;
+        virtual void QueueEvent(std::unique_ptr<IEventData> event) = 0;
+        virtual std::unique_ptr<IEventData> PollEventData() = 0;
     };
 } // EventQueue

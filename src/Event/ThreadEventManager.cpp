@@ -2,18 +2,18 @@
 
 #include <memory>
 
-#include "Event/IEvent.h"
+#include "Event/IEventData.h"
 
 using namespace LyndsayUI;
 
 //  Declare functions here
 void ThreadEventManager::ProcessEvents() {
-    std::unique_ptr<IEvent> event;
-    while ((event = eventQueue->GetEvent())) {
-        eventTent->RecieveEvent(std::move(event));
+    std::unique_ptr<IEventData> event;
+    while ((event = eventQueue->PollEventData())) {
+        // Deal with the event
     }
 }
 
-void ThreadEventManager::PushEvent(std::unique_ptr<IEvent> event) {
+void ThreadEventManager::PushEvent(std::unique_ptr<IEventData> event) {
 
 }

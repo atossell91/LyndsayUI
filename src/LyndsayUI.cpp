@@ -11,12 +11,7 @@
 #include "LyndsayUIContext.h"
 #include "IUpdateable.h"
 
-#include "Event/EventTypes.h"
 #include "Event/SDLEventManager.h"
-#include "Event/EventSpace.h"
-#include "Event/EventTent.h"
-#include "Event/IQueuedEventGetter.h"
-#include "Event/SDLQueuedEventGetter.h"
 #include "Event/ThreadEventManager.h"
 #include "Event/ExecutiveEventProcessor.h"
 #include "Event/IEventProcessor.h"

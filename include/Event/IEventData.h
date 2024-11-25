@@ -1,10 +1,9 @@
 #pragma once
 
 namespace LyndsayUI {
-    class IEventPoller {
+    class IEventData {
     public:
-        virtual ~IEventPoller() {}
+        virtual ~IEventData() {}
         //  Public stuff here
-        virtual void PollEvents() = 0;
     };
 } // LyndsayUI

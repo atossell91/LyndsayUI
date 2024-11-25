@@ -4,9 +4,7 @@
 #include <functional>
 #include <memory>
 
-#include "Event/IEvent.h"
-#include "Event/EventTypes.h"
-#include "Event/EventSpace.h"
+#include "Event/IEventData.h"
 #include "Utils.h"
 
 #include <iostream>
@@ -17,34 +15,21 @@ using namespace LyndsayUI;
 void LyndsayUI::SDLEventManager::ProcessEvents() {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
-        HandleEvent(event);
+        handleEvent(event);
     }
 }
 
-void SDLEventManager::PushEvent(std::unique_ptr<IEvent> event) {
+void SDLEventManager::PushEvent(std::unique_ptr<IEventData> event) {
 
 }
 
-void SDLEventManager::HandleEvent(SDL_Event& event) {
+void SDLEventManager::handleEvent(SDL_Event& event) {
     switch (event.type)
     {
         case SDL_EVENT_WINDOW_CLOSE_REQUESTED: {
-            //  If this causes a problem, try using std::move
-            //    Though ChatGPT suggested that the factory returns an r-value
-            //    which allows it to be moved without callning std::move
-
-            auto oldEv = eventFactory->createEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT);
-            auto evt = Utils::CastUniquePtr<IEvent, CloseButtonPressedEvent>(std::move(oldEv));
-
-            evt->SetWindowID(event.window.windowID);
-
-            if (receiver) {
-                receiver->RecieveEvent(std::move(evt));
-            }
-            else {
-                std::cout << "Receiver is nullptr" << std::endl;
-            }
-
+            // Event
+            auto data = std::make_shared<WindowCloseButtonClickedData>();
+            WindowClosed.Raise(data);
             break;
         }
         case SDL_EVENT_KEY_DOWN:

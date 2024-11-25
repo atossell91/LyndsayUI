@@ -6,29 +6,22 @@
 #include <functional>
 #include <memory>
 
-#include "Event/IEvent.h"
-#include "Event/IEventReceiver.h"
+#include "Event/IEventData.h"
 #include "Event/IEventManager.h"
-#include "Event/IEventFactory.h"
-#include "IIndexResolver.h"
+
+#include "Event/EventTypes/WindowCloseButtonClicked.h"
 
 namespace LyndsayUI {
     class SDLEventManager : public IEventManager {
     private:
-        std::shared_ptr<IEventFactory> eventFactory = nullptr;
-        //IEventReceiver* receiver = nullptr;
-        std::shared_ptr<IEventReceiver> receiver;
+        void handleEvent(SDL_Event&);
     public:
         //  Public stuff here
-        void ProcessEvents();
-        void PushEvent(std::unique_ptr<IEvent> event);
-        void HandleEvent(SDL_Event&);
+        WindowCloseButtonClicked WindowClosed;
 
-        SDLEventManager(
-            std::shared_ptr<IEventFactory> factory,
-            std::shared_ptr<IEventReceiver> receiver) : 
-            eventFactory {factory},
-            receiver {receiver}
-            {}
+        void ProcessEvents();
+        void PushEvent(std::unique_ptr<IEventData> event);
+
+        SDLEventManager() {}
     };
 } // LyndsayUI

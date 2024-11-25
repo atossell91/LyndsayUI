@@ -6,14 +6,10 @@
 #include "Window/WindowManager.h"
 #include "Window/WindowFactory.h"
 #include "Window/SDLWindowFactory.h"
-#include "Event/EventTent.h"
-#include "Event/EventTypes.h"
-#include "Event/EventSpace.h"
 #include "Event/EventQueue.h"
 #include "Event/ThreadEventManager.h"
 #include "Event/SDLEventManager.h"
 #include "Event/ExecutiveEventProcessor.h"
-#include "Event/EventFactory.h"
 
 using namespace LyndsayUI;
 
@@ -24,38 +20,27 @@ std::unique_ptr<IWindowManager> SDLLyndsayDependencyFactory::CreateWindowManager
     auto platWinFac = std::make_unique<SDLWindowFactory>();
     auto winFac = std::make_unique<WindowFactory>(std::move(platWinFac));
 
-    // Create a requisite event tent
-    auto eventTent = std::unique_ptr<EventTent>();
-
     // Assemble
     auto winMgr = std::make_unique<WindowManager>(
-        std::move(winFac),
-        std::move(eventTent)
+        std::move(winFac)
     );
-
-    registerEvents(winMgr.get());
 
     return std::move(winMgr);
 }
 
 std::unique_ptr<IEventProcessor> SDLLyndsayDependencyFactory::CreateEventProcessor() {
 
-    // Both components of the Executive processor share an Event Tent
-    auto evTent = createMainEventTent();
-
     //  Create the thread event manager
     auto evQueue = std::make_unique<EventQueue>();
     auto trMgr = std::make_unique<ThreadEventManager>(
-        std::move(evQueue),
-        evTent
+        std::move(evQueue)
     );
 
     // Create the SDL thread manager
-    auto evFac = std::make_shared<EventFactory>();
-    auto platMgr = std::make_unique<SDLEventManager>(
-        evFac,
-        evTent
-    );
+    auto platMgr = std::make_unique<SDLEventManager>();
+    platMgr->WindowClosed += [](std::shared_ptr<WindowCloseButtonClickedData> d){
+        
+    };
 
     // Assemble the executive event processor
     auto evMgr = std::make_unique<ExecutiveEventProcessor>(
@@ -64,27 +49,4 @@ std::unique_ptr<IEventProcessor> SDLLyndsayDependencyFactory::CreateEventProcess
     );
 
     return std::move(evMgr);
-}
-
-std::shared_ptr<IEventTent> SDLLyndsayDependencyFactory::createMainEventTent() {
-
-    if (mainEventTent.expired()) {
-        auto evTent = std::make_shared<EventTent>();
-        mainEventTent = evTent;
-        return evTent;
-    }
-    else {
-        return mainEventTent.lock();
-    }
-
-}
-
-void SDLLyndsayDependencyFactory::registerEvents(IWindowManager* windowManager) {
-    if (mainEventTent.expired()) {
-        return;
-    }
-
-    mainEventTent.lock()->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](std::unique_ptr<IEvent> event){
-
-    });
 }

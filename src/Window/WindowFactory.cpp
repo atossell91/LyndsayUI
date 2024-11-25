@@ -6,10 +6,7 @@
 #include <condition_variable>
 #include <chrono>
 
-#include "Event/IEventTent.h"
-#include "Event/EventTent.h"
 #include "Event/EventQueue.h"
-#include "Event/EventPoller.h"
 
 #include "Window/IWindow.h"
 #include "Window/IAsyncWindow.h"
@@ -21,7 +18,6 @@ using namespace LyndsayUI;
 
 std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
     auto platWindow = platformWinFactory->CreateWindow();
-    auto winEvTent = std::make_unique<EventTent>();
     int platWinId = platWindow->GetWindowId();
     auto window = std::unique_ptr<SyncWindow>( new SyncWindow(platWinId) );
     window->platformWindow = std::move(platWindow);
@@ -30,9 +26,7 @@ std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
 }
 
 std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
-    auto winEvTent = std::make_unique<EventTent>();
     auto winQueue = std::make_unique<EventQueue>();
-    auto winPoller = std::make_unique<EventPoller>( winEvTent.get(), winQueue.get() );
     
     auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(0) );
 

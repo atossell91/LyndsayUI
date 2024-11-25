@@ -11,9 +11,6 @@
 
 #include "IUpdateable.h"
 
-#include "Event/IEventFactory.h"
-#include "Event/EventFactory.h"
-#include "Event/IEventTent.h"
 #include "Event/IEventManager.h"
 #include "Event/IEventProcessor.h"
 
@@ -28,8 +25,6 @@ namespace LyndsayUI {
       LyndsayUIContext gameContext;
 
       std::unique_ptr<IWindowManager> windowManager;
-
-      //std::shared_ptr<IEventFactory> eventFactory;
 
       std::unique_ptr<IEventProcessor> eventManager;
 

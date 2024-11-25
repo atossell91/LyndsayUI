@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Drawing/IDrawable.h"
-
 namespace LyndsayUI {
     class IWindow {
     public:

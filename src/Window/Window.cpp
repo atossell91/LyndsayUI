@@ -18,7 +18,6 @@
 #include "Drawing/BufferedImage.h"
 #include "Event/IEventQueue.h"
 #include "Drawing/BufferImageEvent.h"
-#include "Event/EventTypes.h"
 #include "Drawing/TransformParams.h"
 
 void LyndsayUI::Window::init() {
@@ -91,8 +90,8 @@ void LyndsayUI::Window::AddImageToBuffer(const std::string& path,
     EmilyPromise::Promise<LyndsayUI::BufferedImage>& promise) {
     
     //EmilyPromise::Promise<LyndsayUI::BufferedImage> promise;
-    auto event = std::make_unique<BufferImageEvent>(promise);
-    event->setImagePath(path);
+    //auto event = std::make_unique<BufferImageEvent>(promise);
+    //event->setImagePath(path);
 
-    eventQueue->QueueEvent(std::move(event));
+    //eventQueue->QueueEvent(std::move(event));
 }

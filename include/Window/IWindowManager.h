@@ -1,10 +1,9 @@
 #pragma once
 
 #include "Window/IWindow.h"
-#include "Event/IEventReceiver.h"
 
 namespace LyndsayUI {
-    class IWindowManager : public IEventReceiver {
+    class IWindowManager {
     public:
         virtual ~IWindowManager() {}
         //  Public stuff here

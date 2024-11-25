@@ -7,14 +7,6 @@
 #include <SDL3/SDL.h>
 
 int main() {
-    std::unique_ptr<LyndsayUI::ILyndsayDependencyFactory> factory = std::make_unique<LyndsayUI::SDLLyndsayDependencyFactory>();
-    auto evMgr = factory->CreateEventProcessor();
-
-    SDL_UserEvent ev;
-    ev.data1 = (void*)("I Love Lyndsay");
-    ev.type = 1991;
-
-    SDL_PushEvent((SDL_Event)&ev);
 
     //LyndsayUI::LyndsayUI lyndsay(factory.get());
     //LyndsayUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");
