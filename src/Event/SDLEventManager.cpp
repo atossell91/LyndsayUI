@@ -3,6 +3,7 @@
 #include <SDL3/SDL.h>
 #include <functional>
 #include <memory>
+#include <thread>
 
 #include "Event/IQueuedEventData.h"
 #include "Utils.h"

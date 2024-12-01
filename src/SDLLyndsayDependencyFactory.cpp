@@ -1,6 +1,7 @@
 #include "SDLLyndsayDependencyFactory.h"
 
 #include <memory>
+#include <iostream>
 
 #include "Utils.h"
 #include "Window/WindowManager.h"
@@ -46,6 +47,7 @@ void SDLLyndsayDependencyFactory::build() {
 
     // Setup events
     platMgr->WindowCloseButtonClickedEvent.AddEventHandler([wPtr = winMgr.get()](auto data){
+        std::cout << "Miko!" << std::endl;
         wPtr->WindowCloseButtonClickedEvent.Raise(data);
     });
 
