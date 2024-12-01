@@ -10,7 +10,7 @@ namespace LyndsayUI {
     public:
         virtual ~ILyndsayDependencyFactory() {}
         //  Public stuff here
-        virtual std::unique_ptr<IWindowManager> CreateWindowManager() = 0;
-        virtual std::unique_ptr<IEventProcessor> CreateEventProcessor() = 0;
+        virtual std::unique_ptr<IWindowManager> GetWindowManager() = 0;
+        virtual std::unique_ptr<IEventProcessor> GetEventProcessor() = 0;
     };
 } // LyndsayUI

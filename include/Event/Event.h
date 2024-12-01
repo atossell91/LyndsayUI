@@ -1,23 +1,22 @@
 #pragma once
 
-#include "Event/IEvent.h"
-#include "Event/IEventData.h"
-
 #include <list>
 #include <memory>
+#include <functional>
 #include <algorithm>
 
 namespace LyndsayUI {
-    template <class T>
-    class EventBase : public IEvent<T> {
-    using EventData = std::shared_ptr<T>;
-    using HandlerFunc = std::function<void(EventData)>;
+    template <typename T>
+    class Event {
+    using HandlerFunc = std::function<void(T)>;
     private:
         //  Private stuff here
         std::list<HandlerFunc> handlers;
+        Event& operator=(Event&) = delete;
+        Event& operator=(Event&&) = delete;
     public:
         //  Public stuff here
-        void Raise(std::shared_ptr<T> data) {
+        void Raise(T data) {
             for (auto handler : handlers) {
                 handler(data);
             }

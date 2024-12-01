@@ -1,17 +1,17 @@
 #include "Event/EventQueue.h"
-#include "Event/IEventData.h"
+#include "Event/IQueuedEventData.h"
 
 #include <memory>
 
 using namespace LyndsayUI;
 
 //  Declare functions here
-void EventQueue::QueueEvent(std::unique_ptr<IEventData> event) {
+void EventQueue::QueueEvent(std::unique_ptr<IQueuedEventData> event) {
     std::lock_guard<std::mutex> lock(mutex);
     eventQueue.push(std::move(event));
 }
 
-std::unique_ptr<IEventData> EventQueue::PollEventData() {
+std::unique_ptr<IQueuedEventData> EventQueue::PollEventData() {
     std::lock_guard<std::mutex> lock(mutex);
     if (!eventQueue.empty()) {
         auto ptr = std::move(eventQueue.front());

@@ -14,6 +14,7 @@ void AsyncWindow::windowLoop() {
     while (isRunning) {
         // While events are in the queue (an inner loop)
         //    Add the event to the window's event handling subsystem
+        eventProcessor->ProcessEvents();
         std::this_thread::sleep_for(std::chrono::milliseconds(sleepDelay));
     }
 }
@@ -23,4 +24,9 @@ AsyncWindow::~AsyncWindow() {
     if (windowThread != nullptr && windowThread->joinable()) {
         windowThread->join();
     }
+}
+
+void AsyncWindow::Close() {
+    isRunning = false;
+    windowThread->join();
 }

@@ -4,10 +4,12 @@
 #include <functional>
 #include <memory>
 
-#include "Event/IEventData.h"
+#include "Event/IQueuedEventData.h"
 #include "Utils.h"
 
 #include <iostream>
+
+#include "Event/EventData/WindowCloseButtonClickedEventData.h"
 
 using namespace LyndsayUI;
 
@@ -19,7 +21,7 @@ void LyndsayUI::SDLEventManager::ProcessEvents() {
     }
 }
 
-void SDLEventManager::PushEvent(std::unique_ptr<IEventData> event) {
+void SDLEventManager::PushEvent(std::unique_ptr<IQueuedEventData> event) {
 
 }
 
@@ -28,8 +30,11 @@ void SDLEventManager::handleEvent(SDL_Event& event) {
     {
         case SDL_EVENT_WINDOW_CLOSE_REQUESTED: {
             // Event
-            auto data = std::make_shared<WindowCloseButtonClickedData>();
-            WindowClosed.Raise(data);
+            //auto data = std::make_shared<WindowCloseButtonClickedData>();
+            //WindowClosed.Raise(data);
+            WindowCloseButtonClickedEventData data;
+            data.windowId = event.window.windowID;
+            WindowCloseButtonClickedEvent.Raise(data);
             break;
         }
         case SDL_EVENT_KEY_DOWN:

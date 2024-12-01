@@ -1,9 +1,8 @@
 #pragma once
 
 namespace LyndsayUI {
-    class IEventData {
-    public:
-        virtual ~IEventData() {}
+    struct WindowCloseButtonClickedEventData {
         //  Public stuff here
+        int windowId;
     };
 } // LyndsayUI

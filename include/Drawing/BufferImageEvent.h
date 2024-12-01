@@ -2,7 +2,6 @@
 
 #include <string>
 
-#include "Event/EventBase.h"
 #include "Promise.h"
 #include "BufferedImage.h"
 

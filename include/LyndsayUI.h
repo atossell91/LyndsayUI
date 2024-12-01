@@ -43,8 +43,8 @@ namespace LyndsayUI {
    public:
       LyndsayUI();
       LyndsayUI(ILyndsayDependencyFactory* depFactory) : 
-         windowManager{std::move(depFactory->CreateWindowManager())},
-         eventManager{std::move(depFactory->CreateEventProcessor())} 
+         windowManager{std::move(depFactory->GetWindowManager())},
+         eventManager{std::move(depFactory->GetEventProcessor())} 
          { initSDL(); }
 
       void Run();

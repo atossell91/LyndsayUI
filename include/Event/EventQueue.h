@@ -4,7 +4,7 @@
 #include <memory>
 #include <mutex>
 
-#include "Event/IEventData.h"
+#include "Event/IQueuedEventData.h"
 #include "Event/IEventQueue.h"
 
 namespace LyndsayUI {
@@ -12,10 +12,10 @@ namespace LyndsayUI {
     private:
         //  Private stuff here
         std::mutex mutex;
-        std::queue<std::unique_ptr<IEventData>> eventQueue;
+        std::queue<std::unique_ptr<IQueuedEventData>> eventQueue;
     public:
         //  Public stuff here
-        void QueueEvent(std::unique_ptr<IEventData> eventData);
-        std::unique_ptr<IEventData> PollEventData();
+        void QueueEvent(std::unique_ptr<IQueuedEventData> eventData);
+        std::unique_ptr<IQueuedEventData> PollEventData();
     };
 } // EventQueue

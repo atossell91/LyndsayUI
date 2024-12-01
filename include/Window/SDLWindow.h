@@ -19,5 +19,8 @@ namespace LyndsayUI {
         int GetWindowId() { return SDL_GetWindowID(window); }
 
         friend std::unique_ptr<IWindow> SDLWindowFactory::CreateWindow();
+
+        // This is here because of IWindow, but it should be refactored out I think
+        void Close () {}
     };
 } // LyndsayUI

@@ -2,13 +2,13 @@
 
 #include <memory>
 
-#include "Event/IEventData.h"
+#include "Event/IQueuedEventData.h"
 
 namespace LyndsayUI {
     class IEventPusher {
     public:
         virtual ~IEventPusher() {}
         //  Public stuff here
-        virtual void PushEvent(std::unique_ptr<IEventData> event) = 0;
+        virtual void PushEvent(std::unique_ptr<IQueuedEventData> event) = 0;
     };
 } // LyndsayUI

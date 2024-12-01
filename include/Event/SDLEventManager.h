@@ -6,10 +6,10 @@
 #include <functional>
 #include <memory>
 
-#include "Event/IEventData.h"
+#include "Event/IQueuedEventData.h"
 #include "Event/IEventManager.h"
-
-#include "Event/EventTypes/WindowCloseButtonClicked.h"
+#include "Event/Event.h"
+#include "Event/EventData/WindowCloseButtonClickedEventData.h"
 
 namespace LyndsayUI {
     class SDLEventManager : public IEventManager {
@@ -17,10 +17,10 @@ namespace LyndsayUI {
         void handleEvent(SDL_Event&);
     public:
         //  Public stuff here
-        WindowCloseButtonClicked WindowClosed;
+        Event<WindowCloseButtonClickedEventData> WindowCloseButtonClickedEvent;
 
         void ProcessEvents();
-        void PushEvent(std::unique_ptr<IEventData> event);
+        void PushEvent(std::unique_ptr<IQueuedEventData> event);
 
         SDLEventManager() {}
     };

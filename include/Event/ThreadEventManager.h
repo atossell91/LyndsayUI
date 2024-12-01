@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "Event/IEventManager.h"
-#include "Event/IEventData.h"
+#include "Event/IQueuedEventData.h"
 #include "Event/IEventQueue.h"
 
 namespace LyndsayUI {
@@ -18,6 +18,6 @@ namespace LyndsayUI {
             eventQueue{std::move(evQueue)} {}
 
         void ProcessEvents();
-        void PushEvent(std::unique_ptr<IEventData> eventData);
+        void PushEvent(std::unique_ptr<IQueuedEventData> eventData);
     };
 } // LyndsayUI

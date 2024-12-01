@@ -10,6 +10,8 @@
 #include <iostream>
 
 void LyndsayUI::WindowManager::AddWindow(const std::string& name, int width, int height) {
+    auto win = factory->CreateAsynchronousWindow();
+    singleWindow = std::move(win);
     /*
     WindowThread windowThread;
 
@@ -44,6 +46,7 @@ void LyndsayUI::WindowManager::AddWindow(const std::string& name, int width, int
 }
 
 void LyndsayUI::WindowManager::CloseWindow(int sdlWinId) {
+    singleWindow->Close();
     /*
     auto iter = windows.begin();
     while (iter != windows.end()) {
@@ -95,4 +98,10 @@ void LyndsayUI::WindowManager::UpdateAll() {
         }
     }
     */
+}
+
+void LyndsayUI::WindowManager::initEvents() {
+    WindowCloseButtonClickedEvent += [this](auto data){
+        singleWindow->Close();
+    };
 }

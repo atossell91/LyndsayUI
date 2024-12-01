@@ -10,25 +10,30 @@
 #include "Event/ThreadEventManager.h"
 #include "Event/SDLEventManager.h"
 #include "Event/ExecutiveEventProcessor.h"
+#include "Event/SDLEventManagerFactory.h"
 
 using namespace LyndsayUI;
 
-//  Declare functions here
-std::unique_ptr<IWindowManager> SDLLyndsayDependencyFactory::CreateWindowManager() {
+void SDLLyndsayDependencyFactory::setupEvents() {
+
+}
+
+void SDLLyndsayDependencyFactory::build() {
+
+    auto evMgrFac = std::unique_ptr<SDLEventManagerFactory>();
 
     // Create a window factory
-    auto platWinFac = std::make_unique<SDLWindowFactory>();
-    auto winFac = std::make_unique<WindowFactory>(std::move(platWinFac));
+    std::unique_ptr<IPlatformWindowFactory> platWinFac = std::make_unique<SDLWindowFactory>();
+    std::unique_ptr<IEventManagerFactory> platEvMgrFac = std::make_unique<SDLEventManagerFactory>();
+    auto winFac = std::make_unique<WindowFactory>(
+        std::move(platWinFac),
+        std::move(platEvMgrFac)
+    );
 
     // Assemble
     auto winMgr = std::make_unique<WindowManager>(
         std::move(winFac)
     );
-
-    return std::move(winMgr);
-}
-
-std::unique_ptr<IEventProcessor> SDLLyndsayDependencyFactory::CreateEventProcessor() {
 
     //  Create the thread event manager
     auto evQueue = std::make_unique<EventQueue>();
@@ -37,10 +42,12 @@ std::unique_ptr<IEventProcessor> SDLLyndsayDependencyFactory::CreateEventProcess
     );
 
     // Create the SDL thread manager
-    auto platMgr = std::make_unique<SDLEventManager>();
-    platMgr->WindowClosed += [](std::shared_ptr<WindowCloseButtonClickedData> d){
-        
-    };
+    auto platMgr = Utils::CastUniquePtr<IEventManager, SDLEventManager>(evMgrFac->CreateEventManager());
+
+    // Setup events
+    platMgr->WindowCloseButtonClickedEvent.AddEventHandler([wPtr = winMgr.get()](auto data){
+        wPtr->WindowCloseButtonClickedEvent.Raise(data);
+    });
 
     // Assemble the executive event processor
     auto evMgr = std::make_unique<ExecutiveEventProcessor>(
@@ -48,5 +55,6 @@ std::unique_ptr<IEventProcessor> SDLLyndsayDependencyFactory::CreateEventProcess
         std::move(platMgr)
     );
 
-    return std::move(evMgr);
+    windowManager = std::move(winMgr);
+    eventProcessor = std::move(evMgr);
 }

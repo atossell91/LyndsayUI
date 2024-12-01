@@ -11,7 +11,8 @@
 #include "Window/IWindow.h"
 #include "Window/IWindowFactory.h"
 
-#include "Event/IEvent.h"
+#include "Event/Event.h"
+#include "Event/EventData/WindowCloseButtonClickedEventData.h"
 
 namespace LyndsayUI
 {
@@ -25,9 +26,14 @@ namespace LyndsayUI
         std::unique_ptr<IWindowFactory> factory;
 
         int currentWindowId = 1;
+
+        void initEvents();
+
      public:
+        Event<WindowCloseButtonClickedEventData> WindowCloseButtonClickedEvent;
+
         WindowManager(
-            std::unique_ptr<IWindowFactory> winFactory) : factory{std::move(winFactory)} {}
+            std::unique_ptr<IWindowFactory> winFactory) : factory{std::move(winFactory)} { initEvents(); }
             
         void AddSingleWindow(); 
         void AddWindow(const std::string& name, int width, int height);

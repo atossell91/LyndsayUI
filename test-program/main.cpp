@@ -8,7 +8,8 @@
 
 int main() {
 
-    //LyndsayUI::LyndsayUI lyndsay(factory.get());
+    auto factory = std::make_unique<LyndsayUI::SDLLyndsayDependencyFactory>();
+    LyndsayUI::LyndsayUI lyndsay(factory.get());
     //LyndsayUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");
     
     //rsdl.GetWindowManager()->AddSingleWindow();
@@ -27,11 +28,5 @@ int main() {
     //window->AddDrawable()
 
     //imgRef ref = imgPromise.await();
-    //win->LudoVica();
-    
-    // Segfaults if Run() is not called
-    //lyndsay.Run();
-
-    std::cout << "Done!" << std::endl;
-    return 0;
+    //win->LudoVica();GetWindowManager
 }

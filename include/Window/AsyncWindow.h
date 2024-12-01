@@ -6,6 +6,7 @@
 #include <condition_variable>
 
 #include "Event/IEventQueue.h"
+#include "Event/IEventProcessor.h"
 #include "Window/WindowBase.h"
 #include "Window/IAsyncWindow.h"
 
@@ -18,6 +19,8 @@ namespace LyndsayUI {
 
         std::unique_ptr<IWindow> platformWindow;
 
+        std::unique_ptr<IEventProcessor> eventProcessor;
+
         std::mutex mutex;
         std::condition_variable conditionVariable;
 
@@ -29,8 +32,8 @@ namespace LyndsayUI {
 
         //  Runs in the thread
         void windowLoop();
-        AsyncWindow(int id) :
-            WindowBase(id) {}
+        AsyncWindow(int id, std::unique_ptr<IEventProcessor> eventProc) :
+            WindowBase(id), eventProcessor{std::move(eventProc)} {}
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
         friend std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
@@ -39,5 +42,6 @@ namespace LyndsayUI {
         ~AsyncWindow();
         std::mutex& GetMutex() { return mutex; }
         std::condition_variable& GetConditionVariable() { return conditionVariable; }
+        void Close();
     };
 } // LyndsayUI

@@ -7,6 +7,8 @@
 #include <chrono>
 
 #include "Event/EventQueue.h"
+#include "Event/ThreadEventManager.h"
+#include "Event/ExecutiveEventProcessor.h"
 
 #include "Window/IWindow.h"
 #include "Window/IAsyncWindow.h"
@@ -27,8 +29,14 @@ std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
 
 std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     auto winQueue = std::make_unique<EventQueue>();
+    auto trMgr = std::make_unique<ThreadEventManager>(std::move(winQueue));
+    auto evMgr = eventManagerFactory->CreateEventManager();
+    auto exProc = std::make_unique<ExecutiveEventProcessor>(
+        std::move(trMgr),
+        std::move(evMgr)
+    );
     
-    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(0) );
+    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(0, std::move(evMgr)) );
 
     std::unique_ptr<IWindow> innerwin;
 
@@ -48,6 +56,8 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
 
     window->platformWindow = std::move(innerwin);
     window->windowThread = std::move(thread);
+    
+    lock.release();
 
     return window;
 }

@@ -15,5 +15,6 @@ namespace LyndsayUI {
         friend std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow();
     public:
         //  Public stuff here
+        void Close() {};
     };
 } // LyndsayUI
