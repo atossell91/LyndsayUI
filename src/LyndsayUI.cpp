@@ -96,10 +96,11 @@ void LyndsayUI::LyndsayUI::registerEvents() {
 }
 
 void LyndsayUI::LyndsayUI::mainLoop() {
+    windowManager->AddWindow("Lyndsay", 1920, 1080);
     while (!gameContext.ShouldClose) {
-        //if (windowManager->IsNoWindows()) {
-        //    break;
-        //}
+        if (!windowManager->HasWindows()) {
+            break;
+        }
 
         //// Process events
         eventManager->ProcessEvents();
@@ -107,6 +108,8 @@ void LyndsayUI::LyndsayUI::mainLoop() {
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
     }
+
+    std::cout << "Nothing to do. Closing." << std::endl;
 }
 
 void LyndsayUI::LyndsayUI::Run() {

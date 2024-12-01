@@ -19,8 +19,7 @@ void SDLLyndsayDependencyFactory::setupEvents() {
 }
 
 void SDLLyndsayDependencyFactory::build() {
-
-    auto evMgrFac = std::unique_ptr<SDLEventManagerFactory>();
+    auto evMgrFac = std::make_unique<SDLEventManagerFactory>();
 
     // Create a window factory
     std::unique_ptr<IPlatformWindowFactory> platWinFac = std::make_unique<SDLWindowFactory>();
@@ -42,7 +41,8 @@ void SDLLyndsayDependencyFactory::build() {
     );
 
     // Create the SDL thread manager
-    auto platMgr = Utils::CastUniquePtr<IEventManager, SDLEventManager>(evMgrFac->CreateEventManager());
+    auto tmpEvMgr = evMgrFac->CreateEventManager();
+    auto platMgr = Utils::CastUniquePtr<IEventManager, SDLEventManager>(std::move(tmpEvMgr));
 
     // Setup events
     platMgr->WindowCloseButtonClickedEvent.AddEventHandler([wPtr = winMgr.get()](auto data){

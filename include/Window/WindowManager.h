@@ -41,7 +41,7 @@ namespace LyndsayUI
         IWindow* GetWindow();
         IWindow* GetWindow(int windowId);
         int GetNumWindows() const { return windows.size(); }
-        bool IsNoWindows() const;
+        bool HasWindows();
         void UpdateAll();
     };
 } // namespace LyndsayUI

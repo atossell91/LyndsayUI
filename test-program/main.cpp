@@ -10,6 +10,7 @@ int main() {
 
     auto factory = std::make_unique<LyndsayUI::SDLLyndsayDependencyFactory>();
     LyndsayUI::LyndsayUI lyndsay(factory.get());
+    lyndsay.Run();
     //LyndsayUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");
     
     //rsdl.GetWindowManager()->AddSingleWindow();

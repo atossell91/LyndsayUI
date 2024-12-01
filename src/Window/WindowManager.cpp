@@ -61,8 +61,8 @@ void LyndsayUI::WindowManager::CloseWindow(int sdlWinId) {
     */
 }
 
-bool LyndsayUI::WindowManager::IsNoWindows() const {
-    return ((windows.size() < 1) && singleWindow == nullptr);
+bool LyndsayUI::WindowManager::HasWindows() {
+    return ((windows.size() < 0) || singleWindow);
 }
 
 void LyndsayUI::WindowManager::AddSingleWindow() {
