@@ -36,7 +36,7 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
         std::move(evMgr)
     );
     
-    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(0, std::move(evMgr)) );
+    auto window = std::unique_ptr<AsyncWindow>( new AsyncWindow(0, std::move(exProc)) );
 
     std::unique_ptr<IWindow> innerwin;
 
