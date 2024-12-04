@@ -5,7 +5,7 @@
 #include "Promise.h"
 #include "BufferedImage.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     /**
     class BufferImageEvent : public EventBase {
     private:

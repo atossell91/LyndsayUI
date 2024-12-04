@@ -1,18 +1,20 @@
 #pragma once
 
 #include <memory>
+#include <type_traits>
 
 #include "Window/IWindow.h"
+#include "LyndsayUI.h"
 
 namespace NSLyndsayUI {
-    class WindowBase : public IWindow {
+    class CustomWindowBase {
     private:
         //  Private stuff here
-        int windowId;
-    protected:
-        WindowBase(int winId) : windowId{winId} {}
+        std::unique_ptr<IWindow> window;
+
+        //template <typename T>
+        friend LyndsayUI;
     public:
         //  Public stuff here
-        int GetWindowId() { return windowId; }
     };
 } // LyndsayUI

@@ -3,7 +3,7 @@
 #include "Event/IEventProcessor.h"
 #include "Event/IEventPusher.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IEventManager : public IEventProcessor, public IEventPusher {
     public:
         virtual ~IEventManager() {}

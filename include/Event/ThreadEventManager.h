@@ -6,7 +6,7 @@
 #include "Event/IQueuedEventData.h"
 #include "Event/IEventQueue.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class ThreadEventManager : public IEventManager {
     private:
         //  Private stuff here

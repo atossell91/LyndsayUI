@@ -2,7 +2,7 @@
 
 #include "glad/glad.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class DrawableBase {
     protected:
         GLuint vao;

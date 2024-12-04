@@ -1,5 +1,5 @@
 #include "Window/WindowBase.h"
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 //  Declare functions here

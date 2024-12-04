@@ -4,7 +4,7 @@
 
 #include "IWindow.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IWindowFactory {
     public:
         virtual ~IWindowFactory() {}

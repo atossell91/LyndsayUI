@@ -5,7 +5,7 @@
 
 #include "Window/SDLWindow.h"
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 //  Declare functions here
 std::unique_ptr<IWindow> SDLWindowFactory::CreateWindow() {

@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace LyndsayUI
+namespace NSLyndsayUI
 {
     namespace ShaderUtils
     {
@@ -12,4 +12,4 @@ namespace LyndsayUI
         int BuildShaderProgram(const std::string& vShaderPath, const std::string& fShaderPath);
     }
     
-} // namespace LyndsayUI
+} // namespace NSLyndsayUI

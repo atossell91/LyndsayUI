@@ -7,7 +7,7 @@
 
 #include <SDL3/SDL.h>
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 //  Declare functions here
 void AsyncWindow::windowLoop() {

@@ -3,7 +3,7 @@
 #include "Window/IWindow.h"
 #include "IPlatformWindowFactory.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class SDLWindowFactory : public IPlatformWindowFactory {
     private:
         //  Private stuff here

@@ -38,6 +38,7 @@ add_library(LyndsayUI SHARED
     ${SRC}/SDLLyndsayDependencyFactory.cpp
     ${SRC}/Event/SDLEventManagerFactory.cpp
     ${SRC}/Event/SDLEventManagerFactory.cpp
+    ${SRC}/Custom/MckaylaWindow.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

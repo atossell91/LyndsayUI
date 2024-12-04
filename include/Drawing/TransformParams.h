@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class TransformParams {
     private:
         //  Private stuff here

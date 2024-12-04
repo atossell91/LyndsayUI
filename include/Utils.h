@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     namespace Utils {
         template <typename F, typename T>
         std::unique_ptr<T> CastUniquePtr(std::unique_ptr<F> ptr) {

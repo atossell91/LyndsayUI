@@ -6,7 +6,7 @@
 #include "Window/IWindow.h"
 #include "Window/SDLWindowFactory.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class SDLWindow : public IWindow {
     private:
         //  Private stuff here

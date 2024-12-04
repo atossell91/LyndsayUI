@@ -3,7 +3,7 @@
 #include <mutex>
 #include <condition_variable>
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IAsyncWindow {
     public:
         virtual ~IAsyncWindow() {}

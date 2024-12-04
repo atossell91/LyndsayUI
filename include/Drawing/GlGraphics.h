@@ -10,7 +10,7 @@
 #include "BufferedImage.h"
 #include "TransformParams.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class GlGraphics : public IGraphics {
     private:
         //  Private stuff here

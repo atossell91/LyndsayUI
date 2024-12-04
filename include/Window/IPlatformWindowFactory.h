@@ -4,7 +4,7 @@
 
 #include "Window/IWindow.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IPlatformWindowFactory {
     public:
         virtual ~IPlatformWindowFactory() {}

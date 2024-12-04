@@ -6,7 +6,7 @@
 #include "Event/EventTypes.h"
 #include "Promise.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class AddShaderEvent : public EventBase {
     private:
         //  Private stuff here

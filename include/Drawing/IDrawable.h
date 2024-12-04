@@ -2,7 +2,7 @@
 
 #include "IGraphics.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IDrawable {
     public:
         virtual ~IDrawable() {}

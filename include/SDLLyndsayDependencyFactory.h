@@ -6,7 +6,7 @@
 #include "Window/IWindowManager.h"
 #include "Event/IEventProcessor.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class SDLLyndsayDependencyFactory : public ILyndsayDependencyFactory {
     private:
         //  Private stuff here

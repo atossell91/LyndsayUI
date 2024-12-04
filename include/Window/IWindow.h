@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IWindow {
     public:
         virtual ~IWindow() {}

@@ -12,7 +12,7 @@
 
 #include "Window/WindowFactory.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class AsyncWindow : public WindowBase, public IAsyncWindow {
     private:
         //  Private stuff here

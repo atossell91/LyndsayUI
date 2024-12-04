@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IEventProcessor {
     public:
         virtual ~IEventProcessor() {}

@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include "GL/gl.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class BufferedImage {
     
     public:

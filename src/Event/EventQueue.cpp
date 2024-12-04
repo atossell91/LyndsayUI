@@ -3,7 +3,7 @@
 
 #include <memory>
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 //  Declare functions here
 void EventQueue::QueueEvent(std::unique_ptr<IQueuedEventData> event) {

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class ImageReference {
      private:
         int id;

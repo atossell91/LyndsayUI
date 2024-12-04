@@ -18,7 +18,7 @@
 #include "Drawing/GlGraphics.h"
 #include "Drawing/DrawableCollection.h"
 
-namespace LyndsayUI
+namespace NSLyndsayUI
 {
     class Window
     {
@@ -64,6 +64,6 @@ namespace LyndsayUI
         }
 
         void AddImageToBuffer(const std::string& path,
-            EmilyPromise::Promise<LyndsayUI::BufferedImage>& promise);
+            EmilyPromise::Promise<NSLyndsayUI::BufferedImage>& promise);
     };
-} // namespace LyndsayUI
+} // namespace NSLyndsayUI

@@ -6,7 +6,7 @@
 #include "TransformParams.h"
 #include "BufferedImage.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IGraphics {
     public:
         virtual ~IGraphics() {}

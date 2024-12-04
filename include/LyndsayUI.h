@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <memory>
+#include <type_traits>
 
 #include "LyndsayUIContext.h"
 #include "Window/WindowManager.h"
@@ -18,7 +19,10 @@
 
 #include "IIndexResolver.h"
 
-namespace LyndsayUI {
+//#include "Window/CustomWindowBase.h"
+class CustomWindowBase;
+
+namespace NSLyndsayUI {
    class LyndsayUI {
    private:
 
@@ -30,12 +34,8 @@ namespace LyndsayUI {
 
       const int kMainLoopDelay = 5; // Milliseconds
 
-      std::list<IUpdateable*> updateables;
-
       void initSDL();
-      void initOpenGl();
       void init();
-      void registerEvents();
       void mainLoop();
       void update();
       void cleanup();
@@ -48,9 +48,14 @@ namespace LyndsayUI {
          { initSDL(); }
 
       void Run();
-      void AddUpdateable(IUpdateable* updateable);
-      void RemoveUpdateable(IUpdateable* updateable);
-      LyndsayUIContext& GetLyndsayUIContext() { return gameContext; }
-      IWindowManager* GetWindowManager() { return windowManager.get(); }
+
+      //template <typename T>
+      template <typename T, typename = std::enable_if_t<std::is_base_of<CustomWindowBase, T>::value, T>>
+      T CreateWindow() {
+         T win;
+         win.window.reset(nullptr);
+      
+         return win;
+      }
    };
 }

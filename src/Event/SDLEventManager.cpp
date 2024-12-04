@@ -12,10 +12,10 @@
 
 #include "Event/EventData/WindowCloseButtonClickedEventData.h"
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 //  Declare functions here
-void LyndsayUI::SDLEventManager::ProcessEvents() {
+void NSLyndsayUI::SDLEventManager::ProcessEvents() {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
         handleEvent(event);

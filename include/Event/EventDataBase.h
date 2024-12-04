@@ -2,7 +2,7 @@
 
 #include "Event/IEventData.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class EventDataBase : public IEventData {
     protected:
         //  Private stuff here

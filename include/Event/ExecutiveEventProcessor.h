@@ -6,7 +6,7 @@
 #include "IEventManager.h"
 #include "Event/IEventProcessor.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class ExecutiveEventProcessor : public IEventProcessor {
     private:
         //  Private stuff here

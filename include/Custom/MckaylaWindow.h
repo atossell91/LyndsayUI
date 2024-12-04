@@ -1,7 +1,9 @@
 #pragma once
 
+#include "Window/CustomWindowBase.h"
+
 namespace NSLyndsayUI {
-    class DrawFunc {
+    class MckaylaWindow : public CustomWindowBase {
     private:
         //  Private stuff here
     public:

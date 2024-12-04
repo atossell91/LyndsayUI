@@ -13,7 +13,7 @@
 #include "Drawing/BufferedImage.h"
 #include "Utilities.h"
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 //  Declare functions here
 void GlGraphics::initOpenGl() {
@@ -104,7 +104,7 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints/5);
 }
 
-LyndsayUI::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
+NSLyndsayUI::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
     SDL_GL_MakeCurrent(window, glContext);
     
     SDL_Surface* sfc = IMG_Load(imgPath.c_str());
@@ -115,7 +115,7 @@ LyndsayUI::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
 
     SDL_assert(sfc);
 
-    LyndsayUI::Utilities::FlipImageSurface(sfc);
+    NSLyndsayUI::Utilities::FlipImageSurface(sfc);
     
     GLuint tex;
     glGenTextures(1, &tex);
@@ -132,7 +132,7 @@ LyndsayUI::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
 
     glTexImage2D(GL_TEXTURE_2D, 0, type, sfc->w, sfc->h, 0, type, GL_UNSIGNED_BYTE, sfc->pixels);
 
-    LyndsayUI::BufferedImage ref(tex, sfc->w, sfc->h);
+    NSLyndsayUI::BufferedImage ref(tex, sfc->w, sfc->h);
     SDL_DestroySurface(sfc);
     return ref;
 }

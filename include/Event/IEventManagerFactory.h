@@ -4,7 +4,7 @@
 
 #include <memory>
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IEventManagerFactory {
     public:
         virtual ~IEventManagerFactory() {}

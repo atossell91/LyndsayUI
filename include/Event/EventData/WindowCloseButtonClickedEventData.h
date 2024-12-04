@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     struct WindowCloseButtonClickedEventData {
         //  Public stuff here
         int windowId;

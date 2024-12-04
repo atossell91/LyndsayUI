@@ -14,7 +14,7 @@
 #include "Window/IAsyncWindow.h"
 #include "Window/IWindow.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
 
     class AsyncWindow;
 

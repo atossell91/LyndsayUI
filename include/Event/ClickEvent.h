@@ -3,7 +3,7 @@
 #include "Event/IEventData.h"
 #include "Event/EventBase.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class ClickEventData : public IEventData {
     public:
     };

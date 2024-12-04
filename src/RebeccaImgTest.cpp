@@ -6,9 +6,9 @@
 
 #include <iostream>
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
-RebeccaImgTest::RebeccaImgTest(LyndsayUI::BufferedImage image, GLuint shaderProgramRef) : DrawableBase(shaderProgramRef), image{image} {
+RebeccaImgTest::RebeccaImgTest(NSLyndsayUI::BufferedImage image, GLuint shaderProgramRef) : DrawableBase(shaderProgramRef), image{image} {
 
     GLuint vbo;
     glGenBuffers(1, &vbo);

@@ -20,7 +20,7 @@
 #include "Drawing/BufferImageEvent.h"
 #include "Drawing/TransformParams.h"
 
-void LyndsayUI::Window::init() {
+void NSLyndsayUI::Window::init() {
     SDL_GL_MakeCurrent(window, glContext);
 
     // Seems to require a glContext, otherwise it segfaults
@@ -33,7 +33,7 @@ void LyndsayUI::Window::init() {
     /*
     //  Register a buffer image event (should do this elesewhere)
     eventProcessor->addEventHandler(
-        LyndsayUI::EventTypes::BUFFER_IMAGE_EVENT,
+        NSLyndsayUI::EventTypes::BUFFER_IMAGE_EVENT,
         [this](std::unique_ptr<IEvent> event){
             auto ev = std::unique_ptr<BufferImageEvent>(static_cast<BufferImageEvent*>(event.release()));
             BufferedImage img = graphics->BufferImage(ev->getImagePath());//bufferImage(ev->getImagePath());
@@ -45,7 +45,7 @@ void LyndsayUI::Window::init() {
 }
 
 // Only for async windows
-void LyndsayUI::Window::windowLoop() {
+void NSLyndsayUI::Window::windowLoop() {
     
     while(windowRunning) {
         SDL_GL_MakeCurrent(window, glContext);
@@ -60,11 +60,11 @@ void LyndsayUI::Window::windowLoop() {
 }
 
 // Only for async windows
-void LyndsayUI::Window::stopLoop() {
+void NSLyndsayUI::Window::stopLoop() {
     windowRunning = false;
 }
 
-void LyndsayUI::Window::update() {
+void NSLyndsayUI::Window::update() {
     //graphics->Clear();
 
     SDL_GL_MakeCurrent(window, glContext);
@@ -73,12 +73,12 @@ void LyndsayUI::Window::update() {
     SDL_GL_SwapWindow(window);
 }
 
-LyndsayUI::Window::~Window() {
+NSLyndsayUI::Window::~Window() {
     SDL_DestroyWindow(window);
     //SDL_GL_DestroyContext(glContext);
 }
 
-LyndsayUI::IEventQueue& LyndsayUI::Window::GetEventQueue() {
+NSLyndsayUI::IEventQueue& NSLyndsayUI::Window::GetEventQueue() {
     if (!eventQueue) {
         throw std::runtime_error("Event Queue is nullptr");
     }
@@ -86,10 +86,10 @@ LyndsayUI::IEventQueue& LyndsayUI::Window::GetEventQueue() {
     return *eventQueue;
 }
 
-void LyndsayUI::Window::AddImageToBuffer(const std::string& path,
-    EmilyPromise::Promise<LyndsayUI::BufferedImage>& promise) {
+void NSLyndsayUI::Window::AddImageToBuffer(const std::string& path,
+    EmilyPromise::Promise<NSLyndsayUI::BufferedImage>& promise) {
     
-    //EmilyPromise::Promise<LyndsayUI::BufferedImage> promise;
+    //EmilyPromise::Promise<NSLyndsayUI::BufferedImage> promise;
     //auto event = std::make_unique<BufferImageEvent>(promise);
     //event->setImagePath(path);
 

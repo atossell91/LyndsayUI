@@ -5,7 +5,7 @@
 #include "BufferedImage.h"
 #include "../include/DrawableBase.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class RebeccaImgTest : public DrawableBase {
 
     private:

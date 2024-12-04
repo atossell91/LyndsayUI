@@ -14,7 +14,7 @@
 #include "Event/Event.h"
 #include "Event/EventData/WindowCloseButtonClickedEventData.h"
 
-namespace LyndsayUI
+namespace NSLyndsayUI
 {
     class WindowManager : public IWindowManager {
      private:
@@ -44,4 +44,4 @@ namespace LyndsayUI
         bool HasWindows();
         void UpdateAll();
     };
-} // namespace LyndsayUI
+} // namespace NSLyndsayUI

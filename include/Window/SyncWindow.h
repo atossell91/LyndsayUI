@@ -4,7 +4,7 @@
 #include "Window/WindowBase.h"
 #include "Window/WindowFactory.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class SyncWindow : public WindowBase {
     private:
         //  Private stuff here

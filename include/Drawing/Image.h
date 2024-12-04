@@ -3,7 +3,7 @@
 #include <string>
 #include <SDL3/SDL.h>
 
-namespace LyndsayUI
+namespace NSLyndsayUI
 {
     class Image {
      private:
@@ -16,5 +16,5 @@ namespace LyndsayUI
 
         friend class TextureRepository;
     };
-} // namespace LyndsayUI
+} // namespace NSLyndsayUI
 

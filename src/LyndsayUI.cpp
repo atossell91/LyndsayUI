@@ -22,14 +22,12 @@
 #include "Window/IWindowFactory.h"
 #include "Window/WindowFactory.h"
 
-LyndsayUI::LyndsayUI::LyndsayUI() {
+NSLyndsayUI::LyndsayUI::LyndsayUI() {
     initSDL();
-    initOpenGl();
     init();
-    registerEvents();
 }
 
-void LyndsayUI::LyndsayUI::initSDL() {
+void NSLyndsayUI::LyndsayUI::initSDL() {
     if (!SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO)) {
         std::cout << "SDL Init failed." << std::endl;
     }
@@ -37,70 +35,11 @@ void LyndsayUI::LyndsayUI::initSDL() {
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 }
 
-void LyndsayUI::LyndsayUI::initOpenGl() {
-    // Nothing to be done here (at the moment)
+void NSLyndsayUI::LyndsayUI::init() {
 }
 
-void LyndsayUI::LyndsayUI::init() {
-    /*
-
-    //  Build the SDL Event Manager
-    auto eventFactory = std::make_shared<EventFactory>();
-    std::shared_ptr<IEventTent> eventTent = std::make_unique<EventTent>();
-    std::unique_ptr<IEventManager> sdlMgr = std::make_unique<SDLEventManager>(eventFactory, eventTent);
-
-    //  Build the Lyndsay Event Manager (for inter-thread communication)
-    //    This is using an SDLQueuedEventGetter, but it shouldn't be
-    std::unique_ptr<IQueuedEventGetter> eventGetter = std::make_unique<SDLQueuedEventGetter>();
-    auto lyndsayMgr = std::make_unique<ThreadEventManager>(
-        std::move(eventGetter),
-        eventTent
-    );
-
-    //  Add both of the previous event managers to the excective event manager
-    std::unique_ptr<ExecutiveEventProcessor> execMgr = std::make_unique<ExecutiveEventProcessor>(
-        std::move(lyndsayMgr),
-        std::move(sdlMgr)
-    );
-    eventManager = std::move(execMgr);
-
-    //  Build the window manager and it's dependencies
-    //    The WindowManager class needs to be modified to update the resolver
-    //      when a new window is created
-    //    Need to cast the windowResolver, or something
-    auto winMgrEventTent = std::make_unique<EventTent>();
-    auto sdlWinFactory = std::make_unique<SDLWindowFactory>();
-    std::shared_ptr<MappedIndexResolver> resolver = std::make_shared<MappedIndexResolver>();
-    auto winFactory = std::make_unique<WindowFactory>(std::move(sdlWinFactory), resolver);
-    windowManager = std::make_unique<WindowManager>(std::move(winFactory), resolver, std::move(winMgrEventTent));
-
-    // Might want to give this a 'copy' of the IndexResolver -- It makes more sense for this
-    //  to resolve the window ID from the SDL window, no?
-    */
-}
-
-void LyndsayUI::LyndsayUI::registerEvents() {
-    /*
-    eventFactory->registerEvent(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [](){ return std::make_unique<CloseButtonPressedEvent>();});
-
-    eventTent->AddEventResponse(EventTypes::CLOSE_BUTTON_PRESSED_EVENT, [this](std::unique_ptr<IEvent> event){
-        // Send to the window manager
-            std::cout << "SDL Close event (LyndsayUI Event Tent handler)" << std::endl;
-        IEventReceiver* winReceiver = windowManager->GetEventReceiver();
-        
-        if(winReceiver) {
-            winReceiver->RecieveEvent(std::move(event));
-        }
-    });
-    */
-}
-
-void LyndsayUI::LyndsayUI::mainLoop() {
-    windowManager->AddWindow("Lyndsay", 1920, 1080);
+void NSLyndsayUI::LyndsayUI::mainLoop() {
     while (!gameContext.ShouldClose) {
-        if (!windowManager->HasWindows()) {
-            break;
-        }
 
         //// Process events
         eventManager->ProcessEvents();
@@ -108,15 +47,13 @@ void LyndsayUI::LyndsayUI::mainLoop() {
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
     }
-
-    std::cout << "Nothing to do. Closing." << std::endl;
 }
 
-void LyndsayUI::LyndsayUI::Run() {
+void NSLyndsayUI::LyndsayUI::Run() {
     mainLoop();
     cleanup();
 }
 
-void LyndsayUI::LyndsayUI::cleanup() {
+void NSLyndsayUI::LyndsayUI::cleanup() {
     SDL_Quit();
 }

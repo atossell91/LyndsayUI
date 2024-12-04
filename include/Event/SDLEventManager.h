@@ -11,7 +11,7 @@
 #include "Event/Event.h"
 #include "Event/EventData/WindowCloseButtonClickedEventData.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class SDLEventManager : public IEventManager {
     private:
         void handleEvent(SDL_Event&);

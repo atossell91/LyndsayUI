@@ -5,7 +5,7 @@
 
 #include "IDrawable.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class DrawableCollection {
     private:
         using d_ptr = std::shared_ptr<IDrawable>;

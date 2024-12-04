@@ -1,5 +1,5 @@
 #include "Window/SDLWindow.h"
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 //  Declare functions here

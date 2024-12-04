@@ -5,7 +5,7 @@
 #include "Event/IEventManagerFactory.h"
 #include "Event/SDLEventManager.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class SDLEventManagerFactory : public IEventManagerFactory {
     private:
         //  Private stuff here

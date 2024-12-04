@@ -13,7 +13,7 @@
 #include "Event/ExecutiveEventProcessor.h"
 #include "Event/SDLEventManagerFactory.h"
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 void SDLLyndsayDependencyFactory::setupEvents() {
 
@@ -44,12 +44,6 @@ void SDLLyndsayDependencyFactory::build() {
     // Create the SDL thread manager
     auto tmpEvMgr = evMgrFac->CreateEventManager();
     auto platMgr = Utils::CastUniquePtr<IEventManager, SDLEventManager>(std::move(tmpEvMgr));
-
-    // Setup events
-    platMgr->WindowCloseButtonClickedEvent.AddEventHandler([wPtr = winMgr.get()](auto data){
-        std::cout << "Miko!" << std::endl;
-        wPtr->WindowCloseButtonClickedEvent.Raise(data);
-    });
 
     // Assemble the executive event processor
     auto evMgr = std::make_unique<ExecutiveEventProcessor>(

@@ -4,7 +4,7 @@
 
 #include "Drawing/IDrawable.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class DrawFunc : public IDrawable {
     private:
         //  Private stuff here

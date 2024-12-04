@@ -4,7 +4,7 @@
 
 #include "Event/IQueuedEventData.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IEventPusher {
     public:
         virtual ~IEventPusher() {}

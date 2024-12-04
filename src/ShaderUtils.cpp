@@ -7,14 +7,14 @@
 
 #include "../include/glad/glad.h"
 
-std::string LyndsayUI::ShaderUtils::ReadFile(const std::string& path) {
+std::string NSLyndsayUI::ShaderUtils::ReadFile(const std::string& path) {
     std::ifstream fstream(path.c_str());
     std::stringstream strStream;
     strStream << fstream.rdbuf();
     return strStream.str();
 }
 
-int LyndsayUI::ShaderUtils::CompileShader(int ShaderType, const std::string& text) {
+int NSLyndsayUI::ShaderUtils::CompileShader(int ShaderType, const std::string& text) {
     int shader = glCreateShader(ShaderType);
     const char* cStr = text.c_str();
     glShaderSource(shader, 1, &cStr, NULL);
@@ -31,7 +31,7 @@ int LyndsayUI::ShaderUtils::CompileShader(int ShaderType, const std::string& tex
     return shader;
 }
 
-void LyndsayUI::ShaderUtils::LinkProgram(int program) {
+void NSLyndsayUI::ShaderUtils::LinkProgram(int program) {
     glLinkProgram(program);
     
     int success;
@@ -43,7 +43,7 @@ void LyndsayUI::ShaderUtils::LinkProgram(int program) {
     }
 }
 
-int LyndsayUI::ShaderUtils::BuildShaderProgram(const std::string& vShaderPath, const std::string& fShaderPath) {
+int NSLyndsayUI::ShaderUtils::BuildShaderProgram(const std::string& vShaderPath, const std::string& fShaderPath) {
     std::string vertShaderStr = ReadFile(vShaderPath);
     if (vertShaderStr.length() < 1) {
         std::cout << "Vertex shader is empty file." << std::endl;

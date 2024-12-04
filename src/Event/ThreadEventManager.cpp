@@ -4,7 +4,7 @@
 
 #include "Event/IQueuedEventData.h"
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 //  Declare functions here
 void ThreadEventManager::ProcessEvents() {

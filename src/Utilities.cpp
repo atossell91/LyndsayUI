@@ -1,6 +1,6 @@
 #include "../include/Utilities.h"
 
-void LyndsayUI::Utilities::FlipImageSurface(SDL_Surface* sfc) {
+void NSLyndsayUI::Utilities::FlipImageSurface(SDL_Surface* sfc) {
     int bytesPerPixel = SDL_BITSPERPIXEL(sfc->format)/8;
     int rowWidth = sfc->w * bytesPerPixel;
 

@@ -5,7 +5,7 @@
 
 #include "Window/Window.h"
 
-namespace LyndsayUI
+namespace NSLyndsayUI
 {
     class WindowThread {
     public:
@@ -13,5 +13,5 @@ namespace LyndsayUI
         Window* window = nullptr;
         std::unique_ptr<std::thread> thread = nullptr;
     };
-} // namespace LyndsayUI
+} // namespace NSLyndsayUI
 

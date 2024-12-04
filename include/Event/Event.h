@@ -5,7 +5,7 @@
 #include <functional>
 #include <algorithm>
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     template <typename T>
     class Event {
     using HandlerFunc = std::function<void(T)>;

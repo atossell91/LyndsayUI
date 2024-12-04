@@ -16,7 +16,7 @@
 #include "Window/SyncWindow.h"
 #include "Promise.h"
 
-using namespace LyndsayUI;
+using namespace NSLyndsayUI;
 
 std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
     auto platWindow = platformWinFactory->CreateWindow();
@@ -31,6 +31,9 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     auto winQueue = std::make_unique<EventQueue>();
     auto trMgr = std::make_unique<ThreadEventManager>(std::move(winQueue));
     auto evMgr = eventManagerFactory->CreateEventManager();
+
+    
+
     auto exProc = std::make_unique<ExecutiveEventProcessor>(
         std::move(trMgr),
         std::move(evMgr)

@@ -6,7 +6,7 @@
 
 #include "Event/IQueuedEventData.h"
 
-namespace LyndsayUI {
+namespace NSLyndsayUI {
     class IEventQueue {
     public:
         virtual ~IEventQueue() {}

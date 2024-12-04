@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-void LyndsayUI::WindowManager::AddWindow(const std::string& name, int width, int height) {
+void NSLyndsayUI::WindowManager::AddWindow(const std::string& name, int width, int height) {
     auto win = factory->CreateAsynchronousWindow();
     singleWindow = std::move(win);
     /*
@@ -45,7 +45,7 @@ void LyndsayUI::WindowManager::AddWindow(const std::string& name, int width, int
     */
 }
 
-void LyndsayUI::WindowManager::CloseWindow(int sdlWinId) {
+void NSLyndsayUI::WindowManager::CloseWindow(int sdlWinId) {
     singleWindow->Close();
     /*
     auto iter = windows.begin();
@@ -61,17 +61,17 @@ void LyndsayUI::WindowManager::CloseWindow(int sdlWinId) {
     */
 }
 
-bool LyndsayUI::WindowManager::HasWindows() {
+bool NSLyndsayUI::WindowManager::HasWindows() {
     return ((windows.size() < 0) || singleWindow);
 }
 
-void LyndsayUI::WindowManager::AddSingleWindow() {
+void NSLyndsayUI::WindowManager::AddSingleWindow() {
     if (!singleWindow) {
         singleWindow = factory->CreateAsynchronousWindow();
     }
 }
 
-LyndsayUI::IWindow* LyndsayUI::WindowManager::GetWindow(int sdlWinId) {
+NSLyndsayUI::IWindow* NSLyndsayUI::WindowManager::GetWindow(int sdlWinId) {
     /*
     auto iter = windows.begin();
     while (iter != windows.end()) {
@@ -84,11 +84,11 @@ LyndsayUI::IWindow* LyndsayUI::WindowManager::GetWindow(int sdlWinId) {
     */
 }
 
-LyndsayUI::IWindow* LyndsayUI::WindowManager::GetWindow() {
+NSLyndsayUI::IWindow* NSLyndsayUI::WindowManager::GetWindow() {
     return singleWindow.get();
 }
 
-void LyndsayUI::WindowManager::UpdateAll() {
+void NSLyndsayUI::WindowManager::UpdateAll() {
     /*
     auto winIter = windows.begin();
     while (winIter != windows.end()) {
@@ -100,7 +100,7 @@ void LyndsayUI::WindowManager::UpdateAll() {
     */
 }
 
-void LyndsayUI::WindowManager::initEvents() {
+void NSLyndsayUI::WindowManager::initEvents() {
     WindowCloseButtonClickedEvent += [this](auto data){
         singleWindow->Close();
     };
