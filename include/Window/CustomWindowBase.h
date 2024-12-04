@@ -4,7 +4,8 @@
 #include <type_traits>
 
 #include "Window/IWindow.h"
-#include "LyndsayUI.h"
+
+class LyndsayUI;
 
 namespace NSLyndsayUI {
     class CustomWindowBase {
@@ -13,7 +14,7 @@ namespace NSLyndsayUI {
         std::unique_ptr<IWindow> window;
 
         //template <typename T>
-        friend LyndsayUI;
+        friend class LyndsayUI;
     public:
         //  Public stuff here
     };

@@ -19,8 +19,7 @@
 
 #include "IIndexResolver.h"
 
-//#include "Window/CustomWindowBase.h"
-class CustomWindowBase;
+#include "Window/CustomWindowBase.h"
 
 namespace NSLyndsayUI {
    class LyndsayUI {
@@ -50,7 +49,7 @@ namespace NSLyndsayUI {
       void Run();
 
       //template <typename T>
-      template <typename T, typename = std::enable_if_t<std::is_base_of<CustomWindowBase, T>::value, T>>
+      template <typename T, std::enable_if_t<std::is_base_of<CustomWindowBase, T>::value, bool> = true>
       T CreateWindow() {
          T win;
          win.window.reset(nullptr);
