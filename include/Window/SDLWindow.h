@@ -2,6 +2,7 @@
 
 #include <SDL3/SDL.h>
 #include <memory>
+#include <iostream>
 
 #include "Window/IWindow.h"
 #include "Window/SDLWindowFactory.h"

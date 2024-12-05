@@ -11,6 +11,7 @@ namespace NSLyndsayUI {
     class CustomWindowBase {
     private:
         //  Private stuff here
+    protected:
         std::unique_ptr<IWindow> window;
 
         //template <typename T>

@@ -28,6 +28,7 @@ namespace NSLyndsayUI {
       LyndsayUIContext gameContext;
 
       std::unique_ptr<IWindowManager> windowManager;
+      std::unique_ptr<IWindowFactory> windowFactory;
 
       std::unique_ptr<IEventProcessor> eventManager;
 
@@ -43,18 +44,22 @@ namespace NSLyndsayUI {
       LyndsayUI();
       LyndsayUI(ILyndsayDependencyFactory* depFactory) : 
          windowManager{std::move(depFactory->GetWindowManager())},
-         eventManager{std::move(depFactory->GetEventProcessor())} 
+         eventManager{std::move(depFactory->GetEventProcessor())},
+         windowFactory{std::move(depFactory->GetWindowFactory())}
          { initSDL(); }
 
       void Run();
 
       //template <typename T>
       template <typename T, std::enable_if_t<std::is_base_of<CustomWindowBase, T>::value, bool> = true>
-      T CreateWindow() {
-         T win;
-         win.window.reset(nullptr);
+      std::unique_ptr<T> CreateWindow() {
+         auto win = std::make_unique<T>();
+
+         auto winType = windowFactory->CreateAsynchronousWindow();
+
+         win->window.reset(winType.release());
       
-         return win;
+         return std::move(win);
       }
    };
 }

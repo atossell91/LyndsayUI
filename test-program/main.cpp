@@ -5,6 +5,8 @@
 #include "SDLLyndsayDependencyFactory.h"
 
 #include <SDL3/SDL.h>
+#include <thread>
+#include <chrono>
 
 #include "Custom/MckaylaWindow.h"
 
@@ -12,7 +14,9 @@ int main() {
 
     auto factory = std::make_unique<NSLyndsayUI::SDLLyndsayDependencyFactory>();
     NSLyndsayUI::LyndsayUI lyndsay(factory.get());
+
     auto win = lyndsay.CreateWindow<NSLyndsayUI::MckaylaWindow>();
+    win->Close();
     //lyndsay.Run();
     //LyndsayUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");
     

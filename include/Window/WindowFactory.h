@@ -35,6 +35,6 @@ namespace NSLyndsayUI {
             eventManagerFactory{std::move(evFactory)} {}
         std::unique_ptr<IWindow> CreateSynchronousWindow();
         std::unique_ptr<IWindow> CreateAsynchronousWindow();
-        std::unique_ptr<std::thread> CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
+        void CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
     };
 } // LyndsayUI

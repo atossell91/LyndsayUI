@@ -54,3 +54,15 @@ void SDLLyndsayDependencyFactory::build() {
     windowManager = std::move(winMgr);
     eventProcessor = std::move(evMgr);
 }
+
+std::unique_ptr<IWindowFactory> SDLLyndsayDependencyFactory::GetWindowFactory() {
+    // Create a window factory
+    std::unique_ptr<IPlatformWindowFactory> platWinFac = std::make_unique<SDLWindowFactory>();
+    std::unique_ptr<IEventManagerFactory> platEvMgrFac = std::make_unique<SDLEventManagerFactory>();
+    auto winFac = std::make_unique<WindowFactory>(
+        std::move(platWinFac),
+        std::move(platEvMgrFac)
+    );
+
+    return std::move(winFac);
+}

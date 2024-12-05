@@ -5,6 +5,7 @@
 #include "ILyndsayDependencyFactory.h"
 #include "Window/IWindowManager.h"
 #include "Event/IEventProcessor.h"
+#include "Window/IWindowFactory.h"
 
 namespace NSLyndsayUI {
     class SDLLyndsayDependencyFactory : public ILyndsayDependencyFactory {
@@ -20,5 +21,6 @@ namespace NSLyndsayUI {
         SDLLyndsayDependencyFactory() { build(); }
         std::unique_ptr<IWindowManager> GetWindowManager() { return std::move(windowManager);}
         std::unique_ptr<IEventProcessor> GetEventProcessor() { return std::move(eventProcessor);}
+        std::unique_ptr<IWindowFactory> GetWindowFactory();
     };
 } // LyndsayUI

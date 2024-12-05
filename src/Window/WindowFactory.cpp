@@ -5,6 +5,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <chrono>
+#include <iostream>
 
 #include "Event/EventQueue.h"
 #include "Event/ThreadEventManager.h"
@@ -52,7 +53,7 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
         &WindowFactory::CreateWindowThread, this, window.get(), std::ref(innerwin), std::ref(isWinset)
     );
 
-    window->GetConditionVariable().wait(lock, [isWinset](){ return isWinset; });
+    window->GetConditionVariable().wait(lock, [&isWinset](){ return isWinset; });
     int platWinId = innerwin->GetWindowId();
 
     window->windowId = platWinId;
@@ -66,7 +67,7 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
 }
 
 // Runs in the new thread (i.e not on the main thread - be careful)
-std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset) {
+void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset) {
         // Creation behaviour
         std::unique_lock<std::mutex> lock(window->GetMutex());
         innerWin = platformWinFactory->CreateWindow();
@@ -76,6 +77,4 @@ std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* wind
 
         // Window loop behaviour
         window->windowLoop();
-
-        // Cleanup behaviour
 }

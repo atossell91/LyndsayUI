@@ -4,6 +4,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <atomic>
 
 #include "Event/IEventQueue.h"
 #include "Event/IEventProcessor.h"
@@ -26,7 +27,7 @@ namespace NSLyndsayUI {
 
         std::unique_ptr<std::thread> windowThread;
 
-        bool isRunning = true;
+        std::atomic<bool> isRunning{true};
         time_t sleepDelay = 20;
         int windowId;
 
@@ -36,7 +37,7 @@ namespace NSLyndsayUI {
             WindowBase(id), eventProcessor{std::move(eventProc)} {}
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
-        friend std::unique_ptr<std::thread> WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
+        friend void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
     public:
         //  Public stuff here
         ~AsyncWindow();

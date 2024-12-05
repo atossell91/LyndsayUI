@@ -8,5 +8,8 @@ namespace NSLyndsayUI {
         //  Private stuff here
     public:
         //  Public stuff here
+        void Close() {
+            window->Close();
+        }
     };
 } // LyndsayUI
