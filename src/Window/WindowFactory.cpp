@@ -44,14 +44,17 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
 
     bool isWinset = false;
     std::unique_lock<std::mutex> lock(window->GetMutex(), std::defer_lock);
+    std::thread::id workerId;
 
     //  Start the thread, and get a pointer to it. The SDLWindow can be setup in here
     //auto thread = std::make_unique<std::thread>(CreateWindowThread, window.get(), innerwin, isWinset);
     auto thread = std::make_unique<std::thread>(
-        &WindowFactory::CreateWindowThread, this, window.get(), std::ref(innerwin), std::ref(isWinset)
+        &WindowFactory::CreateWindowThread, this, window.get(), std::ref(innerwin), std::ref(isWinset), std::ref(workerId)
     );
 
+
     window->GetConditionVariable().wait(lock, [&isWinset](){ return isWinset; });
+    window->workerThreadId = workerId;
     int platWinId = innerwin->GetWindowId();
 
     window->windowId = platWinId;
@@ -70,9 +73,9 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
 }
 
 // Runs in the new thread (i.e not on the main thread - be careful)
-void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset) {
-        std::cout << "Starting the window thread (" << std::this_thread::get_id() << ")" << std::endl;
+void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset, std::thread::id& workerThreadId) {
         // Creation behaviour
+        workerThreadId = std::this_thread::get_id();
         std::unique_lock<std::mutex> lock(window->GetMutex());
         innerWin = platformWinFactory->CreateWindow();
         auto winPtr = innerWin.get();

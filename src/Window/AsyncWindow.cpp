@@ -29,5 +29,7 @@ AsyncWindow::~AsyncWindow() {
 void AsyncWindow::Close() {
     std::cout << "Close called on thread " << std::this_thread::get_id() << std::endl;
     isRunning = false;
-    //windowThread->join();
+    if (isWorkerThread() && windowThread != nullptr && windowThread->joinable()) {
+        windowThread->join();
+    }
 }

@@ -30,6 +30,9 @@ namespace NSLyndsayUI {
         std::atomic<bool> isRunning{true};
         time_t sleepDelay = 20;
         int windowId;
+        std::thread::id workerThreadId;
+
+        bool isWorkerThread() { return std::this_thread::get_id() == workerThreadId; }
 
         //  Runs in the thread
         void windowLoop();
@@ -37,7 +40,7 @@ namespace NSLyndsayUI {
             WindowBase(id), eventProcessor{std::move(eventProc)} {}
 
         friend std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow();
-        friend void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);
+        friend void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset, std::thread::id& workerThreadId);
     public:
         //  Public stuff here
         ~AsyncWindow();
