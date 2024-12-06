@@ -33,8 +33,6 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     auto trMgr = std::make_unique<ThreadEventManager>(std::move(winQueue));
     auto evMgr = eventManagerFactory->CreateEventManager();
 
-    
-
     auto exProc = std::make_unique<ExecutiveEventProcessor>(
         std::move(trMgr),
         std::move(evMgr)
