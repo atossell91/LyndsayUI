@@ -75,6 +75,7 @@ void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWin
         // Creation behaviour
         std::unique_lock<std::mutex> lock(window->GetMutex());
         innerWin = platformWinFactory->CreateWindow();
+        auto winPtr = innerWin.get();
         isWinset = true;
         lock.unlock();
         window->GetConditionVariable().notify_all();
@@ -83,8 +84,5 @@ void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWin
         window->windowLoop();
 
         // This could probably be replaced with,
-        //innerWin.reset(nullptr);
-        auto ptr = innerWin.get();
-        innerWin.release();
-        delete ptr;
+        window->platformWindow.reset(nullptr);
 }
