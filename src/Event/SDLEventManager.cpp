@@ -35,7 +35,7 @@ void SDLEventManager::handleEvent(SDL_Event& event) {
             //WindowClosed.Raise(data);
             WindowCloseButtonClickedEventData data;
             data.windowId = event.window.windowID;
-            WindowCloseButtonClickedEvent.Raise(data);
+            WindowCloseButtonClicked.Raise(data);
             break;
         }
         case SDL_EVENT_KEY_DOWN:

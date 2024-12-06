@@ -10,8 +10,8 @@
 #include "Event/EventQueue.h"
 #include "Event/ThreadEventManager.h"
 #include "Event/SDLEventManager.h"
-#include "Event/ExecutiveEventProcessor.h"
-#include "Event/SDLEventManagerFactory.h"
+#include "Event/WindowEventCoordinator.h"
+#include "Event/SDLWindowEventManagerFactory.h"
 
 using namespace NSLyndsayUI;
 
@@ -20,11 +20,11 @@ void SDLLyndsayDependencyFactory::setupEvents() {
 }
 
 void SDLLyndsayDependencyFactory::build() {
-    auto evMgrFac = std::make_unique<SDLEventManagerFactory>();
+    auto evMgrFac = std::make_unique<SDLWindowEventManagerFactory>();
 
     // Create a window factory
     std::unique_ptr<IPlatformWindowFactory> platWinFac = std::make_unique<SDLWindowFactory>();
-    std::unique_ptr<IEventManagerFactory> platEvMgrFac = std::make_unique<SDLEventManagerFactory>();
+    std::unique_ptr<IWindowEventManagerFactory> platEvMgrFac = std::make_unique<SDLWindowEventManagerFactory>();
     auto winFac = std::make_unique<WindowFactory>(
         std::move(platWinFac),
         std::move(platEvMgrFac)
@@ -46,7 +46,7 @@ void SDLLyndsayDependencyFactory::build() {
     auto platMgr = Utils::CastUniquePtr<IEventManager, SDLEventManager>(std::move(tmpEvMgr));
 
     // Assemble the executive event processor
-    auto evMgr = std::make_unique<ExecutiveEventProcessor>(
+    auto evMgr = std::make_unique<WindowEventCoordinator>(
         std::move(trMgr),
         std::move(platMgr)
     );
@@ -58,7 +58,7 @@ void SDLLyndsayDependencyFactory::build() {
 std::unique_ptr<IWindowFactory> SDLLyndsayDependencyFactory::GetWindowFactory() {
     // Create a window factory
     std::unique_ptr<IPlatformWindowFactory> platWinFac = std::make_unique<SDLWindowFactory>();
-    std::unique_ptr<IEventManagerFactory> platEvMgrFac = std::make_unique<SDLEventManagerFactory>();
+    std::unique_ptr<IWindowEventManagerFactory> platEvMgrFac = std::make_unique<SDLWindowEventManagerFactory>();
     auto winFac = std::make_unique<WindowFactory>(
         std::move(platWinFac),
         std::move(platEvMgrFac)

@@ -7,7 +7,7 @@
 
 #include "IMappableIndexResolver.h"
 
-#include "Event/IEventManagerFactory.h"
+#include "Event/IWindowEventManagerFactory.h"
 
 #include "Window/IPlatformWindowFactory.h"
 #include "Window/IWindowFactory.h"
@@ -23,16 +23,16 @@ namespace NSLyndsayUI {
         //  Private stuff here
         int nextWindowId = 0;
         std::unique_ptr<IPlatformWindowFactory> platformWinFactory;
-        std::unique_ptr<IEventManagerFactory> eventManagerFactory;
+        std::unique_ptr<IWindowEventManagerFactory> WindowEventManagerFactory;
         int generateWindowId() { return nextWindowId++; }
     public:
         //  Public stuff here
         WindowFactory(
             std::unique_ptr<IPlatformWindowFactory> factory,
-            std::unique_ptr<IEventManagerFactory> evFactory
+            std::unique_ptr<IWindowEventManagerFactory> evFactory
             ) : 
             platformWinFactory{std::move(factory)},
-            eventManagerFactory{std::move(evFactory)} {}
+            WindowEventManagerFactory{std::move(evFactory)} {}
         std::unique_ptr<IWindow> CreateSynchronousWindow();
         std::unique_ptr<IWindow> CreateAsynchronousWindow();
         void CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset);

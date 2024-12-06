@@ -16,6 +16,7 @@ int main() {
     NSLyndsayUI::LyndsayUI lyndsay(factory.get());
 
     auto win = lyndsay.CreateWindow<NSLyndsayUI::MckaylaWindow>();
+    std::this_thread::sleep_for(std::chrono::seconds(5));
     win->Close();
     //lyndsay.Run();
     //LyndsayUI::BufferedImage img = bufferImage("/home/ant/Downloads/RebeccaImgTest-fangirl.jpg");

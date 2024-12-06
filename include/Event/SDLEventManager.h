@@ -7,17 +7,15 @@
 #include <memory>
 
 #include "Event/IQueuedEventData.h"
-#include "Event/IEventManager.h"
-#include "Event/Event.h"
-#include "Event/EventData/WindowCloseButtonClickedEventData.h"
+#include "Event/AbstractWindowEventManager.h"
+#include "Event/Event.h"    
 
 namespace NSLyndsayUI {
-    class SDLEventManager : public IEventManager {
+    class SDLEventManager : public AbstractWindowEventManager {
     private:
         void handleEvent(SDL_Event&);
     public:
         //  Public stuff here
-        Event<WindowCloseButtonClickedEventData> WindowCloseButtonClickedEvent;
 
         void ProcessEvents();
         void PushEvent(std::unique_ptr<IQueuedEventData> event);

@@ -2,15 +2,15 @@
 
 #include <memory>
 
-#include "Event/IEventManagerFactory.h"
+#include "Event/IWindowEventManagerFactory.h"
 #include "Event/SDLEventManager.h"
 
 namespace NSLyndsayUI {
-    class SDLEventManagerFactory : public IEventManagerFactory {
+    class SDLWindowEventManagerFactory : public IWindowEventManagerFactory {
     private:
         //  Private stuff here
     public:
         //  Public stuff here
-        std::unique_ptr<IEventManager> CreateEventManager();
+        std::unique_ptr<AbstractWindowEventManager> CreateEventManager();
     };
 } // LyndsayUI

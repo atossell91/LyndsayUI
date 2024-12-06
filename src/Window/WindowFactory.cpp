@@ -9,7 +9,7 @@
 
 #include "Event/EventQueue.h"
 #include "Event/ThreadEventManager.h"
-#include "Event/ExecutiveEventProcessor.h"
+#include "Event/WindowEventCoordinator.h"
 
 #include "Window/IWindow.h"
 #include "Window/IAsyncWindow.h"
@@ -31,9 +31,9 @@ std::unique_ptr<IWindow> WindowFactory::CreateSynchronousWindow() {
 std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
     auto winQueue = std::make_unique<EventQueue>();
     auto trMgr = std::make_unique<ThreadEventManager>(std::move(winQueue));
-    auto evMgr = eventManagerFactory->CreateEventManager();
+    auto evMgr = WindowEventManagerFactory->CreateEventManager();
 
-    auto exProc = std::make_unique<ExecutiveEventProcessor>(
+    auto exProc = std::make_unique<WindowEventCoordinator>(
         std::move(trMgr),
         std::move(evMgr)
     );
@@ -58,6 +58,11 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
 
     window->platformWindow = std::move(innerwin);
     window->windowThread = std::move(thread);
+
+    window->eventProcessor->GetPlatformEventManager()->WindowCloseButtonClicked.AddEventHandler([win = window.get()](auto data){
+        std::cout << "Attempting to close the window!" << std::endl;
+        win->Close();
+    });
     
     lock.release();
 
@@ -66,6 +71,7 @@ std::unique_ptr<IWindow> WindowFactory::CreateAsynchronousWindow() {
 
 // Runs in the new thread (i.e not on the main thread - be careful)
 void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset) {
+        std::cout << "Starting the window thread (" << std::this_thread::get_id() << ")" << std::endl;
         // Creation behaviour
         std::unique_lock<std::mutex> lock(window->GetMutex());
         innerWin = platformWinFactory->CreateWindow();
@@ -75,4 +81,10 @@ void WindowFactory::CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWin
 
         // Window loop behaviour
         window->windowLoop();
+
+        // This could probably be replaced with,
+        //innerWin.reset(nullptr);
+        auto ptr = innerWin.get();
+        innerWin.release();
+        delete ptr;
 }

@@ -13,7 +13,7 @@
 
 #include "Event/SDLEventManager.h"
 #include "Event/ThreadEventManager.h"
-#include "Event/ExecutiveEventProcessor.h"
+#include "Event/WindowEventCoordinator.h"
 #include "Event/IEventProcessor.h"
 
 #include "MappedIndexResolver.h"

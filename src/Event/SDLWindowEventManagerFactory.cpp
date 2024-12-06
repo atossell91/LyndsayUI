@@ -1,4 +1,4 @@
-#include "Event/SDLEventManagerFactory.h"
+#include "Event/SDLWindowEventManagerFactory.h"
 
 #include <memory>
 
@@ -7,6 +7,6 @@
 using namespace NSLyndsayUI;
 
 //  Declare functions here
-std::unique_ptr<IEventManager> SDLEventManagerFactory::CreateEventManager() {
+std::unique_ptr<AbstractWindowEventManager> SDLWindowEventManagerFactory::CreateEventManager() {
     return std::make_unique<SDLEventManager>();
 }
