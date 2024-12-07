@@ -27,7 +27,6 @@ namespace NSLyndsayUI {
 
       LyndsayUIContext gameContext;
 
-      std::unique_ptr<IWindowManager> windowManager;
       std::unique_ptr<IWindowFactory> windowFactory;
 
       std::unique_ptr<IEventProcessor> eventManager;
@@ -42,8 +41,7 @@ namespace NSLyndsayUI {
 
    public:
       LyndsayUI();
-      LyndsayUI(ILyndsayDependencyFactory* depFactory) : 
-         windowManager{std::move(depFactory->GetWindowManager())},
+      LyndsayUI(ILyndsayDependencyFactory* depFactory) :
          eventManager{std::move(depFactory->GetEventProcessor())},
          windowFactory{std::move(depFactory->GetWindowFactory())}
          { initSDL(); }
