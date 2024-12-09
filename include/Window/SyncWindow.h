@@ -8,7 +8,6 @@ namespace NSLyndsayUI {
     class SyncWindow : public WindowBase {
     private:
         //  Private stuff here
-        int windowId;
         std::unique_ptr<IWindow> platformWindow;
         SyncWindow(int id) : WindowBase(id) {}
 
@@ -16,5 +15,6 @@ namespace NSLyndsayUI {
     public:
         //  Public stuff here
         void Close() {};
+        IGraphics* GetGraphics() { return nullptr; }
     };
 } // LyndsayUI

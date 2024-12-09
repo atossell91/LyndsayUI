@@ -20,6 +20,7 @@
 
 namespace NSLyndsayUI
 {
+    /*
     class Window
     {
     private:
@@ -66,4 +67,5 @@ namespace NSLyndsayUI
         void AddImageToBuffer(const std::string& path,
             EmilyPromise::Promise<NSLyndsayUI::BufferedImage>& promise);
     };
+    */
 } // namespace NSLyndsayUI

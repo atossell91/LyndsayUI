@@ -28,16 +28,15 @@ add_library(LyndsayUI SHARED
     ${SRC}/GlGraphics.cpp
     ${SRC}/Event/SDLEventManager.cpp
     ${SRC}/Utils.cpp
-    ${SRC}/Window/AsyncWindow.cpp
     ${SRC}/Window/WindowFactory.cpp
-    ${SRC}/Window/SyncWindow.cpp
     ${SRC}/Window/SDLWindowFactory.cpp
     ${SRC}/Window/SDLWindow.cpp
     ${SRC}/Window/WindowBase.cpp
     ${SRC}/Event/ThreadEventManager.cpp
     ${SRC}/SDLLyndsayDependencyFactory.cpp
     ${SRC}/Event/SDLWindowEventManagerFactory.cpp
-    ${SRC}/Custom/MckaylaWindow.cpp
+    ${SRC}/Window/SyncWindow.cpp
+    ${SRC}/Window/AsyncWindow.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

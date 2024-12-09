@@ -16,10 +16,12 @@
 #include "Event/IEventProcessor.h"
 
 #include "ILyndsayDependencyFactory.h"
+#include "SDLLyndsayDependencyFactory.h" 
 
-#include "IIndexResolver.h"
-
-#include "Window/CustomWindowBase.h"
+#include "Window/RetainedWindow.h"
+#include "Window/ImmediateWindow.h"
+#include "Window/IWindowCollection.h"
+#include "Window/CustomWindowFactory.h"
 
 namespace NSLyndsayUI {
    class LyndsayUI {
@@ -28,8 +30,11 @@ namespace NSLyndsayUI {
       LyndsayUIContext gameContext;
 
       std::unique_ptr<IWindowFactory> windowFactory;
+      std::unique_ptr<IWindowEventCoordinator> eventManager;
+      std::unique_ptr<CustomWindowFactory> customWinFactory;
 
-      std::unique_ptr<IEventProcessor> eventManager;
+      std::unique_ptr<IWindowCollection<RetainedWindow>> retainedWindows;
+      std::unique_ptr<IWindowCollection<ImmediateWindow>> immediateWindows;
 
       const int kMainLoopDelay = 5; // Milliseconds
 
@@ -40,24 +45,32 @@ namespace NSLyndsayUI {
       void cleanup();
 
    public:
-      LyndsayUI();
-      LyndsayUI(ILyndsayDependencyFactory* depFactory) :
-         eventManager{std::move(depFactory->GetEventProcessor())},
-         windowFactory{std::move(depFactory->GetWindowFactory())}
-         { initSDL(); }
+      LyndsayUI() {
 
-      void Run();
+            std::unique_ptr<ILyndsayDependencyFactory> fac = std::make_unique<SDLLyndsayDependencyFactory>();
+
+            windowFactory = std::move(fac->GetWindowFactory());
+            eventManager = std::move(fac->GetEventProcessor());
+            customWinFactory = std::move(fac->GetCustomWindowFactory());
+            immediateWindows = std::move(fac->GetImmediateWindowCollection());
+            retainedWindows = std::move(fac->GetRetainedWindowCollection());
+
+            initSDL();
+            init();
+         }
+
+      template <typename T>
+      void AddImmediateWindow() {
+         auto win = customWinFactory->CreateImmediateWindow<T>();
+         immediateWindows->AddWindow(std::move(win));
+      }
 
       //template <typename T>
-      template <typename T, std::enable_if_t<std::is_base_of<CustomWindowBase, T>::value, bool> = true>
-      std::unique_ptr<T> CreateWindow() {
-         auto win = std::make_unique<T>();
+      //void AddRetainedWindow() {
+         //auto win = customWinFactory->CreateRetainedWindow<T>();
+         //retainedWindows(std::move(win));
+      //}
 
-         auto winType = windowFactory->CreateAsynchronousWindow();
-
-         win->window.reset(winType.release());
-      
-         return std::move(win);
-      }
+      void Run();
    };
 }

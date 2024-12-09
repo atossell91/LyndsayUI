@@ -12,6 +12,7 @@
 #include "Event/SDLEventManager.h"
 #include "Event/WindowEventCoordinator.h"
 #include "Event/SDLWindowEventManagerFactory.h"
+#include "Window/CustomWindowFactory.h"
 
 using namespace NSLyndsayUI;
 
@@ -65,4 +66,11 @@ std::unique_ptr<IWindowFactory> SDLLyndsayDependencyFactory::GetWindowFactory() 
     );
 
     return std::move(winFac);
+}
+
+std::unique_ptr<CustomWindowFactory> SDLLyndsayDependencyFactory::GetCustomWindowFactory() {
+    auto platWinFac = std::make_unique<SDLWindowFactory>();
+    auto custWinFac = std::make_unique<CustomWindowFactory>(std::move(platWinFac));
+
+    return std::move(custWinFac);
 }

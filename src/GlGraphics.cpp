@@ -99,9 +99,11 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
     applyTransforms(solidShader, params);
 
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
-    glUniform3f(uColour, 1.0f, 0.0f, 0.0f);
+    glUniform4f(uColour, 1.0f, 0.0f, 0.0f, 0.5);
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints/5);
+
+    std::cout << "I love Sammie!" << std::endl;
 }
 
 NSLyndsayUI::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
@@ -235,7 +237,7 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
     applyTransforms(solidShader, params);
 
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
-    glUniform4f(uColour, 0.25f, 0.5f, 0.3f, 0.3f);
+    glUniform4f(uColour, 1.0f, 0.4f, 0.8f, 1.0f);
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
@@ -247,8 +249,8 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
 }
 
 void GlGraphics::Clear() {
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
-    glClearColor(0.6f, 0.6f, 0.4f, 0.3f);
+    //glEnable(GL_BLEND);
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+    glClearColor(0.0f, 0.15f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);;
 }

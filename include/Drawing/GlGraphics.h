@@ -6,8 +6,8 @@
 #include <SDL3/SDL.h>
 
 #include "glad/glad.h"
-#include "IGraphics.h"
 #include "BufferedImage.h"
+#include "IGraphics.h"
 #include "TransformParams.h"
 
 namespace NSLyndsayUI {
@@ -15,7 +15,7 @@ namespace NSLyndsayUI {
     private:
         //  Private stuff here
         SDL_Window* window;
-        SDL_GLContext glContext;
+        SDL_GLContext& glContext;
 
         int solidShader = -1;
         int imgShader = -1;
@@ -43,9 +43,11 @@ namespace NSLyndsayUI {
         void applyTransforms(GLuint shaderProg, const TransformParams& params);
     public:
         //  Public stuff here
-        GlGraphics(SDL_Window* window) : window{window}, glContext(SDL_GL_CreateContext(window)) {
+        GlGraphics(SDL_Window* window, SDL_GLContext& glContext) : window{window}, glContext(glContext) {
             initOpenGl();
         }
+
+        void SwapBuffers() { SDL_GL_SwapWindow(window);}
         
         BufferedImage BufferImage(const std::string& imgPath);
         

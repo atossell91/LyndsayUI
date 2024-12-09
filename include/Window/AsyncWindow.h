@@ -47,5 +47,6 @@ namespace NSLyndsayUI {
         std::mutex& GetMutex() { return mutex; }
         std::condition_variable& GetConditionVariable() { return conditionVariable; }
         void Close();
+        IGraphics* GetGraphics() { return nullptr; }
     };
 } // LyndsayUI

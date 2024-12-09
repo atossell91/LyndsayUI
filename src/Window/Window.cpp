@@ -20,6 +20,7 @@
 #include "Drawing/BufferImageEvent.h"
 #include "Drawing/TransformParams.h"
 
+/*
 void NSLyndsayUI::Window::init() {
     SDL_GL_MakeCurrent(window, glContext);
 
@@ -30,7 +31,6 @@ void NSLyndsayUI::Window::init() {
         return;
     }
 
-    /*
     //  Register a buffer image event (should do this elesewhere)
     eventProcessor->addEventHandler(
         NSLyndsayUI::EventTypes::BUFFER_IMAGE_EVENT,
@@ -39,7 +39,7 @@ void NSLyndsayUI::Window::init() {
             BufferedImage img = graphics->BufferImage(ev->getImagePath());//bufferImage(ev->getImagePath());
             ev->getPromise().set(img);
         });
-    */
+
 
     glViewport(0, 0, width, height);
 }
@@ -95,3 +95,4 @@ void NSLyndsayUI::Window::AddImageToBuffer(const std::string& path,
 
     //eventQueue->QueueEvent(std::move(event));
 }
+*/

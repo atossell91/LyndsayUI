@@ -22,11 +22,6 @@
 #include "Window/IWindowFactory.h"
 #include "Window/WindowFactory.h"
 
-NSLyndsayUI::LyndsayUI::LyndsayUI() {
-    initSDL();
-    init();
-}
-
 void NSLyndsayUI::LyndsayUI::initSDL() {
     if (!SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO)) {
         std::cout << "SDL Init failed." << std::endl;
@@ -36,13 +31,22 @@ void NSLyndsayUI::LyndsayUI::initSDL() {
 }
 
 void NSLyndsayUI::LyndsayUI::init() {
+    eventManager->GetPlatformEventManager()->WindowCloseButtonClicked.AddEventHandler([this](auto d){
+        immediateWindows->RemoveWindowById(d.windowId);
+    });
 }
 
 void NSLyndsayUI::LyndsayUI::mainLoop() {
-    while (!gameContext.ShouldClose) {
+    while (!gameContext.ShouldClose &&
+            (retainedWindows->size() > 0 ||
+            immediateWindows->size() > 0)) {
 
         //// Process events
         eventManager->ProcessEvents();
+
+        for (auto& win : *immediateWindows) {
+            win->Draw();
+        }
 
         std::this_thread::sleep_for(
             std::chrono::milliseconds(kMainLoopDelay));
