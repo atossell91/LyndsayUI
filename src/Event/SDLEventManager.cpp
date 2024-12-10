@@ -11,6 +11,9 @@
 #include <iostream>
 
 #include "Event/EventData/WindowCloseButtonClickedEventData.h"
+#include "Event/EventData/MouseMovedEventData.h"
+#include "Event/EventData/MouseButtonEventData.h"
+#include "Event/EventData/KeyboardEventData.h"
 
 using namespace NSLyndsayUI;
 
@@ -48,14 +51,31 @@ void SDLEventManager::handleEvent(SDL_Event& event) {
 
         case SDL_EVENT_MOUSE_MOTION:
             // Event
+            MouseMovedEventData mouseMovedData;
+            mouseMovedData.windowId = event.window.windowID;
+            mouseMovedData.MouseX = event.motion.x;
+            mouseMovedData.MouseY = event.motion.y;
+            MouseMoved.Raise(mouseMovedData);
             break;
 
         case SDL_EVENT_MOUSE_BUTTON_DOWN:
             // Event
+            MouseButtonEventData mouseButtonDownData;
+            mouseButtonDownData.windowId = event.window.windowID;
+            mouseButtonDownData.MouseButtonId = event.button.button;
+            mouseButtonDownData.MouseX = event.button.x;
+            mouseButtonDownData.MouseY = event.button.y;
+            MouseButtonDown.Raise(mouseButtonDownData);
             break;
 
         case SDL_EVENT_MOUSE_BUTTON_UP:
             // Event
+            MouseButtonEventData mouseButtonUpData;
+            mouseButtonUpData.windowId = event.window.windowID;
+            mouseButtonUpData.MouseButtonId = event.button.button;
+            mouseButtonUpData.MouseX = event.button.x;
+            mouseButtonUpData.MouseY = event.button.y;
+            MouseButtonUp.Raise(mouseButtonUpData);
             break;
 
         case SDL_EVENT_QUIT:

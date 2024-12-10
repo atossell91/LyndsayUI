@@ -7,6 +7,9 @@
 
 #include "Event/Event.h"
 #include "Event/EventData/WindowCloseButtonClickedEventData.h"
+#include "Event/EventData/MouseMovedEventData.h"
+#include "Event/EventData/MouseButtonEventData.h"
+#include "Event/EventData/KeyboardEventData.h"
 
 namespace NSLyndsayUI {
     class CustomWindow : public IWindow {
@@ -15,7 +18,7 @@ namespace NSLyndsayUI {
         std::unique_ptr<IWindow> platformWindow;
     public:
         //  Public stuff here
-        int GetWindowId() { return 0; }
+        int GetWindowId() { return platformWindow->GetWindowId(); }
         void Close() {}
         IGraphics* GetGraphics() { 
             return platformWindow->GetGraphics();
@@ -24,6 +27,9 @@ namespace NSLyndsayUI {
         virtual void Setup() {}
 
         Event<WindowCloseButtonClickedEventData> CloseButtonPressed;
+        Event<MouseButtonEventData> MouseButtonDown;
+        Event<MouseButtonEventData> MouseButtonUp;
+        Event<MouseMovedEventData> MouseMoved;
 
         friend class CustomWindowFactory;
     };

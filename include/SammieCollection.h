@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <type_traits>
+#include <iostream>
 
 #include "Window/IWindowCollection.h"
 #include "Window/CustomWindow.h"
@@ -39,6 +40,19 @@ namespace NSLyndsayUI {
 
         void AddWindow(std::unique_ptr<T> window) {
             windows.push_back(std::move(window));
+        }
+
+        void Klaire() {}
+
+        int GetWindowIndex(int targetWindowId) {
+            for (int n =0; n < windows.size(); ++n) {
+                int currId = windows[n]->GetWindowId();
+                if (targetWindowId == currId) {
+                    return n;
+                }
+            }
+
+            return -1;
         }
 
         bool RemoveWindowByIndex(int index) {

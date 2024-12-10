@@ -34,6 +34,20 @@ void NSLyndsayUI::LyndsayUI::init() {
     eventManager->GetPlatformEventManager()->WindowCloseButtonClicked.AddEventHandler([this](auto d){
         immediateWindows->RemoveWindowById(d.windowId);
     });
+
+    eventManager->GetPlatformEventManager()->MouseButtonDown.AddEventHandler([this](auto d){
+        int index = immediateWindows->GetWindowIndex(d.windowId);
+        if (index >= 0) {
+            (*immediateWindows)[index]->MouseButtonDown.Raise(d);
+        }
+    });
+
+    eventManager->GetPlatformEventManager()->MouseMoved.AddEventHandler([this](auto d){
+        int index = immediateWindows->GetWindowIndex(d.windowId);
+        if (index >= 0) {
+            (*immediateWindows)[index]->MouseMoved.Raise(d);
+        }
+    });
 }
 
 void NSLyndsayUI::LyndsayUI::mainLoop() {

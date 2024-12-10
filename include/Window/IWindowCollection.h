@@ -14,6 +14,7 @@ namespace NSLyndsayUI {
         virtual void AddWindow(std::unique_ptr<T> window) = 0;
         virtual bool RemoveWindowByIndex(int index) = 0;
         virtual bool RemoveWindowById(int targetId) = 0;
+        virtual int GetWindowIndex(int windowId) = 0;
         virtual bool IsEmpty() = 0;
         virtual int size() = 0;
     };
