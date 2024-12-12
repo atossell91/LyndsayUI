@@ -30,6 +30,8 @@ namespace NSLyndsayUI {
         Event<MouseButtonEventData> MouseButtonDown;
         Event<MouseButtonEventData> MouseButtonUp;
         Event<MouseMovedEventData> MouseMoved;
+        Event<KeyboardEventData> KeyDown;
+        Event<KeyboardEventData> KeyUp;
 
         friend class CustomWindowFactory;
     };

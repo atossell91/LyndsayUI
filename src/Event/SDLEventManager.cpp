@@ -14,6 +14,7 @@
 #include "Event/EventData/MouseMovedEventData.h"
 #include "Event/EventData/MouseButtonEventData.h"
 #include "Event/EventData/KeyboardEventData.h"
+#include "SDLKeys.h"
 
 using namespace NSLyndsayUI;
 
@@ -43,10 +44,18 @@ void SDLEventManager::handleEvent(SDL_Event& event) {
         }
         case SDL_EVENT_KEY_DOWN:
             // Event
+            KeyboardEventData keyDownData;
+            keyDownData.windowId = event.window.windowID;
+            keyDownData.key = SDLKeys::MapKey(event.key.key);
+            KeyDown.Raise(keyDownData);
             break;
 
         case SDL_EVENT_KEY_UP:
             // Event
+            KeyboardEventData keyUpData;
+            keyUpData.windowId = event.window.windowID;
+            keyUpData.key = SDLKeys::MapKey(event.key.key);
+            KeyUp.Raise(keyUpData);
             break;
 
         case SDL_EVENT_MOUSE_MOTION:

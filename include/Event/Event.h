@@ -9,6 +9,7 @@ namespace NSLyndsayUI {
     template <typename T>
     class Event {
     using HandlerFunc = std::function<void(T)>;
+    using HandlerFuncPtr = void(T);
     private:
         //  Private stuff here
         std::list<HandlerFunc> handlers;

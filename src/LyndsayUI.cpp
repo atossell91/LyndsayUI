@@ -42,12 +42,34 @@ void NSLyndsayUI::LyndsayUI::init() {
         }
     });
 
+    eventManager->GetPlatformEventManager()->MouseButtonUp.AddEventHandler([this](auto d){
+        int index = immediateWindows->GetWindowIndex(d.windowId);
+        if (index >= 0) {
+            (*immediateWindows)[index]->MouseButtonUp.Raise(d);
+        }
+    });
+
     eventManager->GetPlatformEventManager()->MouseMoved.AddEventHandler([this](auto d){
         int index = immediateWindows->GetWindowIndex(d.windowId);
         if (index >= 0) {
             (*immediateWindows)[index]->MouseMoved.Raise(d);
         }
     });
+
+    eventManager->GetPlatformEventManager()->KeyDown.AddEventHandler([this](auto d){
+        int index = immediateWindows->GetWindowIndex(d.windowId);
+        if (index >= 0) {
+            (*immediateWindows)[index]->KeyDown.Raise(d);
+        }
+    });
+
+    eventManager->GetPlatformEventManager()->KeyUp.AddEventHandler([this](auto d){
+        int index = immediateWindows->GetWindowIndex(d.windowId);
+        if (index >= 0) {
+            (*immediateWindows)[index]->KeyUp.Raise(d);
+        }
+    });
+
 }
 
 void NSLyndsayUI::LyndsayUI::mainLoop() {
@@ -59,6 +81,7 @@ void NSLyndsayUI::LyndsayUI::mainLoop() {
         eventManager->ProcessEvents();
 
         for (auto& win : *immediateWindows) {
+            win->Update();
             win->Draw();
         }
 

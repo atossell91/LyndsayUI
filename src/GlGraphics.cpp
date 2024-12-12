@@ -102,8 +102,6 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
     glUniform4f(uColour, 1.0f, 0.0f, 0.0f, 0.5);
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints/5);
-
-    std::cout << "I love Sammie!" << std::endl;
 }
 
 NSLyndsayUI::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
