@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Drawing/GlGraphics.h"
+#include "Drawing/Colours.h"
 
 namespace NSLyndsayUI {
     class MyRect {
@@ -25,7 +26,7 @@ namespace NSLyndsayUI {
             p.setYscale(0.2);
             p.setXtranslation(xPos);
             p.setYtranslation(yPos);
-            graphics->DrawRectangle(p);
+            graphics->DrawRectangle(Colours::Purple, p);
         }
     };
 } // NSLyndsayUI

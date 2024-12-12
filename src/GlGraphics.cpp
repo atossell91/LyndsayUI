@@ -12,6 +12,7 @@
 #include "ShaderUtils.h"
 #include "Drawing/BufferedImage.h"
 #include "Utilities.h"
+#include "Drawing/Colour.h"
 
 using namespace NSLyndsayUI;
 
@@ -77,7 +78,7 @@ void GlGraphics::applyTransforms(GLuint shaderProg, const TransformParams& param
     
 }
 
-void GlGraphics::DrawRectangle(const TransformParams& params) {
+void GlGraphics::DrawRectangle(const Colour& colour, const TransformParams& params) {
     SDL_GL_MakeCurrent(window, glContext);
     // Same as spiral - ShapePrimitive class?
     // Calculate the vertices
@@ -99,7 +100,7 @@ void GlGraphics::DrawRectangle(const TransformParams& params) {
     applyTransforms(solidShader, params);
 
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
-    glUniform4f(uColour, 1.0f, 0.0f, 0.0f, 0.5);
+    glUniform4f(uColour, colour.Red, colour.Green, colour.Blue, colour.Alpha);
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints/5);
 }
@@ -166,7 +167,7 @@ void GlGraphics::DrawImage(BufferedImage image,
 
 void GlGraphics::DrawString() {}
 
-void GlGraphics::DrawLine(const TransformParams& params) {}
+void GlGraphics::DrawLine(const Colour& colour, const TransformParams& params) {}
 
 glm::vec2 calcPoint(float angleDeg, float rad) {
     return glm::vec2(
@@ -210,7 +211,7 @@ std::vector<float> GlGraphics::calcArcVertices(
     return data;
 }
 
-void GlGraphics::DrawSpiral(const TransformParams& params) {
+void GlGraphics::DrawSpiral(const Colour& colour, const TransformParams& params) {
     // Calculate the vertices
 
     if (spiralVao < 0) {
@@ -235,7 +236,7 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
     applyTransforms(solidShader, params);
 
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
-    glUniform4f(uColour, 1.0f, 0.4f, 0.8f, 1.0f);
+    glUniform4f(uColour, colour.Red, colour.Green, colour.Blue, colour.Alpha);
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
@@ -247,8 +248,13 @@ void GlGraphics::DrawSpiral(const TransformParams& params) {
 }
 
 void GlGraphics::Clear() {
-    //glEnable(GL_BLEND);
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
-    glClearColor(0.0f, 0.15f, 0.0f, 1.0f);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+    glClearColor(
+        backColour.Red,
+        backColour.Green,
+        backColour.Blue,
+        backColour.Alpha
+    );
     glClear(GL_COLOR_BUFFER_BIT);;
 }

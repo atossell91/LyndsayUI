@@ -9,6 +9,7 @@
 #include "BufferedImage.h"
 #include "IGraphics.h"
 #include "TransformParams.h"
+#include "Drawing/Colour.h"
 
 namespace NSLyndsayUI {
     class GlGraphics : public IGraphics {
@@ -25,6 +26,8 @@ namespace NSLyndsayUI {
         int spiralVao = -1;
         int numSpiralData = 0;
         int spiralEbo;
+
+        Colour backColour;
 
         const char* TransformUniform = "Transform";
 
@@ -47,21 +50,27 @@ namespace NSLyndsayUI {
             initOpenGl();
         }
 
+        void SetBackColour(float red, float green, float blue) {
+            backColour.Red = red;
+            backColour.Green = green;
+            backColour.Blue = blue;
+        }
+
         void SwapBuffers() { SDL_GL_SwapWindow(window);}
         
         BufferedImage BufferImage(const std::string& imgPath);
         
-        void DrawRectangle(const TransformParams& params);
+        void DrawRectangle(const Colour& colour, const TransformParams& params);
         void DrawImage(BufferedImage image, 
             const Rectangle& sourceRect, const Rectangle& destRect, const TransformParams& params);
         void DrawString();
-        void DrawLine(const TransformParams& params);
+        void DrawLine(const Colour& colour, const TransformParams& params);
 
         std::vector<float> calcArcVertices(
             float startAngle, float arcAngle,
             float innerRadStart, float innerRadEnd,
             float outerRadStart, float outerRadEnd);
-        void DrawSpiral(const TransformParams& params);
+        void DrawSpiral(const Colour& colour, const TransformParams& params);
         void Clear();
     };
 } // LyndsayUI

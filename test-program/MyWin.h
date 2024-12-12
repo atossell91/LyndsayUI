@@ -4,6 +4,7 @@
 #include "Event/EventData/MouseButtonEventData.h"
 #include "MyRect.h"
 #include "KeyValues.h"
+#include "Drawing/Colour.h"
 
 namespace NSLyndsayUI {
     class MyWin : public ImmediateWindow {
@@ -24,7 +25,7 @@ namespace NSLyndsayUI {
     public:
         //  Public stuff here
         void Setup() {
-            //img = this->GetGraphics()->BufferImage("/home/ant/Pictures/celluloid-shot0044.jpg");
+            img = this->GetGraphics()->BufferImage("/home/ant/ghost.png");
             MouseButtonDown.AddEventHandler([this](auto d){MouseDownHandler(d);});
             MouseMoved.AddEventHandler([this](auto d){MouseMoveHandler(d);});
             KeyDown.AddEventHandler([this](auto d){KeyDownHandler(d);});
@@ -113,8 +114,8 @@ namespace NSLyndsayUI {
             myParams.setXtranslation(mouseX);
             myParams.setYtranslation(mouseY);
             //this->GetGraphics()->DrawRectangle(myParams);
-
             rect.draw(this->GetGraphics());
+            //GetGraphics()->DrawImage(img, rSource, rDest, imgParams);
 
             this->GetGraphics()->SwapBuffers();
 
