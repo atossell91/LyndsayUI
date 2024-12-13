@@ -16,6 +16,8 @@ namespace NSLyndsayUI {
         float mouseX = 0;
         float mouseY = 0;
 
+
+
         bool wDown = false;
         bool aDown = false;
         bool sDown = false;
@@ -30,6 +32,7 @@ namespace NSLyndsayUI {
             MouseMoved.AddEventHandler([this](auto d){MouseMoveHandler(d);});
             KeyDown.AddEventHandler([this](auto d){KeyDownHandler(d);});
             KeyUp.AddEventHandler([this](auto d){KeyUpHandler(d);});
+            rect.setImg(img);
         }
 
         float mapCoord(float absCoord, float magnitude) {
@@ -39,44 +42,49 @@ namespace NSLyndsayUI {
         }
 
         void KeyDownHandler(KeyboardEventData d) {
-            if (d.key == KeyValues::Keyboard_W && !wDown) {
-                wDown = true;
-                rect.vVeloc = 0.01;
-            }
-            if (d.key == KeyValues::Keyboard_A && !aDown) {
+
+            KeyValues::KeyValue key = d.key;
+
+            if (key == KeyValues::Keyboard_A && !aDown) {
                 aDown = true;
-                rect.hVeloc = -0.01;
+                rect.hDir = -1;
             }
-            if (d.key == KeyValues::Keyboard_S && !sDown) {
-                sDown = true;
-                rect.vVeloc = -0.01;
-            }
-            if (d.key == KeyValues::Keyboard_D && !dDown) {
+
+            if (key == KeyValues::Keyboard_D && !dDown) {
                 dDown = true;
-                rect.hVeloc = 0.01;
+                rect.hDir = 1;
+            }
+
+            if (key == KeyValues::Keyboard_W && !wDown) {
+                wDown = true;
+                rect.vDir = 1;
+            }
+
+            if (key == KeyValues::Keyboard_S && !sDown) {
+                sDown = true;
+                rect.vDir = -1;
             }
         }
 
         void KeyUpHandler(KeyboardEventData d) {
-            if (d.key == KeyValues::Keyboard_W) {
-                wDown = false;
-            }
-            if (d.key == KeyValues::Keyboard_A) {
+
+            switch (d.key) {
+            case KeyValues::Keyboard_A:
                 aDown = false;
-            }
-            if (d.key == KeyValues::Keyboard_S) {
-                sDown = false;
-            }
-            if (d.key == KeyValues::Keyboard_D) {
+                rect.hDir = dDown ? 1 : 0;
+                break;
+            case KeyValues::Keyboard_D:
                 dDown = false;
-            }
-
-            if (!dDown && !aDown) {
-                rect.hVeloc = 0.0;
-            }
-
-            if (!wDown && !sDown) {
-                rect.vVeloc = 0.0;
+                rect.hDir = aDown ? -1 : 0;
+                break;
+            case KeyValues::Keyboard_W:
+                wDown = false;
+                rect.vDir = sDown ? -1 : 0;
+                break;
+            case KeyValues::Keyboard_S:
+                sDown = false;
+                rect.vDir = wDown ? 1 : 0;
+                break;
             }
         }
 
@@ -90,11 +98,13 @@ namespace NSLyndsayUI {
 
         void Update() {
             rect.rot += 0.2;
-            rect.xPos += rect.hVeloc;
-            rect.yPos += rect.vVeloc;
+            float speed = (rect.hDir && rect.vDir) ? rect.speed /1.4142 : rect.speed;
+            rect.xPos += rect.hDir * speed;
+            rect.yPos += rect.vDir * speed;
         }
 
         void Draw() {
+            this->GetGraphics()->SetBackColour(Colours::GrassGreen);
             this->GetGraphics()->Clear();
             TransformParams imgParams, spiralParams;
 
@@ -114,8 +124,8 @@ namespace NSLyndsayUI {
             myParams.setXtranslation(mouseX);
             myParams.setYtranslation(mouseY);
             //this->GetGraphics()->DrawRectangle(myParams);
-            rect.draw(this->GetGraphics());
             //GetGraphics()->DrawImage(img, rSource, rDest, imgParams);
+            rect.draw(this->GetGraphics());
 
             this->GetGraphics()->SwapBuffers();
 

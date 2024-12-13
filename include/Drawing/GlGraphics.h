@@ -50,10 +50,10 @@ namespace NSLyndsayUI {
             initOpenGl();
         }
 
-        void SetBackColour(float red, float green, float blue) {
-            backColour.Red = red;
-            backColour.Green = green;
-            backColour.Blue = blue;
+        void SetBackColour(const Colour& colour) {
+            backColour.Red = colour.Red;
+            backColour.Green = colour.Green;
+            backColour.Blue = colour.Blue;
         }
 
         void SwapBuffers() { SDL_GL_SwapWindow(window);}

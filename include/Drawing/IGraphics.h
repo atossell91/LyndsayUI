@@ -21,6 +21,6 @@ namespace NSLyndsayUI {
         virtual void DrawSpiral(const Colour& colour, const TransformParams& params) = 0;
         virtual void Clear() = 0;
         virtual void SwapBuffers() = 0;
-        virtual void SetBackColour(float, float, float) = 0;
+        virtual void SetBackColour(const Colour&) = 0;
     };
 } // LyndsayUI
