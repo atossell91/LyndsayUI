@@ -9,10 +9,11 @@
 #include <SDL3_image/SDL_image.h>
 
 #include "glad/glad.h"
-#include "ShaderUtils.h"
+#include "ShaderUtilities.h"
 #include "Drawing/BufferedImage.h"
 #include "Utilities.h"
 #include "Drawing/Colour.h"
+#include "Drawing/PathDrawer.h"
 
 using namespace NSLyndsayUI;
 
@@ -105,6 +106,48 @@ void GlGraphics::DrawRectangle(const Colour& colour, const TransformParams& para
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numQuadPoints/5);
 }
 
+void _DEBUG_ShowBuffer(const std::vector<float>& buffer) {
+    for (int i = 0; i < buffer.size(); ++i) {
+        if ((i % 5) == 0) {
+            std::cout << std::endl;
+        }
+        std::cout << buffer[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+void GlGraphics::DrawPath(PointPath& path, const Colour& Colour, float thickness) {
+    
+    if (pathVao < 0) {
+        PathDrawer drawer;
+        auto data = drawer.CreateVertices(path, thickness);
+        numPathData = data.size();
+        pathVao = bufferPrimitive(&data[0], data.size());
+
+        _DEBUG_ShowBuffer(data);
+    }
+    glBindVertexArray(pathVao);
+
+    // This is duplicated code
+    // Draw the buffer
+    if (solidShader < 0) {
+        solidShader = ShaderUtils::BuildShaderProgram(
+            "/home/ant/Programming/LyndsayUI/shaders/vertex-notex.glsl",
+            "/home/ant/Programming/LyndsayUI/shaders/fragment-notex.glsl");
+    }
+    glUseProgram(solidShader);
+
+    applyTransforms(solidShader, BlankTransform);
+
+    GLuint uColour = glGetUniformLocation(solidShader, "Colour");
+    glUniform4f(uColour, Colour.Red, Colour.Green, Colour.Blue, Colour.Alpha);
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, numPathData/5);
+}
+
 NSLyndsayUI::BufferedImage GlGraphics::BufferImage(const std::string& imgPath) {
     SDL_GL_MakeCurrent(window, glContext);
     
@@ -167,7 +210,44 @@ void GlGraphics::DrawImage(BufferedImage image,
 
 void GlGraphics::DrawString() {}
 
-void GlGraphics::DrawLine(const Colour& colour, const TransformParams& params) {}
+glm::fvec2 GlGraphics::calcPerpPoint(const glm::fvec2& p1, const glm::fvec2& p2, bool isPos) {
+    glm::fvec2 Perp;
+
+    float yDiff = p2.y - p1.y;
+    float xDiff = p2.x - p1.x;
+
+    if (isPos) {
+        Perp.x = p1.x + yDiff;
+        Perp.y = p1.y - xDiff;
+    }
+    else {
+        Perp.x = p1.x - yDiff;
+        Perp.y = p1.y + xDiff;
+    }
+
+    return Perp;
+}
+
+glm::fvec2 GlGraphics::calcNormalizedPoint(const glm::fvec2& p1, const glm::fvec2& p2) {
+    float xDiff = p2.x - p1.x;
+    float yDiff = p2.y - p1.y;
+
+    float lenSq = xDiff * xDiff + yDiff * yDiff;
+    float len = glm::sqrt(lenSq);
+
+    glm::fvec2 point;
+    point.x = xDiff/len;
+    point.y = yDiff/len;
+
+    return point;
+}
+
+void GlGraphics::DrawLine(
+    const Point& p1, const Point& p2, float thickness,
+    const Colour& colour, const TransformParams& params) {
+
+    
+}
 
 glm::vec2 calcPoint(float angleDeg, float rad) {
     return glm::vec2(
@@ -215,9 +295,7 @@ void GlGraphics::DrawSpiral(const Colour& colour, const TransformParams& params)
     // Calculate the vertices
 
     if (spiralVao < 0) {
-
         // This should be it's own function in it's own class
-
         auto data = calcArcVertices(0.0f, 360*8, 0.0, 2.9, 0.0, 3);
         numSpiralData = data.size();
         spiralVao = bufferPrimitive(&data[0], numSpiralData);
@@ -245,6 +323,18 @@ void GlGraphics::DrawSpiral(const Colour& colour, const TransformParams& params)
     
     // Shove the vertices into a glBuffer
     // Draw the buffer
+}
+
+void GlGraphics::FillArc(float startAngle, float endAngle, float rad, const Colour& colour, const TransformParams& params) {
+    float angleDiff = endAngle - startAngle;
+    int numSections = ((angleDiff / 10) + 1);
+    float sectionAngle = angleDiff/numSections;
+
+    float x, y;
+    for (int i=0; i < numSections; ++i) {
+        x = glm::cos(sectionAngle * i) * rad;
+        y = glm::sin(sectionAngle * i) * rad;
+    }
 }
 
 void GlGraphics::Clear() {

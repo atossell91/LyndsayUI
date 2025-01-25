@@ -17,7 +17,6 @@ namespace NSLyndsayUI {
         //  Public stuff here
         virtual std::unique_ptr<IWindowManager> GetWindowManager() = 0;
         virtual std::unique_ptr<IWindowEventCoordinator> GetEventProcessor() = 0;
-        virtual std::unique_ptr<IWindowFactory> GetWindowFactory() = 0;
         virtual std::unique_ptr<CustomWindowFactory> GetCustomWindowFactory() = 0;
 
         virtual std::unique_ptr<IWindowCollection<ImmediateWindow>> GetImmediateWindowCollection() = 0;

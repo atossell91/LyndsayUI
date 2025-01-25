@@ -1,3 +1,5 @@
+
+
 #pragma once
 
 #include <string>
@@ -5,11 +7,13 @@
 
 #include <SDL3/SDL.h>
 
+#include "glm/glm.hpp"
 #include "glad/glad.h"
 #include "BufferedImage.h"
 #include "IGraphics.h"
 #include "TransformParams.h"
 #include "Drawing/Colour.h"
+#include "PointPath.h"
 
 namespace NSLyndsayUI {
     class GlGraphics : public IGraphics {
@@ -22,10 +26,13 @@ namespace NSLyndsayUI {
         int imgShader = -1;
 
         int quadVao = -1;
-
+        int pathVao = -1;
         int spiralVao = -1;
         int numSpiralData = 0;
+        int numPathData = 0;
         int spiralEbo;
+
+        TransformParams BlankTransform;
 
         Colour backColour;
 
@@ -44,6 +51,10 @@ namespace NSLyndsayUI {
 
         void applyShaders(GLuint targetProgram);
         void applyTransforms(GLuint shaderProg, const TransformParams& params);
+
+        // For drawing lines
+        glm::fvec2 calcPerpPoint(const glm::fvec2& p1, const glm::fvec2& p2, bool isPos);
+        glm::fvec2 calcNormalizedPoint(const glm::fvec2& p1, const glm::fvec2& p2);
     public:
         //  Public stuff here
         GlGraphics(SDL_Window* window, SDL_GLContext& glContext) : window{window}, glContext(glContext) {
@@ -64,13 +75,17 @@ namespace NSLyndsayUI {
         void DrawImage(BufferedImage image, 
             const Rectangle& sourceRect, const Rectangle& destRect, const TransformParams& params);
         void DrawString();
-        void DrawLine(const Colour& colour, const TransformParams& params);
+        void DrawLine(
+            const Point& p1, const Point& p2, float thickness,
+            const Colour& colour, const TransformParams& params);
 
         std::vector<float> calcArcVertices(
             float startAngle, float arcAngle,
             float innerRadStart, float innerRadEnd,
             float outerRadStart, float outerRadEnd);
         void DrawSpiral(const Colour& colour, const TransformParams& params);
+        void DrawPath(PointPath& path, const Colour& Colour, float thickness);
         void Clear();
+        void FillArc(float startAngle, float endAngle, float rad, const Colour& colour, const TransformParams& params);
     };
 } // LyndsayUI

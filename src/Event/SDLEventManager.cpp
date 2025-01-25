@@ -6,7 +6,7 @@
 #include <thread>
 
 #include "Event/IQueuedEventData.h"
-#include "Utils.h"
+#include "Utilities.h"
 
 #include <iostream>
 
@@ -24,6 +24,14 @@ void NSLyndsayUI::SDLEventManager::ProcessEvents() {
     while(SDL_PollEvent(&event)) {
         handleEvent(event);
     }
+}
+
+void SDLEventManager::grabEvents() {
+    
+}
+
+void SDLEventManager::waitForEvents() {
+
 }
 
 void SDLEventManager::PushEvent(std::unique_ptr<IQueuedEventData> event) {

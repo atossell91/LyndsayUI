@@ -22,21 +22,17 @@ add_library(LyndsayUI SHARED
     ${SRC}/ShaderUtils.cpp
     ${SRC}/Utilities.cpp
     ${SRC}/Image.cpp
-    ${SRC}/Window/WindowManager.cpp
     ${SRC}/LyndsayUI.cpp
     ${SRC}/Event/EventQueue.cpp
     ${SRC}/GlGraphics.cpp
     ${SRC}/Event/SDLEventManager.cpp
-    ${SRC}/Utils.cpp
-    ${SRC}/Window/WindowFactory.cpp
     ${SRC}/Window/SDLWindowFactory.cpp
     ${SRC}/Window/SDLWindow.cpp
     ${SRC}/Window/WindowBase.cpp
     ${SRC}/Event/ThreadEventManager.cpp
     ${SRC}/SDLLyndsayDependencyFactory.cpp
     ${SRC}/Event/SDLWindowEventManagerFactory.cpp
-    ${SRC}/Window/SyncWindow.cpp
-    ${SRC}/Window/AsyncWindow.cpp
+    ${SRC}/Drawing/PathDrawer.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

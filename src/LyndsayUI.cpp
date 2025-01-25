@@ -20,7 +20,6 @@
 
 #include "Window/SDLWindowFactory.h"
 #include "Window/IWindowFactory.h"
-#include "Window/WindowFactory.h"
 
 void NSLyndsayUI::LyndsayUI::initSDL() {
     if (!SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO)) {

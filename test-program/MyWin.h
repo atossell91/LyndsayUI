@@ -5,6 +5,9 @@
 #include "MyRect.h"
 #include "KeyValues.h"
 #include "Drawing/Colour.h"
+#include "Point.h"
+#include "PointPath.h"
+#include "Drawing/PathDrawer.h"
 
 namespace NSLyndsayUI {
     class MyWin : public ImmediateWindow {
@@ -24,15 +27,21 @@ namespace NSLyndsayUI {
         bool dDown = false;
 
         MyRect rect;
+
+        PointPath points;
     public:
         //  Public stuff here
         void Setup() {
-            img = this->GetGraphics()->BufferImage("/home/ant/ghost.png");
+            //img = this->GetGraphics()->BufferImage("/home/ant/ghost.png");
             MouseButtonDown.AddEventHandler([this](auto d){MouseDownHandler(d);});
             MouseMoved.AddEventHandler([this](auto d){MouseMoveHandler(d);});
             KeyDown.AddEventHandler([this](auto d){KeyDownHandler(d);});
             KeyUp.AddEventHandler([this](auto d){KeyUpHandler(d);});
-            rect.setImg(img);
+            //rect.setImg(img);
+
+            points.AddPoint(Point(0.0f, 0.0f));
+            points.AddPoint(Point(0.5f, 0.0f));
+            points.AddPoint(Point(0.7f, 1.0f));
         }
 
         float mapCoord(float absCoord, float magnitude) {
@@ -126,6 +135,8 @@ namespace NSLyndsayUI {
             //this->GetGraphics()->DrawRectangle(myParams);
             //GetGraphics()->DrawImage(img, rSource, rDest, imgParams);
             rect.draw(this->GetGraphics());
+
+            this->GetGraphics()->DrawPath(points, Colours::Red, 0.3f);
 
             this->GetGraphics()->SwapBuffers();
 

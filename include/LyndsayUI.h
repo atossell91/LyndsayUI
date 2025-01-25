@@ -8,7 +8,6 @@
 #include <type_traits>
 
 #include "LyndsayUIContext.h"
-#include "Window/WindowManager.h"
 
 #include "IUpdateable.h"
 
@@ -48,8 +47,6 @@ namespace NSLyndsayUI {
       LyndsayUI() {
 
             std::unique_ptr<ILyndsayDependencyFactory> fac = std::make_unique<SDLLyndsayDependencyFactory>();
-
-            windowFactory = std::move(fac->GetWindowFactory());
             eventManager = std::move(fac->GetEventProcessor());
             customWinFactory = std::move(fac->GetCustomWindowFactory());
             immediateWindows = std::move(fac->GetImmediateWindowCollection());

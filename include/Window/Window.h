@@ -11,7 +11,7 @@
 #include "glad/glad.h"
 #include "Drawing/BufferedImage.h"
 #include "Drawing/DrawableBase.h"
-#include "ShaderUtils.h"
+#include "ShaderUtilities.h"
 #include "Event/EventQueue.h"
 #include "Promise.h"
 #include "Drawing/IGraphics.h"

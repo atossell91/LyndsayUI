@@ -13,7 +13,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "glad/glad.h"
-#include "../include/ShaderUtils.h"
+#include "../include/ShaderUtilities.h"
 #include "../include/Utilities.h"
 #include "Drawing/BufferedImage.h"
 #include "Event/IEventQueue.h"

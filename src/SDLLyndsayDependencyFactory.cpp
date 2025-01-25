@@ -3,9 +3,7 @@
 #include <memory>
 #include <iostream>
 
-#include "Utils.h"
-#include "Window/WindowManager.h"
-#include "Window/WindowFactory.h"
+#include "Utilities.h"
 #include "Window/SDLWindowFactory.h"
 #include "Event/EventQueue.h"
 #include "Event/ThreadEventManager.h"
@@ -26,15 +24,6 @@ void SDLLyndsayDependencyFactory::build() {
     // Create a window factory
     std::unique_ptr<IPlatformWindowFactory> platWinFac = std::make_unique<SDLWindowFactory>();
     std::unique_ptr<IWindowEventManagerFactory> platEvMgrFac = std::make_unique<SDLWindowEventManagerFactory>();
-    auto winFac = std::make_unique<WindowFactory>(
-        std::move(platWinFac),
-        std::move(platEvMgrFac)
-    );
-
-    // Assemble
-    auto winMgr = std::make_unique<WindowManager>(
-        std::move(winFac)
-    );
 
     //  Create the thread event manager
     auto evQueue = std::make_unique<EventQueue>();
@@ -44,28 +33,20 @@ void SDLLyndsayDependencyFactory::build() {
 
     // Create the SDL thread manager
     auto tmpEvMgr = evMgrFac->CreateEventManager();
-    auto platMgr = Utils::CastUniquePtr<IEventManager, SDLEventManager>(std::move(tmpEvMgr));
+    auto platMgr = Utilities::CastUniquePtr<IEventManager, SDLEventManager>(std::move(tmpEvMgr));
 
     // Assemble the executive event processor
+    auto evMgr1 = std::make_unique<WindowEventCoordinator>(
+        std::move(trMgr),
+        std::move(platMgr)
+    );
+
     auto evMgr = std::make_unique<WindowEventCoordinator>(
         std::move(trMgr),
         std::move(platMgr)
     );
 
-    windowManager = std::move(winMgr);
     eventProcessor = std::move(evMgr);
-}
-
-std::unique_ptr<IWindowFactory> SDLLyndsayDependencyFactory::GetWindowFactory() {
-    // Create a window factory
-    std::unique_ptr<IPlatformWindowFactory> platWinFac = std::make_unique<SDLWindowFactory>();
-    std::unique_ptr<IWindowEventManagerFactory> platEvMgrFac = std::make_unique<SDLWindowEventManagerFactory>();
-    auto winFac = std::make_unique<WindowFactory>(
-        std::move(platWinFac),
-        std::move(platEvMgrFac)
-    );
-
-    return std::move(winFac);
 }
 
 std::unique_ptr<CustomWindowFactory> SDLLyndsayDependencyFactory::GetCustomWindowFactory() {
