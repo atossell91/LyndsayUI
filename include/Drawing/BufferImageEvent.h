@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Promise.h"
+//#include "Promise.h"
 #include "BufferedImage.h"
 
 namespace NSLyndsayUI {

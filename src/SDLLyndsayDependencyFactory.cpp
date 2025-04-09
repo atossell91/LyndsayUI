@@ -36,11 +36,6 @@ void SDLLyndsayDependencyFactory::build() {
     auto platMgr = Utilities::CastUniquePtr<IEventManager, SDLEventManager>(std::move(tmpEvMgr));
 
     // Assemble the executive event processor
-    auto evMgr1 = std::make_unique<WindowEventCoordinator>(
-        std::move(trMgr),
-        std::move(platMgr)
-    );
-
     auto evMgr = std::make_unique<WindowEventCoordinator>(
         std::move(trMgr),
         std::move(platMgr)

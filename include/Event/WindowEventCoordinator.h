@@ -16,7 +16,8 @@ namespace NSLyndsayUI {
     public:
         //  Public stuff here
         WindowEventCoordinator(std::unique_ptr<IEventManager> threadEvManager, std::unique_ptr<AbstractWindowEventManager> platformEvManager) : 
-            threadEventManager{std::move(threadEvManager)}, platformEventManager{std::move(platformEvManager)} {}
+            threadEventManager{std::move(threadEvManager)},
+            platformEventManager{std::move(platformEvManager)} {}
         void ProcessEvents() { 
             threadEventManager->ProcessEvents();
             platformEventManager->ProcessEvents();

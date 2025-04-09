@@ -4,7 +4,7 @@
 
 #include "Event/EventDataBase.h"
 #include "Event/EventTypes.h"
-#include "Promise.h"
+//#include "Promise.h"
 
 namespace NSLyndsayUI {
     class AddShaderEvent : public EventBase {

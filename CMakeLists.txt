@@ -1,20 +1,21 @@
-cmake_minimum_required(VERSION 3.11.2)
+cmake_minimum_required(VERSION 3.12.0)
 
 project(LyndsayUI)
 
-include(Required_Dirs.cmake)
+#include(Required_Dirs.cmake)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SRC ${CMAKE_SOURCE_DIR}/src)
 
+find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3-shared)
+find_package(glm REQUIRED CONFIG)
+find_package(SDL3_image REQUIRED CONFIG COMPONENTS SDL3_image-shared)
+
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
-    ${SDL_DIR}/include
-    ${SDL_IMAGE_DIR}/include
-    ${EMILY_PROMISE_DIR}/include
+    /usr/include/SDL3_image/SDL_image.h
 )
-
-#find_package(SDL3 REQUIRED)
-#find_package(SDL3_image REQUIRED)
 
 add_library(LyndsayUI SHARED
     ${SRC}/glad.c
@@ -33,13 +34,17 @@ add_library(LyndsayUI SHARED
     ${SRC}/SDLLyndsayDependencyFactory.cpp
     ${SRC}/Event/SDLWindowEventManagerFactory.cpp
     ${SRC}/Drawing/PathDrawer.cpp
+    ${SRC}/LinuxSpecificFunctions.cpp
+    ${SRC}/WindowsSpecificFunctions.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
 target_link_libraries(LyndsayUI
-    ${SDL_LIB}
-    ${SDL_IMAGE_LIB}
+    PRIVATE
+        SDL3::SDL3
+        SDL3_image::SDL3_image
 )
+
 
 add_executable(LyndsayTest
     ${CMAKE_SOURCE_DIR}/test-program/main.cpp
@@ -47,6 +52,6 @@ add_executable(LyndsayTest
 
 target_link_libraries(LyndsayTest
     ${CMAKE_SOURCE_DIR}/build/libLyndsayUI.so
-    ${SDL_LIB}
-    ${SDL_IMAGE_LIB}
+    SDL3::SDL3
+    SDL3_image::SDL3_image
 )

@@ -13,7 +13,7 @@
 #include "Drawing/DrawableBase.h"
 #include "ShaderUtilities.h"
 #include "Event/EventQueue.h"
-#include "Promise.h"
+////#include "Promise.h"
 #include "Drawing/IGraphics.h"
 #include "Drawing/GlGraphics.h"
 #include "Drawing/DrawableCollection.h"

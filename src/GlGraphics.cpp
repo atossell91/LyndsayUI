@@ -1,6 +1,7 @@
 #include "Drawing/GlGraphics.h"
 
 #include <iostream>
+#include <filesystem>
 
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_transform.hpp>
@@ -14,6 +15,7 @@
 #include "Utilities.h"
 #include "Drawing/Colour.h"
 #include "Drawing/PathDrawer.h"
+#include "Drawing/BasicShaders.h"
 
 using namespace NSLyndsayUI;
 
@@ -91,9 +93,10 @@ void GlGraphics::DrawRectangle(const Colour& colour, const TransformParams& para
 
     // Draw the buffer
     if (solidShader < 0) {
+
         solidShader = ShaderUtils::BuildShaderProgram(
-            "/home/ant/Programming/LyndsayUI/shaders/vertex-notex.glsl",
-            "/home/ant/Programming/LyndsayUI/shaders/fragment-notex.glsl"
+            BasicShaders::vertex,
+            BasicShaders::fragment
         );
     }
     glUseProgram(solidShader);
@@ -124,7 +127,7 @@ void GlGraphics::DrawPath(PointPath& path, const Colour& Colour, float thickness
         numPathData = data.size();
         pathVao = bufferPrimitive(&data[0], data.size());
 
-        _DEBUG_ShowBuffer(data);
+        //_DEBUG_ShowBuffer(data);
     }
     glBindVertexArray(pathVao);
 
@@ -132,8 +135,8 @@ void GlGraphics::DrawPath(PointPath& path, const Colour& Colour, float thickness
     // Draw the buffer
     if (solidShader < 0) {
         solidShader = ShaderUtils::BuildShaderProgram(
-            "/home/ant/Programming/LyndsayUI/shaders/vertex-notex.glsl",
-            "/home/ant/Programming/LyndsayUI/shaders/fragment-notex.glsl");
+            BasicShaders::vertex,
+            BasicShaders::fragment);
     }
     glUseProgram(solidShader);
 
@@ -188,8 +191,8 @@ void GlGraphics::DrawImage(BufferedImage image,
     // Use the image shader program
     if (imgShader < 0) {
         imgShader = ShaderUtils::BuildShaderProgram(
-            "/home/ant/Programming/LyndsayUI/shaders/vertex-tex.glsl",
-            "/home/ant/Programming/LyndsayUI/shaders/fragment-tex.glsl");
+            BasicShaders::vertex,
+            BasicShaders::fragment);
     }
     glUseProgram(imgShader);
     
@@ -306,8 +309,8 @@ void GlGraphics::DrawSpiral(const Colour& colour, const TransformParams& params)
     // Draw the buffer
     if (solidShader < 0) {
         solidShader = ShaderUtils::BuildShaderProgram(
-            "/home/ant/Programming/LyndsayUI/shaders/vertex-notex.glsl",
-            "/home/ant/Programming/LyndsayUI/shaders/fragment-notex.glsl");
+            BasicShaders::vertex,
+            BasicShaders::fragment);
     }
     glUseProgram(solidShader);
     

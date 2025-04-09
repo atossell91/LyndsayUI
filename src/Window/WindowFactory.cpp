@@ -15,7 +15,7 @@
 #include "Window/IAsyncWindow.h"
 #include "Window/AsyncWindow.h"
 #include "Window/SyncWindow.h"
-#include "Promise.h"
+//#include "Promise.h"
 
 using namespace NSLyndsayUI;
 

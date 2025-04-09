@@ -26,13 +26,18 @@ void NSLyndsayUI::LyndsayUI::initSDL() {
         std::cout << "SDL Init failed." << std::endl;
     }
 
-    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+    //IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 }
 
 void NSLyndsayUI::LyndsayUI::init() {
+    if (!eventManager->GetPlatformEventManager()) {
+        std::cout << "ERROR!!" << std::endl;
+    }
+
     eventManager->GetPlatformEventManager()->WindowCloseButtonClicked.AddEventHandler([this](auto d){
         immediateWindows->RemoveWindowById(d.windowId);
     });
+    std::cout << "Everybody" << std::endl;
 
     eventManager->GetPlatformEventManager()->MouseButtonDown.AddEventHandler([this](auto d){
         int index = immediateWindows->GetWindowIndex(d.windowId);
@@ -40,6 +45,7 @@ void NSLyndsayUI::LyndsayUI::init() {
             (*immediateWindows)[index]->MouseButtonDown.Raise(d);
         }
     });
+    std::cout << "Wants" << std::endl;
 
     eventManager->GetPlatformEventManager()->MouseButtonUp.AddEventHandler([this](auto d){
         int index = immediateWindows->GetWindowIndex(d.windowId);
@@ -47,6 +53,7 @@ void NSLyndsayUI::LyndsayUI::init() {
             (*immediateWindows)[index]->MouseButtonUp.Raise(d);
         }
     });
+    std::cout << "To" << std::endl;
 
     eventManager->GetPlatformEventManager()->MouseMoved.AddEventHandler([this](auto d){
         int index = immediateWindows->GetWindowIndex(d.windowId);
@@ -54,6 +61,7 @@ void NSLyndsayUI::LyndsayUI::init() {
             (*immediateWindows)[index]->MouseMoved.Raise(d);
         }
     });
+    std::cout << "Rule" << std::endl;
 
     eventManager->GetPlatformEventManager()->KeyDown.AddEventHandler([this](auto d){
         int index = immediateWindows->GetWindowIndex(d.windowId);
@@ -61,6 +69,7 @@ void NSLyndsayUI::LyndsayUI::init() {
             (*immediateWindows)[index]->KeyDown.Raise(d);
         }
     });
+    std::cout << "The" << std::endl;
 
     eventManager->GetPlatformEventManager()->KeyUp.AddEventHandler([this](auto d){
         int index = immediateWindows->GetWindowIndex(d.windowId);
@@ -68,6 +77,7 @@ void NSLyndsayUI::LyndsayUI::init() {
             (*immediateWindows)[index]->KeyUp.Raise(d);
         }
     });
+    std::cout << "World" << std::endl;
 
 }
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 #include "Window/ImmediateWindow.h"
 #include "Event/EventData/MouseButtonEventData.h"
 #include "MyRect.h"
@@ -28,7 +30,6 @@ namespace NSLyndsayUI {
 
         MyRect rect;
 
-        PointPath points;
     public:
         //  Public stuff here
         void Setup() {
@@ -38,10 +39,6 @@ namespace NSLyndsayUI {
             KeyDown.AddEventHandler([this](auto d){KeyDownHandler(d);});
             KeyUp.AddEventHandler([this](auto d){KeyUpHandler(d);});
             //rect.setImg(img);
-
-            points.AddPoint(Point(0.0f, 0.0f));
-            points.AddPoint(Point(0.5f, 0.0f));
-            points.AddPoint(Point(0.7f, 1.0f));
         }
 
         float mapCoord(float absCoord, float magnitude) {
@@ -113,6 +110,18 @@ namespace NSLyndsayUI {
         }
 
         void Draw() {
+            PointPath points;
+
+            int samples = 360;
+            float rad = 0.5;
+            for (int n =0; n < samples; ++n) {
+                float angle = ((3.14159)*n)/180.0;
+                float xpos = glm::cos(angle)*rad;
+                float ypos = glm::sin(angle)*rad;
+                Point p(xpos, xpos);
+                points.AddPoint(p);
+            }
+
             this->GetGraphics()->SetBackColour(Colours::GrassGreen);
             this->GetGraphics()->Clear();
             TransformParams imgParams, spiralParams;
@@ -136,7 +145,7 @@ namespace NSLyndsayUI {
             //GetGraphics()->DrawImage(img, rSource, rDest, imgParams);
             rect.draw(this->GetGraphics());
 
-            this->GetGraphics()->DrawPath(points, Colours::Red, 0.3f);
+            this->GetGraphics()->DrawPath(points, Colours::Red, 0.1f);
 
             this->GetGraphics()->SwapBuffers();
 
