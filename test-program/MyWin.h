@@ -10,6 +10,7 @@
 #include "Point.h"
 #include "PointPath.h"
 #include "Drawing/PathDrawer.h"
+#include "Constants.h"
 
 namespace NSLyndsayUI {
     class MyWin : public ImmediateWindow {
@@ -109,25 +110,30 @@ namespace NSLyndsayUI {
             rect.yPos += rect.vDir * speed;
         }
 
+        void DrawCircle(float rad, float xoff, float yoff, int samples) {
+
+        }
+
         void Draw() {
             PointPath points;
 
-            int samples = 360;
-            float rad = 0.5;
-            for (int n =0; n < samples; ++n) {
-                float angle = ((3.14159)*n)/180.0;
-                float xpos = glm::cos(angle)*rad;
-                float ypos = glm::sin(angle)*rad;
-                Point p(xpos, xpos);
-                points.AddPoint(p);
-            }
+                int samples = 100;
+                float sampleSize = 360.0/samples *Constants::RadiansPerDegree;
+                float rad = 0.5;
+                for (int n =0; n <= samples; ++n) {
+                    float angle = sampleSize * n;
+                    float xpos = glm::cos(angle)*rad;
+                    float ypos = glm::sin(angle)*rad;
+                    Point p(xpos, ypos);
+                    points.AddPoint(p);
+                }
 
             this->GetGraphics()->SetBackColour(Colours::GrassGreen);
             this->GetGraphics()->Clear();
             TransformParams imgParams, spiralParams;
 
             constexpr float num = 1920.0/1080.0;
-            imgParams.setXscale(num);;
+            imgParams.setXscale(num);
             Rectangle rSource(0, 0, img.getWidth(), img.getHeight());
             Rectangle rDest(0, 0, 0, 0);
 

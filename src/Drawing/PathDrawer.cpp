@@ -75,6 +75,7 @@ VertexBuffer PathDrawer::CreateVertices(PointPath& points, float thickness) {
     // Intermediate points
     LineInfo nextLine;
     for (int i = 1; i < points.NumPoints() -1 && getLineInfo(points, i, nextLine); ++i) {
+        //std::cout << points[i].X << ", " << points[i].Y << std::endl;
         CalcJoinPoint(lineInfo, nextLine, halfThick, buffer);
         lineInfo = nextLine;
     }

@@ -49,6 +49,11 @@ install_fedora() {
     sudo dnf install -y "${COMMON_PKGS[@]}"
 }
 
+install_ubuntu() {
+    echo "[+] Installing dev tools on Ubuntu..."
+    sudo apt-get install "${COMMON_PKGS[@]}" 
+}
+
 # Install system packages
 case "$DISTRO" in
     arch|manjaro)
@@ -56,6 +61,9 @@ case "$DISTRO" in
         ;;
     fedora)
         install_fedora
+        ;;
+    linuxmint)
+        install_ubuntu
         ;;
     *)
         echo "Unsupported distro: $DISTRO"
