@@ -115,3 +115,15 @@ If it explodes — check your compiler.
 If it works — take the credit.
 
 Now go make something cool.
+
+### Third-Party Libraries
+
+This project uses the following libraries:
+
+- [SDL3](https://github.com/libsdl-org/SDL) (Zlib license)
+- [SDL3_image](https://github.com/libsdl-org/SDL_image) (Zlib license)
+- [FreeType](https://freetype.org/) (Freetype License - based on BSD-style)
+- [GLM](https://github.com/g-truc/glm) (MIT License)
+- [GLAD](https://github.com/Dav1dde/glad) — MIT License
+
+See individual library repositories for full license details.

@@ -11,10 +11,12 @@ set(SRC ${CMAKE_SOURCE_DIR}/src)
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3-shared)
 find_package(glm REQUIRED CONFIG)
 find_package(SDL3_image REQUIRED CONFIG COMPONENTS SDL3_image-shared)
+find_package(Freetype REQUIRED)
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
     /usr/include/SDL3_image/SDL_image.h
+    /usr/include/freetype2
 )
 
 add_library(LyndsayUI SHARED
@@ -36,6 +38,7 @@ add_library(LyndsayUI SHARED
     ${SRC}/Drawing/PathDrawer.cpp
     ${SRC}/LinuxSpecificFunctions.cpp
     ${SRC}/WindowsSpecificFunctions.cpp
+    ${SRC}/Drawing/FreetypeTextRenderer.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
@@ -43,6 +46,7 @@ target_link_libraries(LyndsayUI
     PRIVATE
         SDL3::SDL3
         SDL3_image::SDL3_image
+        Freetype::Freetype
 )
 
 
@@ -54,4 +58,5 @@ target_link_libraries(LyndsayTest
     ${CMAKE_SOURCE_DIR}/build/libLyndsayUI.so
     SDL3::SDL3
     SDL3_image::SDL3_image
+    Freetype::Freetype
 )
