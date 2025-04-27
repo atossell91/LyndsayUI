@@ -91,7 +91,7 @@ void NSLyndsayUI::LyndsayUI::mainLoop() {
 
         for (auto& win : *immediateWindows) {
             win->Update();
-            win->Draw();
+            win->RenderFrame();
         }
 
         std::this_thread::sleep_for(

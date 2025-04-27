@@ -11,6 +11,12 @@ namespace NSLyndsayUI {
         virtual void Update() {}
         virtual void Draw() {}
 
+        virtual void RenderFrame() {
+            this->GetGraphics()->Clear();
+            Draw();
+            this->GetGraphics()->SwapBuffers();
+        }
+
         friend class CustomWindowFactory;
     };
 } // NSLyndsayUI
