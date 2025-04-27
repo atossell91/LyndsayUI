@@ -11,6 +11,7 @@
 #include "PointPath.h"
 #include "Drawing/PathDrawer.h"
 #include "Constants.h"
+#include "Curves.h"
 
 namespace NSLyndsayUI {
     class MyWin : public ImmediateWindow {
@@ -30,6 +31,11 @@ namespace NSLyndsayUI {
         bool dDown = false;
 
         MyRect rect;
+        
+        float trainX = 0.0f;
+        float trainY = 0.0f;
+        float trainT = 0.0f;
+        float trainSpd = 0.0025f;
 
     public:
         //  Public stuff here
@@ -108,6 +114,21 @@ namespace NSLyndsayUI {
             float speed = (rect.hDir && rect.vDir) ? rect.speed /1.4142 : rect.speed;
             rect.xPos += rect.hDir * speed;
             rect.yPos += rect.vDir * speed;
+
+            
+            Point p = Curves::evaluateCubic(
+                Point(-0.6, -0.6),
+                Point(0.9, -0.4),
+                Point(-0.5, 1.5),
+                Point(0.6, 0.6),
+                trainT
+            );
+
+            trainT += trainSpd;
+            trainX = p.X;
+            trainY = p.Y;
+
+            if (trainT >1.0f) trainT = 0.0f;
         }
 
         void DrawCircle(float rad, float xoff, float yoff, int samples) {
@@ -117,16 +138,32 @@ namespace NSLyndsayUI {
         void Draw() {
             PointPath points;
 
-                int samples = 100;
-                float sampleSize = 360.0/samples *Constants::RadiansPerDegree;
-                float rad = 0.5;
-                for (int n =0; n <= samples; ++n) {
-                    float angle = sampleSize * n;
-                    float xpos = glm::cos(angle)*rad;
-                    float ypos = glm::sin(angle)*rad;
-                    Point p(xpos, ypos);
-                    points.AddPoint(p);
-                }
+            int samples = 100;
+            float sampleSize = 360.0/samples *Constants::RadiansPerDegree;
+            float rad = 0.5;
+            for (int n =0; n <= samples; ++n) {
+                float angle = sampleSize * n;
+                float xpos = glm::cos(angle)*rad;
+                float ypos = glm::sin(angle)*rad;
+                Point p(xpos, ypos);
+                points.AddPoint(p);
+            }
+
+            PointPath bezier;
+            int bSamples = 50;
+            float increment = 1.0 / bSamples;
+            float t = 0.0;
+            for (int n=0; n < bSamples; ++n) {
+                Point p = Curves::evaluateCubic(
+                    Point(-0.6, -0.6),
+                    Point(0.9, -0.4),
+                    Point(-0.5, 1.5),
+                    Point(0.6, 0.6),
+                    t
+                );
+                bezier.AddPoint(p);
+                t += increment;
+            }
 
             this->GetGraphics()->SetBackColour(Colours::GrassGreen);
             this->GetGraphics()->Clear();
@@ -149,9 +186,17 @@ namespace NSLyndsayUI {
             myParams.setYtranslation(mouseY);
             //this->GetGraphics()->DrawRectangle(myParams);
             //GetGraphics()->DrawImage(img, rSource, rDest, imgParams);
-            rect.draw(this->GetGraphics());
+            //rect.draw(this->GetGraphics());
 
-            this->GetGraphics()->DrawPath(points, Colours::Red, 0.1f);
+            //this->GetGraphics()->DrawPath(points, Colours::Red, 0.1f);
+            this->GetGraphics()->DrawPath(bezier, Colours::DarkBrown, 0.03f);
+
+            TransformParams trainParams;
+            trainParams.setXtranslation(trainX/num);
+            trainParams.setYtranslation(trainY);
+            trainParams.setXscale(0.025f);
+            trainParams.setYscale(0.025f);
+            this->GetGraphics()->DrawRectangle(Colours::DarkGrey,trainParams);
 
             this->GetGraphics()->SwapBuffers();
 

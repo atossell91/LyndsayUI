@@ -95,8 +95,8 @@ void GlGraphics::DrawRectangle(const Colour& colour, const TransformParams& para
     if (solidShader < 0) {
 
         solidShader = ShaderUtils::BuildShaderProgram(
-            BasicShaders::vertex,
-            BasicShaders::fragment
+            BasicShaders::TexVertex,
+            BasicShaders::TexFragment
         );
     }
     glUseProgram(solidShader);
@@ -135,14 +135,15 @@ void GlGraphics::DrawPath(PointPath& path, const Colour& Colour, float thickness
     // Draw the buffer
     if (solidShader < 0) {
         solidShader = ShaderUtils::BuildShaderProgram(
-            BasicShaders::vertex,
-            BasicShaders::fragment);
+            BasicShaders::NoTexVertex,
+            BasicShaders::NoTexFragment);
     }
     glUseProgram(solidShader);
 
     applyTransforms(solidShader, BlankTransform);
 
     GLuint uColour = glGetUniformLocation(solidShader, "Colour");
+    std::cout << "COLOUR: " << Colour.Red << " " << Colour.Green << " " << Colour.Blue << " " << Colour.Alpha << std::endl;
     glUniform4f(uColour, Colour.Red, Colour.Green, Colour.Blue, Colour.Alpha);
     
     glEnable(GL_BLEND);
@@ -191,8 +192,8 @@ void GlGraphics::DrawImage(BufferedImage image,
     // Use the image shader program
     if (imgShader < 0) {
         imgShader = ShaderUtils::BuildShaderProgram(
-            BasicShaders::vertex,
-            BasicShaders::fragment);
+            BasicShaders::TexVertex,
+            BasicShaders::TexFragment);
     }
     glUseProgram(imgShader);
     
@@ -309,8 +310,8 @@ void GlGraphics::DrawSpiral(const Colour& colour, const TransformParams& params)
     // Draw the buffer
     if (solidShader < 0) {
         solidShader = ShaderUtils::BuildShaderProgram(
-            BasicShaders::vertex,
-            BasicShaders::fragment);
+            BasicShaders::TexVertex,
+            BasicShaders::TexFragment);
     }
     glUseProgram(solidShader);
     
