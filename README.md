@@ -116,6 +116,8 @@ If it works — take the credit.
 
 Now go make something cool.
 
+---
+
 ### Third-Party Libraries
 
 This project uses the following libraries:
