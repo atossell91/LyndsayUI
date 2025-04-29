@@ -81,13 +81,13 @@ void NSLyndsayUI::LyndsayUI::init() {
 
 }
 
-void NSLyndsayUI::LyndsayUI::mainLoop() {
+void NSLyndsayUI::LyndsayUI::immediateLoop() {
     while (!gameContext.ShouldClose &&
             (retainedWindows->size() > 0 ||
             immediateWindows->size() > 0)) {
 
         //// Process events
-        eventManager->ProcessEvents();
+        eventManager->PollAndProcessEvents();
 
         for (auto& win : *immediateWindows) {
             win->Update();
@@ -99,8 +99,16 @@ void NSLyndsayUI::LyndsayUI::mainLoop() {
     }
 }
 
+void NSLyndsayUI::LyndsayUI::retainedLoop() {
+    while (!gameContext.ShouldClose &&
+            (retainedWindows->size() > 0 ||
+            immediateWindows->size() > 0)) {
+        eventManager->PollAndProcessEvents();
+    }
+}
+
 void NSLyndsayUI::LyndsayUI::Run() {
-    mainLoop();
+    immediateLoop();
     cleanup();
 }
 

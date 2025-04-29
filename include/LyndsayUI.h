@@ -39,7 +39,8 @@ namespace NSLyndsayUI {
 
       void initSDL();
       void init();
-      void mainLoop();
+      void immediateLoop();
+      void retainedLoop();
       void update();
       void cleanup();
 

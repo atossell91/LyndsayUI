@@ -13,6 +13,7 @@
 namespace NSLyndsayUI {
     class SDLEventManager : public AbstractWindowEventManager {
     private:
+        static constexpr int kPollLimit = 100;
         void handleEvent(SDL_Event&);
         void (NSLyndsayUI::SDLEventManager::*eventFunc)();
         void grabEvents();
@@ -20,7 +21,8 @@ namespace NSLyndsayUI {
     public:
         //  Public stuff here
 
-        void ProcessEvents();
+        void PollAndProcessEvents();
+        void WaitAndProcessEvents();
         void PushEvent(std::unique_ptr<IQueuedEventData> event);
         void SetEventMode(EventMode mode) { eventFunc = &SDLEventManager::grabEvents; }
 

@@ -17,7 +17,8 @@ namespace NSLyndsayUI {
             std::unique_ptr<IEventQueue> evQueue) : 
             eventQueue{std::move(evQueue)} {}
 
-        void ProcessEvents();
+        void PollAndProcessEvents();
+        void WaitAndProcessEvents();
         void PushEvent(std::unique_ptr<IQueuedEventData> eventData);
     };
 } // LyndsayUI

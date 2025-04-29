@@ -19,10 +19,21 @@
 using namespace NSLyndsayUI;
 
 //  Declare functions here
-void NSLyndsayUI::SDLEventManager::ProcessEvents() {
+void NSLyndsayUI::SDLEventManager::PollAndProcessEvents() {
     SDL_Event event;
-    while(SDL_PollEvent(&event)) {
+    for(int count = 0; SDL_PollEvent(&event) && count < kPollLimit; ++count) {
         handleEvent(event);
+    }
+}
+
+void NSLyndsayUI::SDLEventManager::WaitAndProcessEvents() {
+    SDL_Event event;
+    if (SDL_WaitEvent(&event)) {
+        int count = 0;
+        do {
+            handleEvent(event);
+            ++count;
+        } while (SDL_PollEvent(&event) && count < kPollLimit);
     }
 }
 

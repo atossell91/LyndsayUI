@@ -5,6 +5,7 @@ namespace NSLyndsayUI {
     public:
         virtual ~IEventProcessor() {}
         //  Public stuff here
-        virtual void ProcessEvents() = 0;
+        virtual void PollAndProcessEvents() = 0;
+        virtual void WaitAndProcessEvents() = 0;
     };
 } // LyndsayUI
