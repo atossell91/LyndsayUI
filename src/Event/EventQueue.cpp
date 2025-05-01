@@ -28,4 +28,9 @@ std::unique_ptr<IQueuedEventData> EventQueue::PollEventData() {
 std::unique_ptr<IQueuedEventData> EventQueue::WaitForEventData() {
     std::unique_lock<std::mutex> lock(mutex);
     cv.wait(lock, [this]{ return !this->eventQueue.empty(); });
+    auto ptr = std::move(eventQueue.front());
+    eventQueue.pop();
+    lock.unlock();
+    cv.notify_all();
+    return ptr; 
 }

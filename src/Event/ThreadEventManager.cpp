@@ -15,7 +15,6 @@ void ThreadEventManager::PollAndProcessEvents() {
 }
 
 void ThreadEventManager::WaitAndProcessEvents() {
-    
 }
 
 void ThreadEventManager::PushEvent(std::unique_ptr<IQueuedEventData> event) {
