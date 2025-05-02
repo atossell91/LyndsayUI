@@ -22,7 +22,12 @@ namespace NSLyndsayUI {
             threadEventManager->PollAndProcessEvents();
             platformEventManager->PollAndProcessEvents();
          }
-        IEventManager* GetThreadEventManager() { return threadEventManager.get(); }
+
+         void WaitAndProcessEvents() {
+            //threa
+         }
+        
+         IEventManager* GetThreadEventManager() { return threadEventManager.get(); }
         AbstractWindowEventManager* GetPlatformEventManager() { return platformEventManager.get(); }
     };
 } // LyndsayUI
