@@ -69,6 +69,7 @@ namespace NSLyndsayUI {
          //retainedWindows(std::move(win));
       //}
 
-      void Run();
+      void RunImmediate();
+      void RunRetained();
    };
 }

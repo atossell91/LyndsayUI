@@ -46,7 +46,7 @@ void SDLEventManager::waitForEvents() {
 }
 
 void SDLEventManager::PushEvent(std::unique_ptr<IQueuedEventData> event) {
-
+    //SDL_PushEvent()
 }
 
 void SDLEventManager::handleEvent(SDL_Event& event) {
@@ -105,9 +105,15 @@ void SDLEventManager::handleEvent(SDL_Event& event) {
             mouseButtonUpData.MouseY = event.button.y;
             MouseButtonUp.Raise(mouseButtonUpData);
             break;
-
+        case SDL_EVENT_USER:
+            break;
         case SDL_EVENT_QUIT:
             // Event
             break;
     }
+}
+
+void SDLEventManager::initEvents() {
+    int eventStart = SDL_RegisterEvents(1);
+    drawEventCode = eventStart + 0;
 }

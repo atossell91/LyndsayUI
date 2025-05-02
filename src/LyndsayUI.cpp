@@ -107,8 +107,13 @@ void NSLyndsayUI::LyndsayUI::retainedLoop() {
     }
 }
 
-void NSLyndsayUI::LyndsayUI::Run() {
+void NSLyndsayUI::LyndsayUI::RunImmediate() {
     immediateLoop();
+    cleanup();
+}
+
+void NSLyndsayUI::LyndsayUI::RunRetained() {
+    retainedLoop();
     cleanup();
 }
 

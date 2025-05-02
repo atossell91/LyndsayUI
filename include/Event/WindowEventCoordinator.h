@@ -18,13 +18,14 @@ namespace NSLyndsayUI {
         WindowEventCoordinator(std::unique_ptr<IEventManager> threadEvManager, std::unique_ptr<AbstractWindowEventManager> platformEvManager) : 
             threadEventManager{std::move(threadEvManager)},
             platformEventManager{std::move(platformEvManager)} {}
+        
         void PollAndProcessEvents() { 
             threadEventManager->PollAndProcessEvents();
             platformEventManager->PollAndProcessEvents();
          }
 
          void WaitAndProcessEvents() {
-            //threa
+            platformEventManager->WaitAndProcessEvents();
          }
         
          IEventManager* GetThreadEventManager() { return threadEventManager.get(); }
