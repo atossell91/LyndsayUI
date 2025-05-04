@@ -17,10 +17,16 @@ namespace NSLyndsayUI {
     private:
         //  Private stuff here
         std::unique_ptr<IWindow> platformWindow;
+
+        void mouseClickedHandler(MouseButtonEventData data) {
+            
+        }
     public:
         //  Public stuff here
         int GetWindowId() { return platformWindow->GetWindowId(); }
+        
         void Close() {}
+
         IGraphics* GetGraphics() { 
             return platformWindow->GetGraphics();
         }

@@ -39,6 +39,9 @@ add_library(LyndsayUI SHARED
     ${SRC}/LinuxSpecificFunctions.cpp
     ${SRC}/WindowsSpecificFunctions.cpp
     ${SRC}/Drawing/FreetypeTextRenderer.cpp
+    ${SRC}/Controls/Button.cpp
+    ${SRC}/Controls/Label.cpp
+    ${SRC}/Controls/Textbox.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 
