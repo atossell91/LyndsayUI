@@ -10,7 +10,7 @@ int main() {
 
     NSLyndsayUI::LyndsayUI lyndsay;
     lyndsay.AddImmediateWindow<NSLyndsayUI::MyWin>();
-    lyndsay.RunRetained();
+    lyndsay.RunImmediate();
 
     auto p = std::filesystem::path("/home/ant");
     std::cout << "Done - it didn't segfault this time (at least not yet)" << std::endl;
