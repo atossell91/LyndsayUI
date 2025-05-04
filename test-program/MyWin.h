@@ -136,6 +136,7 @@ namespace NSLyndsayUI {
         }
 
         void Draw() {
+            std::cout << "Draw" << std::endl;
             PointPath points;
 
             int samples = 100;

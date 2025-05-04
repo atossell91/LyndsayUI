@@ -110,7 +110,7 @@ void NSLyndsayUI::LyndsayUI::retainedLoop() {
     while (!gameContext.ShouldClose &&
             (retainedWindows->size() > 0 ||
             immediateWindows->size() > 0)) {
-        eventManager->PollAndProcessEvents();
+        eventManager->WaitAndProcessEvents();
     }
 }
 
