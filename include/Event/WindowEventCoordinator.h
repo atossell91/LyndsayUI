@@ -29,6 +29,6 @@ namespace NSLyndsayUI {
          }
         
          IEventManager* GetThreadEventManager() { return threadEventManager.get(); }
-        AbstractWindowEventManager* GetPlatformEventManager() { return platformEventManager.get(); }
+         AbstractWindowEventManager* GetPlatformEventManager() { return platformEventManager.get(); }
     };
 } // LyndsayUI

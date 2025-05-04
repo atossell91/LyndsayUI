@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Event/IWindowEventManager.h"
 #include "Event/Event.h"
 #include "Event/EventData/WindowCloseButtonClickedEventData.h"
 #include "Event/EventData/MouseMovedEventData.h"
 #include "Event/EventData/MouseButtonEventData.h"
 #include "Event/EventData/KeyboardEventData.h"
+#include "Event/IEventManager.h"
 
 namespace NSLyndsayUI {
-    class AbstractWindowEventManager : public IWindowEventManager {
+    class AbstractWindowEventManager : public IEventManager {
     public:
         virtual ~AbstractWindowEventManager() {}
         //  Public stuff here
