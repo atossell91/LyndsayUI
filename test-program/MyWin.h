@@ -198,8 +198,6 @@ namespace NSLyndsayUI {
             trainParams.setYscale(0.025f);
             this->GetGraphics()->DrawRectangle(Colours::DarkGrey,trainParams);
 
-            this->GetGraphics()->SwapBuffers();
-
             ++tickCount;
         }
     };

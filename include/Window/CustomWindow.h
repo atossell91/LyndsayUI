@@ -10,6 +10,7 @@
 #include "Event/EventData/MouseMovedEventData.h"
 #include "Event/EventData/MouseButtonEventData.h"
 #include "Event/EventData/KeyboardEventData.h"
+#include "Event/EventData/WindowShownEventData.h"
 
 namespace NSLyndsayUI {
     class CustomWindow : public IWindow {
@@ -32,6 +33,7 @@ namespace NSLyndsayUI {
         Event<MouseMovedEventData> MouseMoved;
         Event<KeyboardEventData> KeyDown;
         Event<KeyboardEventData> KeyUp;
+        Event<WindowShownEventData> WindowShown;
 
         friend class CustomWindowFactory;
     };

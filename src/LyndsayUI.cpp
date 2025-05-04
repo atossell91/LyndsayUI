@@ -79,6 +79,13 @@ void NSLyndsayUI::LyndsayUI::init() {
     });
     std::cout << "World" << std::endl;
 
+    eventManager->GetPlatformEventManager()->WindowShown.AddEventHandler([this](auto d){
+        int index = immediateWindows->GetWindowIndex(d.windowId);
+        if (index >= 0) {
+            (*immediateWindows)[index]->WindowShown.Raise(d);
+        }
+    });
+
 }
 
 void NSLyndsayUI::LyndsayUI::immediateLoop() {

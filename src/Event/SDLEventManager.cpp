@@ -14,6 +14,8 @@
 #include "Event/EventData/MouseMovedEventData.h"
 #include "Event/EventData/MouseButtonEventData.h"
 #include "Event/EventData/KeyboardEventData.h"
+#include "Event/EventData/WindowShownEventData.h"
+
 #include "SDLKeys.h"
 
 using namespace NSLyndsayUI;
@@ -105,6 +107,10 @@ void SDLEventManager::handleEvent(SDL_Event& event) {
             mouseButtonUpData.MouseY = event.button.y;
             MouseButtonUp.Raise(mouseButtonUpData);
             break;
+        case SDL_EVENT_WINDOW_SHOWN:
+            WindowShownEventData windowShownEventData;
+            windowShownEventData.windowId = event.window.windowID;
+            WindowShown.Raise(windowShownEventData);
         case SDL_EVENT_USER:
             break;
         case SDL_EVENT_QUIT:

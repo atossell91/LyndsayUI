@@ -6,6 +6,7 @@
 #include "Event/EventData/MouseButtonEventData.h"
 #include "Event/EventData/KeyboardEventData.h"
 #include "Event/IEventManager.h"
+#include "Event/EventData/WindowShownEventData.h"
 
 namespace NSLyndsayUI {
     class AbstractWindowEventManager : public IEventManager {
@@ -18,5 +19,6 @@ namespace NSLyndsayUI {
         Event<MouseMovedEventData> MouseMoved;
         Event<KeyboardEventData> KeyDown;
         Event<KeyboardEventData> KeyUp;
+        Event<WindowShownEventData> WindowShown;
     };
 } // NSLyndsayUI
