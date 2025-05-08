@@ -21,7 +21,6 @@ include_directories(
 
 add_library(LyndsayUI SHARED
     ${SRC}/glad.c
-    ${SRC}/Window/Window.cpp
     ${SRC}/ShaderUtils.cpp
     ${SRC}/Utilities.cpp
     ${SRC}/Image.cpp

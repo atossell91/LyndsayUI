@@ -18,7 +18,7 @@
 #include "SDLLyndsayDependencyFactory.h" 
 
 #include "Window/RetainedWindow.h"
-#include "Window/ImmediateWindow.h"
+#include "Window/Window.h"
 #include "Window/IWindowCollection.h"
 #include "Window/CustomWindowFactory.h"
 
@@ -33,7 +33,7 @@ namespace NSLyndsayUI {
       std::unique_ptr<CustomWindowFactory> customWinFactory;
 
       std::unique_ptr<IWindowCollection<RetainedWindow>> retainedWindows;
-      std::unique_ptr<IWindowCollection<ImmediateWindow>> immediateWindows;
+      std::unique_ptr<IWindowCollection<Window>> immediateWindows;
 
       const int kMainLoopDelay = 5; // Milliseconds
 
@@ -58,8 +58,8 @@ namespace NSLyndsayUI {
          }
 
       template <typename T>
-      void AddImmediateWindow() {
-         auto win = customWinFactory->CreateImmediateWindow<T>();
+      void AddWindow() {
+         auto win = customWinFactory->CreateWindow<T>();
          immediateWindows->AddWindow(std::move(win));
       }
 

@@ -26,7 +26,7 @@ namespace NSLyndsayUI {
         std::unique_ptr<IWindowFactory> GetWindowFactory();
         std::unique_ptr<CustomWindowFactory> GetCustomWindowFactory();
 
-        std::unique_ptr<IWindowCollection<ImmediateWindow>> GetImmediateWindowCollection() { return std::make_unique<SammieCollection<ImmediateWindow>>(); }
+        std::unique_ptr<IWindowCollection<Window>> GetImmediateWindowCollection() { return std::make_unique<SammieCollection<Window>>(); }
         std::unique_ptr<IWindowCollection<RetainedWindow>> GetRetainedWindowCollection() { return std::make_unique<SammieCollection<RetainedWindow>>(); }
     };
 } // LyndsayUI

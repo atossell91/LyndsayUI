@@ -9,7 +9,7 @@
 int main() {
 
     NSLyndsayUI::LyndsayUI lyndsay;
-    lyndsay.AddImmediateWindow<NSLyndsayUI::MyWin>();
+    lyndsay.AddWindow<NSLyndsayUI::MyWin>();
     lyndsay.RunImmediate();
 
     auto p = std::filesystem::path("/home/ant");

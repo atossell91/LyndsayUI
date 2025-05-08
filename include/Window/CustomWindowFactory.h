@@ -4,7 +4,7 @@
 #include <type_traits>
 
 #include "Window/RetainedWindow.h"
-#include "Window/ImmediateWindow.h"
+#include "Window/Window.h"
 #include "Window/CustomWindow.h"
 #include "Window/IPlatformWindowFactory.h"
 
@@ -18,7 +18,7 @@ namespace NSLyndsayUI {
         CustomWindowFactory(std::unique_ptr<IPlatformWindowFactory> platWinFactory) : platWinFactory{std::move(platWinFactory)} {}
 
         template <typename T, std::enable_if_t<std::is_base_of<CustomWindow, T>::value, bool> = true>
-        std::unique_ptr<T> CreateImmediateWindow() {
+        std::unique_ptr<T> CreateWindow() {
             auto platformWindow = platWinFactory->CreateWindow();
             auto win = std::make_unique<T>();
             win->platformWindow.reset(platformWindow.release());

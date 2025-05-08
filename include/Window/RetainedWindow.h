@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Window/ImmediateWindow.h"
+#include "Window/Window.h"
 
 namespace NSLyndsayUI {
     class RetainedWindow : public CustomWindow {
