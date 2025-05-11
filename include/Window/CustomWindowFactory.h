@@ -17,16 +17,16 @@ namespace NSLyndsayUI {
         //  Public stuff here
         CustomWindowFactory(std::unique_ptr<IPlatformWindowFactory> platWinFactory) : platWinFactory{std::move(platWinFactory)} {}
 
-        template <typename T, std::enable_if_t<std::is_base_of<CustomWindow, T>::value, bool> = true>
-        std::unique_ptr<T> CreateWindow() {
-            auto platformWindow = platWinFactory->CreateWindow();
-            auto win = std::make_unique<T>();
-            win->platformWindow.reset(platformWindow.release());
+            template <typename T, std::enable_if_t<std::is_base_of<CustomWindow, T>::value, bool> = true>
+            std::unique_ptr<T> CreateWindow() {
+                auto platformWindow = platWinFactory->CreateWindow();
+                auto win = std::make_unique<T>();
+                win->platformWindow.reset(platformWindow.release());
 
-            win->Setup();
+                win->Setup();
 
-            return std::move(win);
-        }
+                return std::move(win);
+            }
 
         //template <typename T, std::enable_if_t<std::is_base_of<RetainedWindow, T>::value>>
         //std::unique_ptr<T> CreateRetainedWindow() {}

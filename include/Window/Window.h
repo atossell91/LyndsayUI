@@ -1,16 +1,19 @@
 #pragma once
 
+#include <memory>
+
 #include "Window/CustomWindow.h"
 #include "Event/EventData/DrawRequestedEventData.h"
 #include "Event/Event.h"
-
-#include <thread>
-#include <chrono>
+#include "Controls/IControlCollection.h"
+#include "Controls/ControlCollection.h"
 
 namespace NSLyndsayUI {
     class Window : public CustomWindow {
     private:
         //  Private stuff here
+        std::unique_ptr<IControlCollection> controls;
+
         void initEvents() {
             //DrawRequested.AddEventHandler([this](auto d){handleDrawRequested();});
             WindowShown.AddEventHandler([this](auto d){
