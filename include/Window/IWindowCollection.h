@@ -3,7 +3,7 @@
 #include <vector>
 
 namespace NSLyndsayUI {
-    template <typename T, std::enable_if_t<std::is_base_of<CustomWindow, T>::value, bool> = true>
+    template <typename T, std::enable_if_t<std::is_base_of<Window, T>::value, bool> = true>
     class IWindowCollection {
     public:
         virtual ~IWindowCollection() {}

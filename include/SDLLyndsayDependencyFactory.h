@@ -6,8 +6,8 @@
 #include "Window/IWindowManager.h"
 #include "Event/IWindowEventCoordinator.h"
 #include "Window/IWindowFactory.h"
-#include "Window/CustomWindowFactory.h"
-#include "Window/CustomWindow.h"
+#include "Window/WindowFactory.h"
+#include "Window/Window.h"
 #include "WindowCollection.h"
 
 namespace NSLyndsayUI {
@@ -24,10 +24,9 @@ namespace NSLyndsayUI {
         SDLLyndsayDependencyFactory() { build(); }
         std::unique_ptr<IWindowManager> GetWindowManager() { return std::move(windowManager);}
         std::unique_ptr<IWindowEventCoordinator> GetEventProcessor() { return std::move(eventProcessor);}
-        std::unique_ptr<IWindowFactory> GetWindowFactory();
-        std::unique_ptr<CustomWindowFactory> GetCustomWindowFactory();
+        std::unique_ptr<WindowFactory> GetWindowFactory();
 
-        std::unique_ptr<IWindowCollection<CustomWindow>> GetWindowCollection() { return std::make_unique<WindowCollection<CustomWindow>>(); }
-        std::unique_ptr<IWindowCollection<CustomWindow>> GetRetainedWindowCollection() { return std::make_unique<WindowCollection<CustomWindow>>(); }
+        std::unique_ptr<IWindowCollection<Window>> GetWindowCollection() { return std::make_unique<WindowCollection<Window>>(); }
+        std::unique_ptr<IWindowCollection<Window>> GetRetainedWindowCollection() { return std::make_unique<WindowCollection<Window>>(); }
     };
 } // LyndsayUI

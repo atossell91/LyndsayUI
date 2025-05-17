@@ -6,10 +6,10 @@
 #include <iostream>
 
 #include "Window/IWindowCollection.h"
-#include "Window/CustomWindow.h"
+#include "Window/Window.h"
 
 namespace NSLyndsayUI {
-    template <typename T, std::enable_if_t<std::is_base_of<CustomWindow, T>::value, bool> = true>
+    template <typename T, std::enable_if_t<std::is_base_of<Window, T>::value, bool> = true>
     class WindowCollection : public IWindowCollection<T> {
     private:
         //  Private stuff here

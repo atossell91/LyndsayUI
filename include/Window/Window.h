@@ -13,11 +13,11 @@
 #include "Event/EventData/WindowShownEventData.h"
 #include "Controls/IControlCollection.h"
 #include "Controls/ControlCollection.h"
-#include "Window/CustomWindow.h"
+#include "Window/Window.h"
 #include "Event/EventData/DrawRequestedEventData.h"
 
 namespace NSLyndsayUI {
-    class CustomWindow : public IWindow {
+    class Window : public IWindow {
     private:
         //  Private stuff here
         std::unique_ptr<IWindow> platformWindow;
@@ -36,7 +36,7 @@ namespace NSLyndsayUI {
         }
     public:
         //  Public stuff here
-        CustomWindow() { initEvents(); }
+        Window() { initEvents(); }
         int GetWindowId() { return platformWindow->GetWindowId(); }
         
         void Close() {}
@@ -65,6 +65,6 @@ namespace NSLyndsayUI {
         Event<KeyboardEventData> KeyUp;
         Event<WindowShownEventData> WindowShown;
 
-        friend class CustomWindowFactory;
+        friend class WindowFactory;
     };
 } // NSLyndsayUI

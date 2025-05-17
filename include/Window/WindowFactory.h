@@ -1,40 +1,36 @@
 #pragma once
 
 #include <memory>
-#include <mutex>
-#include <condition_variable>
-#include <thread>
+#include <type_traits>
 
-#include "IMappableIndexResolver.h"
-
-#include "Event/IWindowEventManagerFactory.h"
-
+#include "Window/Window.h"
 #include "Window/IPlatformWindowFactory.h"
-#include "Window/IWindowFactory.h"
-#include "Window/IAsyncWindow.h"
-#include "Window/IWindow.h"
+#include "Controls/ControlCollection.h"
 
 namespace NSLyndsayUI {
-
-    class AsyncWindow;
-
-    class WindowFactory : public IWindowFactory {
+    class WindowFactory {
     private:
         //  Private stuff here
-        int nextWindowId = 0;
-        std::unique_ptr<IPlatformWindowFactory> platformWinFactory;
-        std::unique_ptr<IWindowEventManagerFactory> WindowEventManagerFactory;
-        int generateWindowId() { return nextWindowId++; }
+        std::unique_ptr<IPlatformWindowFactory> platWinFactory;
     public:
         //  Public stuff here
-        WindowFactory(
-            std::unique_ptr<IPlatformWindowFactory> factory,
-            std::unique_ptr<IWindowEventManagerFactory> evFactory
-            ) : 
-            platformWinFactory{std::move(factory)},
-            WindowEventManagerFactory{std::move(evFactory)} {}
-        std::unique_ptr<IWindow> CreateSynchronousWindow();
-        std::unique_ptr<IWindow> CreateAsynchronousWindow();
-        void CreateWindowThread(AsyncWindow* window, std::unique_ptr<IWindow>& innerWin, bool& isWinset, std::thread::id& workerThreadId);
+        WindowFactory(std::unique_ptr<IPlatformWindowFactory> platWinFactory) : platWinFactory{std::move(platWinFactory)} {}
+
+            // The window, win, requires a platformWindow and controls object (e.g win->platformWindow = ...)
+            template <typename T, std::enable_if_t<std::is_base_of<Window, T>::value, bool> = true>
+            std::unique_ptr<T> CreateWindow() {
+                auto platformWindow = platWinFactory->CreateWindow();
+                auto win = std::make_unique<T>();
+                win->platformWindow.reset(platformWindow.release());
+
+                win->controls = std::make_unique<ControlCollection>();
+
+                win->Setup();
+
+                return std::move(win);
+            }
+
+        //template <typename T, std::enable_if_t<std::is_base_of<RetainedWindow, T>::value>>
+        //std::unique_ptr<T> CreateRetainedWindow() {}
     };
-} // LyndsayUI
+} // NSLyndsayUI

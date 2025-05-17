@@ -18,8 +18,8 @@
 #include "SDLLyndsayDependencyFactory.h" 
 
 #include "Window/IWindowCollection.h"
-#include "Window/CustomWindow.h"
-#include "Window/CustomWindowFactory.h"
+#include "Window/Window.h"
+#include "Window/WindowFactory.h"
 
 namespace NSLyndsayUI {
    class LyndsayUI {
@@ -29,9 +29,9 @@ namespace NSLyndsayUI {
 
       std::unique_ptr<IWindowFactory> windowFactory;
       std::unique_ptr<IWindowEventCoordinator> eventManager;
-      std::unique_ptr<CustomWindowFactory> customWinFactory;
+      std::unique_ptr<WindowFactory> customWinFactory;
 
-      std::unique_ptr<IWindowCollection<CustomWindow>> windows;
+      std::unique_ptr<IWindowCollection<Window>> windows;
 
       const int kMainLoopDelay = 5; // Milliseconds
 
@@ -47,7 +47,7 @@ namespace NSLyndsayUI {
 
             std::unique_ptr<ILyndsayDependencyFactory> fac = std::make_unique<SDLLyndsayDependencyFactory>();
             eventManager = std::move(fac->GetEventProcessor());
-            customWinFactory = std::move(fac->GetCustomWindowFactory());
+            customWinFactory = std::move(fac->GetWindowFactory());
             windows = std::move(fac->GetWindowCollection());
 
             initSDL();
