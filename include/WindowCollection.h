@@ -10,7 +10,7 @@
 
 namespace NSLyndsayUI {
     template <typename T, std::enable_if_t<std::is_base_of<CustomWindow, T>::value, bool> = true>
-    class SammieCollection : public IWindowCollection<T> {
+    class WindowCollection : public IWindowCollection<T> {
     private:
         //  Private stuff here
         std::vector<std::unique_ptr<T>> windows;

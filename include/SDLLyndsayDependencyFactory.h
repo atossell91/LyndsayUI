@@ -7,7 +7,8 @@
 #include "Event/IWindowEventCoordinator.h"
 #include "Window/IWindowFactory.h"
 #include "Window/CustomWindowFactory.h"
-#include "SammieCollection.h"
+#include "Window/CustomWindow.h"
+#include "WindowCollection.h"
 
 namespace NSLyndsayUI {
     class SDLLyndsayDependencyFactory : public ILyndsayDependencyFactory {
@@ -26,7 +27,7 @@ namespace NSLyndsayUI {
         std::unique_ptr<IWindowFactory> GetWindowFactory();
         std::unique_ptr<CustomWindowFactory> GetCustomWindowFactory();
 
-        std::unique_ptr<IWindowCollection<Window>> GetImmediateWindowCollection() { return std::make_unique<SammieCollection<Window>>(); }
-        std::unique_ptr<IWindowCollection<RetainedWindow>> GetRetainedWindowCollection() { return std::make_unique<SammieCollection<RetainedWindow>>(); }
+        std::unique_ptr<IWindowCollection<CustomWindow>> GetWindowCollection() { return std::make_unique<WindowCollection<CustomWindow>>(); }
+        std::unique_ptr<IWindowCollection<CustomWindow>> GetRetainedWindowCollection() { return std::make_unique<WindowCollection<CustomWindow>>(); }
     };
 } // LyndsayUI

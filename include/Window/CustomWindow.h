@@ -12,6 +12,9 @@
 #include "Event/EventData/KeyboardEventData.h"
 #include "Event/EventData/WindowShownEventData.h"
 #include "Controls/IControlCollection.h"
+#include "Controls/ControlCollection.h"
+#include "Window/CustomWindow.h"
+#include "Event/EventData/DrawRequestedEventData.h"
 
 namespace NSLyndsayUI {
     class CustomWindow : public IWindow {
@@ -19,8 +22,21 @@ namespace NSLyndsayUI {
         //  Private stuff here
         std::unique_ptr<IWindow> platformWindow;
         std::unique_ptr<IControlCollection> controls;
+
+        void initEvents() {
+            //DrawRequested.AddEventHandler([this](auto d){handleDrawRequested();});
+            WindowShown.AddEventHandler([this](auto d){
+                //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                handleDrawRequested();
+            });
+        }
+
+        void handleDrawRequested() {
+            this->RenderFrame(); // Causes a segfault if the window isn't initialized
+        }
     public:
         //  Public stuff here
+        CustomWindow() { initEvents(); }
         int GetWindowId() { return platformWindow->GetWindowId(); }
         
         void Close() {}
@@ -30,6 +46,16 @@ namespace NSLyndsayUI {
         }
 
         virtual void Setup() {}
+        virtual void Update() {}
+        virtual void Draw() {}
+
+        virtual void RenderFrame() {
+            GetGraphics()->Clear();
+            Draw();
+            GetGraphics()->SwapBuffers();
+        }
+
+        Event<DrawRequestedEventData> DrawRequested;
 
         Event<WindowCloseButtonClickedEventData> CloseButtonPressed;
         Event<MouseButtonEventData> MouseButtonDown;

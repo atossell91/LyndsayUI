@@ -35,54 +35,54 @@ void NSLyndsayUI::LyndsayUI::init() {
     }
 
     eventManager->GetPlatformEventManager()->WindowCloseButtonClicked.AddEventHandler([this](auto d){
-        immediateWindows->RemoveWindowById(d.windowId);
+        windows->RemoveWindowById(d.windowId);
     });
     std::cout << "Everybody" << std::endl;
 
     eventManager->GetPlatformEventManager()->MouseButtonDown.AddEventHandler([this](auto d){
-        int index = immediateWindows->GetWindowIndex(d.windowId);
+        int index = windows->GetWindowIndex(d.windowId);
         if (index >= 0) {
-            (*immediateWindows)[index]->MouseButtonDown.Raise(d);
+            (*windows)[index]->MouseButtonDown.Raise(d);
         }
     });
     std::cout << "Wants" << std::endl;
 
     eventManager->GetPlatformEventManager()->MouseButtonUp.AddEventHandler([this](auto d){
-        int index = immediateWindows->GetWindowIndex(d.windowId);
+        int index = windows->GetWindowIndex(d.windowId);
         if (index >= 0) {
-            (*immediateWindows)[index]->MouseButtonUp.Raise(d);
+            (*windows)[index]->MouseButtonUp.Raise(d);
         }
     });
     std::cout << "To" << std::endl;
 
     eventManager->GetPlatformEventManager()->MouseMoved.AddEventHandler([this](auto d){
-        int index = immediateWindows->GetWindowIndex(d.windowId);
+        int index = windows->GetWindowIndex(d.windowId);
         if (index >= 0) {
-            (*immediateWindows)[index]->MouseMoved.Raise(d);
+            (*windows)[index]->MouseMoved.Raise(d);
         }
     });
     std::cout << "Rule" << std::endl;
 
     eventManager->GetPlatformEventManager()->KeyDown.AddEventHandler([this](auto d){
-        int index = immediateWindows->GetWindowIndex(d.windowId);
+        int index = windows->GetWindowIndex(d.windowId);
         if (index >= 0) {
-            (*immediateWindows)[index]->KeyDown.Raise(d);
+            (*windows)[index]->KeyDown.Raise(d);
         }
     });
     std::cout << "The" << std::endl;
 
     eventManager->GetPlatformEventManager()->KeyUp.AddEventHandler([this](auto d){
-        int index = immediateWindows->GetWindowIndex(d.windowId);
+        int index = windows->GetWindowIndex(d.windowId);
         if (index >= 0) {
-            (*immediateWindows)[index]->KeyUp.Raise(d);
+            (*windows)[index]->KeyUp.Raise(d);
         }
     });
     std::cout << "World" << std::endl;
 
     eventManager->GetPlatformEventManager()->WindowShown.AddEventHandler([this](auto d){
-        int index = immediateWindows->GetWindowIndex(d.windowId);
+        int index = windows->GetWindowIndex(d.windowId);
         if (index >= 0) {
-            (*immediateWindows)[index]->WindowShown.Raise(d);
+            (*windows)[index]->WindowShown.Raise(d);
         }
     });
 
@@ -90,13 +90,12 @@ void NSLyndsayUI::LyndsayUI::init() {
 
 void NSLyndsayUI::LyndsayUI::immediateLoop() {
     while (!gameContext.ShouldClose &&
-            (retainedWindows->size() > 0 ||
-            immediateWindows->size() > 0)) {
+            (windows->size() > 0)) {
 
         //// Process events
         eventManager->PollAndProcessEvents();
 
-        for (auto& win : *immediateWindows) {
+        for (auto& win : *windows) {
             win->Update();
             win->RenderFrame();
         }
@@ -108,8 +107,7 @@ void NSLyndsayUI::LyndsayUI::immediateLoop() {
 
 void NSLyndsayUI::LyndsayUI::retainedLoop() {
     while (!gameContext.ShouldClose &&
-            (retainedWindows->size() > 0 ||
-            immediateWindows->size() > 0)) {
+            (windows->size() > 0)) {
         eventManager->WaitAndProcessEvents();
     }
 }

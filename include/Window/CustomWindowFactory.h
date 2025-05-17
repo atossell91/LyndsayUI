@@ -3,8 +3,6 @@
 #include <memory>
 #include <type_traits>
 
-#include "Window/RetainedWindow.h"
-#include "Window/Window.h"
 #include "Window/CustomWindow.h"
 #include "Window/IPlatformWindowFactory.h"
 #include "Controls/ControlCollection.h"

@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Window/Window.h"
+#include "Window/CustomWindow.h"
 #include "Event/EventData/MouseButtonEventData.h"
 #include "MyRect.h"
 #include "KeyValues.h"
@@ -14,7 +14,7 @@
 #include "Curves.h"
 
 namespace NSLyndsayUI {
-    class MyWin : public Window {
+    class MyWin : public CustomWindow {
     private:
         //  Private stuff here
         bool isSet = false;

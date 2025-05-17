@@ -17,9 +17,8 @@
 #include "ILyndsayDependencyFactory.h"
 #include "SDLLyndsayDependencyFactory.h" 
 
-#include "Window/RetainedWindow.h"
-#include "Window/Window.h"
 #include "Window/IWindowCollection.h"
+#include "Window/CustomWindow.h"
 #include "Window/CustomWindowFactory.h"
 
 namespace NSLyndsayUI {
@@ -32,8 +31,7 @@ namespace NSLyndsayUI {
       std::unique_ptr<IWindowEventCoordinator> eventManager;
       std::unique_ptr<CustomWindowFactory> customWinFactory;
 
-      std::unique_ptr<IWindowCollection<RetainedWindow>> retainedWindows;
-      std::unique_ptr<IWindowCollection<Window>> immediateWindows;
+      std::unique_ptr<IWindowCollection<CustomWindow>> windows;
 
       const int kMainLoopDelay = 5; // Milliseconds
 
@@ -50,8 +48,7 @@ namespace NSLyndsayUI {
             std::unique_ptr<ILyndsayDependencyFactory> fac = std::make_unique<SDLLyndsayDependencyFactory>();
             eventManager = std::move(fac->GetEventProcessor());
             customWinFactory = std::move(fac->GetCustomWindowFactory());
-            immediateWindows = std::move(fac->GetImmediateWindowCollection());
-            retainedWindows = std::move(fac->GetRetainedWindowCollection());
+            windows = std::move(fac->GetWindowCollection());
 
             initSDL();
             init();
@@ -60,14 +57,8 @@ namespace NSLyndsayUI {
       template <typename T>
       void AddWindow() {
          auto win = customWinFactory->CreateWindow<T>();
-         immediateWindows->AddWindow(std::move(win));
+         windows->AddWindow(std::move(win));
       }
-
-      //template <typename T>
-      //void AddRetainedWindow() {
-         //auto win = customWinFactory->CreateRetainedWindow<T>();
-         //retainedWindows(std::move(win));
-      //}
 
       void RunImmediate();
       void RunRetained();
