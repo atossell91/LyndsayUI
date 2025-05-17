@@ -7,6 +7,7 @@
 #include "Window/Window.h"
 #include "Window/CustomWindow.h"
 #include "Window/IPlatformWindowFactory.h"
+#include "Controls/ControlCollection.h"
 
 namespace NSLyndsayUI {
     class CustomWindowFactory {
@@ -17,11 +18,14 @@ namespace NSLyndsayUI {
         //  Public stuff here
         CustomWindowFactory(std::unique_ptr<IPlatformWindowFactory> platWinFactory) : platWinFactory{std::move(platWinFactory)} {}
 
+            // The window, win, requires a platformWindow and controls object (e.g win->platformWindow = ...)
             template <typename T, std::enable_if_t<std::is_base_of<CustomWindow, T>::value, bool> = true>
             std::unique_ptr<T> CreateWindow() {
                 auto platformWindow = platWinFactory->CreateWindow();
                 auto win = std::make_unique<T>();
                 win->platformWindow.reset(platformWindow.release());
+
+                win->controls = std::make_unique<ControlCollection>();
 
                 win->Setup();
 

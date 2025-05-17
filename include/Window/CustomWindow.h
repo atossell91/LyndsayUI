@@ -11,16 +11,14 @@
 #include "Event/EventData/MouseButtonEventData.h"
 #include "Event/EventData/KeyboardEventData.h"
 #include "Event/EventData/WindowShownEventData.h"
+#include "Controls/IControlCollection.h"
 
 namespace NSLyndsayUI {
     class CustomWindow : public IWindow {
     private:
         //  Private stuff here
         std::unique_ptr<IWindow> platformWindow;
-
-        void mouseClickedHandler(MouseButtonEventData data) {
-            
-        }
+        std::unique_ptr<IControlCollection> controls;
     public:
         //  Public stuff here
         int GetWindowId() { return platformWindow->GetWindowId(); }

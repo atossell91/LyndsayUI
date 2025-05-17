@@ -12,7 +12,6 @@ namespace NSLyndsayUI {
     class Window : public CustomWindow {
     private:
         //  Private stuff here
-        std::unique_ptr<IControlCollection> controls;
 
         void initEvents() {
             //DrawRequested.AddEventHandler([this](auto d){handleDrawRequested();});
