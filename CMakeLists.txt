@@ -16,7 +16,6 @@ find_package(Freetype REQUIRED)
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
     /usr/include/SDL3_image/SDL_image.h
-    /usr/include/freetype2
 )
 
 add_library(LyndsayUI SHARED
@@ -30,7 +29,6 @@ add_library(LyndsayUI SHARED
     ${SRC}/Event/SDLEventManager.cpp
     ${SRC}/Window/SDLWindowFactory.cpp
     ${SRC}/Window/SDLWindow.cpp
-    ${SRC}/Window/WindowBase.cpp
     ${SRC}/Event/ThreadEventManager.cpp
     ${SRC}/SDLLyndsayDependencyFactory.cpp
     ${SRC}/Event/SDLWindowEventManagerFactory.cpp
@@ -41,6 +39,7 @@ add_library(LyndsayUI SHARED
     ${SRC}/Controls/Button.cpp
     ${SRC}/Controls/Label.cpp
     ${SRC}/Controls/Textbox.cpp
+    ${SRC}/Text/FreeTypeCharacterRenderer.cpp
     #ADD_CPP - DO NOT MODIFY THIS LINE
 )
 

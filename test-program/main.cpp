@@ -5,8 +5,11 @@
 #include "MyWin.h"
 
 #include "LinuxSpecificFunctions.h"
+#include "Text/FreeTypeCharacterRenderer.h"
 
 int main() {
+    NSLyndsayUI::FreeTypeCharacterRenderer tred;
+    tred.Init();
 
     NSLyndsayUI::LyndsayUI lyndsay;
     lyndsay.AddWindow<NSLyndsayUI::MyWin>();
