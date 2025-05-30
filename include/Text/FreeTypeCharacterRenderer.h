@@ -4,8 +4,11 @@
 #include FT_FREETYPE_H
 
 //#include <freetype2/freetype/freetype.h>
+#include <cstdlib>
 
 #include "ICharacterRenderer.h"
+#include "GlyphData.h"
+#include "LyndsayGlyph.h"
 
 namespace NSLyndsayUI {
     class FreeTypeCharacterRenderer : public ICharacterRenderer {
@@ -17,7 +20,7 @@ namespace NSLyndsayUI {
         //  Public stuff here
         void Init() {
             FT_Init_FreeType(&ft);
-            FT_New_Face(ft, "/home/ant/Programming/LyndsayUI/fonts/Roboto-VariableFont_wdth,wght.ttf", 0, &face);
+            FT_New_Face(ft, "/home/ant/programming/LyndsayUI/fonts/Roboto-VariableFont_wdth,wght.ttf", 0, &face);
         }
 
         void SetFontHeight(int fontHeight) { FT_Set_Pixel_Sizes(face, 0, fontHeight); }
@@ -26,7 +29,43 @@ namespace NSLyndsayUI {
             // What happens if this fails?
             FT_Load_Char(face, character, FT_LOAD_RENDER);
 
+            LyndsayGlyph glyph;
+            GlyphData data;
+            
+            // Pitch can be negative & sign denotes order of rows in the bitmap
+            size_t absPitch = 0;
+            if (face->glyph->bitmap.pitch >= 0) {
+                absPitch = static_cast<size_t>(face->glyph->bitmap.pitch);
+                data.RowOrder = GlyphRowOrder::TopToBottom;
+            }
+            else {
+                absPitch = static_cast<size_t>(-face->glyph->bitmap.pitch);
+                data.RowOrder = GlyphRowOrder::BottomToTop;
+            }
 
+            data.RowCount = face->glyph->bitmap.rows;
+            data.ImageWidth = face->glyph->bitmap.width;
+            data.RowWidth = absPitch;
+            
+            size_t count = face->glyph->bitmap.rows * absPitch;
+
+            // Transfer the glyph data
+            data.Buffer.reserve(count);
+            int bufferIndex = 0;
+            for (size_t row=0; row < face->glyph->bitmap.rows; ++row) {
+                for (size_t col=0; col < absPitch; ++col) {
+                    // Transfer
+                    bufferIndex = absPitch * row + col;
+                    data.Buffer[bufferIndex] = face->glyph->bitmap.buffer[bufferIndex];
+                }
+            }
+
+            glyph.data = data;
+            glyph.Width = data.ImageWidth;
+            glyph.Height = data.RowCount;
+            glyph.BearingX = face->glyph->bitmap_left;
+            glyph.BearingY = face->glyph->bitmap_top;
+            glyph.Advance = face->glyph->advance.x;
         }
     };
 } // NSLyndsayUI

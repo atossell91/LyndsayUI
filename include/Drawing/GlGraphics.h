@@ -69,6 +69,7 @@ namespace NSLyndsayUI {
 
         void SwapBuffers() { SDL_GL_SwapWindow(window);}
         
+        BufferedImage BufferImageData(std::vector<char> data);
         BufferedImage BufferImage(const std::string& imgPath);
         
         void DrawRectangle(const Colour& colour, const TransformParams& params);

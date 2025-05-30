@@ -12,6 +12,7 @@
 #include "Drawing/PathDrawer.h"
 #include "Constants.h"
 #include "Curves.h"
+#include "Text/FreeTypeCharacterRenderer.h"
 
 namespace NSLyndsayUI {
     class MyWin : public Window {
@@ -136,6 +137,9 @@ namespace NSLyndsayUI {
         }
 
         void Draw() {
+            NSLyndsayUI::FreeTypeCharacterRenderer tred;
+            tred.Init();
+            tred.GetGlyph('r');
             std::cout << "Draw" << std::endl;
             PointPath points;
 
