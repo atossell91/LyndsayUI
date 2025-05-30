@@ -3,12 +3,12 @@
 #include <vector>
 #include <cstdint>
 
-#include "GlyphData.h"
+#include "ImageData.h"
 
 namespace NSLyndsayUI {
     struct LyndsayGlyph {
         //  Public stuff here
-        GlyphData data;
+        ImageData data;
         int Width = 0;
         int Height = 0;
         int BearingX = 0;

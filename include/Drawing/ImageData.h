@@ -4,17 +4,17 @@
 #include <cstdint>
 
 namespace NSLyndsayUI {
-    enum GlyphRowOrder {
+    enum ImageRowOrder {
         TopToBottom = 0,
         BottomToTop = 1
     };
 
-    struct GlyphData {
+    struct ImageData {
     public:
         //  Public stuff here
         size_t ImageWidth = 0; // The total image width
         size_t RowWidth = 0; // The image width + any byte padding
-        GlyphRowOrder RowOrder = TopToBottom;
+        ImageRowOrder RowOrder = TopToBottom;
         size_t RowCount = 0;
         std::vector<char> Buffer;
     };

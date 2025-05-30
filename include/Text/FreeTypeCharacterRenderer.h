@@ -7,7 +7,7 @@
 #include <cstdlib>
 
 #include "ICharacterRenderer.h"
-#include "GlyphData.h"
+#include "ImageData.h"
 #include "LyndsayGlyph.h"
 
 namespace NSLyndsayUI {
@@ -30,17 +30,17 @@ namespace NSLyndsayUI {
             FT_Load_Char(face, character, FT_LOAD_RENDER);
 
             LyndsayGlyph glyph;
-            GlyphData data;
+            ImageData data;
             
             // Pitch can be negative & sign denotes order of rows in the bitmap
             size_t absPitch = 0;
             if (face->glyph->bitmap.pitch >= 0) {
                 absPitch = static_cast<size_t>(face->glyph->bitmap.pitch);
-                data.RowOrder = GlyphRowOrder::TopToBottom;
+                data.RowOrder = ImageRowOrder::TopToBottom;
             }
             else {
                 absPitch = static_cast<size_t>(-face->glyph->bitmap.pitch);
-                data.RowOrder = GlyphRowOrder::BottomToTop;
+                data.RowOrder = ImageRowOrder::BottomToTop;
             }
 
             data.RowCount = face->glyph->bitmap.rows;
