@@ -32,6 +32,19 @@ void GlGraphics::initOpenGl() {
     }
 }
 
+GLint GlGraphics::resolvePixelType(PixelColourType pixelType) {
+    switch (pixelType) {
+        case PixelColourType::Single:
+            return GL_RED;
+        case PixelColourType::Dual:
+            return GL_RG;
+        case PixelColourType::Tri:
+            return GL_RGB;
+        default:
+            return GL_RGBA;
+    }
+}
+
 GLuint GlGraphics::bufferPrimitive(const float vertices[], int size) {
     GLuint vao;
     glGenVertexArrays(1, &vao);
@@ -169,7 +182,9 @@ NSLyndsayUI::BufferedImage GlGraphics::BufferImageData(ImageData& data) {
 
     //int type = bytesPerPixel > 3 ? GL_RGBA : GL_RGB;
 
-    glTexImage2D(GL_TEXTURE_2D, 0, type, data.RowWidth, data.RowCount, 0, type, GL_UNSIGNED_BYTE, static_cast<void*>(data.Buffer.data()));
+    GLint pixType = resolvePixelType(data.ColourType);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, pixType, data.RowWidth, data.RowCount, 0, type, GL_UNSIGNED_BYTE, static_cast<void*>(data.Buffer.data()));
 
     NSLyndsayUI::BufferedImage ref(tex, data.RowWidth, data.RowCount);
     return ref;

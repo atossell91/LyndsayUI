@@ -10,7 +10,7 @@
 #include "PointPath.h"
 
 namespace NSLyndsayUI {
-    class IGraphics {
+    class IGraphics { 
     public:
         virtual ~IGraphics() {}
         //  Public stuff here

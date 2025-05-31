@@ -60,6 +60,9 @@ namespace NSLyndsayUI {
                 }
             }
 
+            // Is this only ever single?
+            data.ColourType = PixelColourType::Single;
+
             glyph.data = data;
             glyph.Width = data.ImageWidth;
             glyph.Height = data.RowCount;

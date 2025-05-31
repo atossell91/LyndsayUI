@@ -56,6 +56,8 @@ namespace NSLyndsayUI {
         // For drawing lines
         glm::fvec2 calcPerpPoint(const glm::fvec2& p1, const glm::fvec2& p2, bool isPos);
         glm::fvec2 calcNormalizedPoint(const glm::fvec2& p1, const glm::fvec2& p2);
+
+        GLint resolvePixelType(PixelColourType pixelType);
     public:
         //  Public stuff here
         GlGraphics(SDL_Window* window, SDL_GLContext& glContext) : window{window}, glContext(glContext) {
