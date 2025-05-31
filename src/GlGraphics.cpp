@@ -16,6 +16,7 @@
 #include "Drawing/Colour.h"
 #include "Drawing/PathDrawer.h"
 #include "Drawing/BasicShaders.h"
+#include "Drawing/ImageData.h"
 
 using namespace NSLyndsayUI;
 
@@ -152,7 +153,7 @@ void GlGraphics::DrawPath(PointPath& path, const Colour& Colour, float thickness
     glDrawArrays(GL_TRIANGLE_STRIP, 0, numPathData/5);
 }
 
-NSLyndsayUI::BufferedImage GlGraphics::BufferImageData(std::vector<char> data) {
+NSLyndsayUI::BufferedImage GlGraphics::BufferImageData(ImageData& data) {
     SDL_GL_MakeCurrent(window, glContext);
     
     GLuint tex;
@@ -168,10 +169,9 @@ NSLyndsayUI::BufferedImage GlGraphics::BufferImageData(std::vector<char> data) {
 
     //int type = bytesPerPixel > 3 ? GL_RGBA : GL_RGB;
 
-    glTexImage2D(GL_TEXTURE_2D, 0, type, sfc->w, sfc->h, 0, type, GL_UNSIGNED_BYTE, sfc->pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, type, data.RowWidth, data.RowCount, 0, type, GL_UNSIGNED_BYTE, static_cast<void*>(data.Buffer.data()));
 
-    NSLyndsayUI::BufferedImage ref(tex, sfc->w, sfc->h);
-    SDL_DestroySurface(sfc);
+    NSLyndsayUI::BufferedImage ref(tex, data.RowWidth, data.RowCount);
     return ref;
 }
 

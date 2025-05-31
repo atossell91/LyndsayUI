@@ -9,6 +9,13 @@ namespace NSLyndsayUI {
         BottomToTop = 1
     };
 
+    enum PixelColourType {
+        Single = 0,
+        Dual = 1,
+        Tri = 2,
+        Quad = 3
+    };
+
     struct ImageData {
     public:
         //  Public stuff here
@@ -17,5 +24,6 @@ namespace NSLyndsayUI {
         ImageRowOrder RowOrder = TopToBottom;
         size_t RowCount = 0;
         std::vector<char> Buffer;
+        PixelColourType ColourType = PixelColourType::Quad;
     };
 } // NSLyndsayUI

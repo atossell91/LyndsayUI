@@ -14,6 +14,7 @@
 #include "TransformParams.h"
 #include "Drawing/Colour.h"
 #include "PointPath.h"
+#include "ImageData.h"
 
 namespace NSLyndsayUI {
     class GlGraphics : public IGraphics {
@@ -69,7 +70,7 @@ namespace NSLyndsayUI {
 
         void SwapBuffers() { SDL_GL_SwapWindow(window);}
         
-        BufferedImage BufferImageData(std::vector<char> data);
+        BufferedImage BufferImageData(ImageData& data);
         BufferedImage BufferImage(const std::string& imgPath);
         
         void DrawRectangle(const Colour& colour, const TransformParams& params);
