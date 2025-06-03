@@ -184,7 +184,7 @@ NSLyndsayUI::BufferedImage GlGraphics::BufferImageData(ImageData& data) {
 
     GLint pixType = resolvePixelType(data.ColourType);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, pixType, data.RowWidth, data.RowCount, 0, type, GL_UNSIGNED_BYTE, static_cast<void*>(data.Buffer.data()));
+    glTexImage2D(GL_TEXTURE_2D, 0, pixType, data.RowWidth, data.RowCount, 0, pixType, GL_UNSIGNED_BYTE, static_cast<void*>(data.Buffer.data()));
 
     NSLyndsayUI::BufferedImage ref(tex, data.RowWidth, data.RowCount);
     return ref;

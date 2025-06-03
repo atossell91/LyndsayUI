@@ -3,7 +3,7 @@
 #include <vector>
 #include <cstdint>
 
-#include "ImageData.h"
+#include "../Drawing/ImageData.h"
 
 namespace NSLyndsayUI {
     struct LyndsayGlyph {

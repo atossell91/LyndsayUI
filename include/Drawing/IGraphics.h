@@ -8,6 +8,7 @@
 #include "Drawing/Colour.h"
 #include "Point.h"
 #include "PointPath.h"
+#include "Drawing/ImageData.h"
 
 namespace NSLyndsayUI {
     class IGraphics { 
@@ -15,6 +16,7 @@ namespace NSLyndsayUI {
         virtual ~IGraphics() {}
         //  Public stuff here
         virtual BufferedImage BufferImage(const std::string& imgPath) = 0;
+        virtual BufferedImage BufferImageData(ImageData& ImageData) = 0;
         virtual void DrawRectangle(const Colour& colour, const TransformParams& params) = 0;
         virtual void DrawImage(BufferedImage image, 
             const Rectangle& sourceRect, const Rectangle& destRect, const TransformParams& params) = 0;

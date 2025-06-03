@@ -5,9 +5,10 @@
 
 //#include <freetype2/freetype/freetype.h>
 #include <cstdlib>
+#include <iostream>
 
 #include "ICharacterRenderer.h"
-#include "ImageData.h"
+#include "../Drawing/ImageData.h"
 #include "LyndsayGlyph.h"
 
 namespace NSLyndsayUI {
@@ -20,14 +21,16 @@ namespace NSLyndsayUI {
         //  Public stuff here
         void Init() {
             FT_Init_FreeType(&ft);
-            FT_New_Face(ft, "/home/ant/programming/LyndsayUI/fonts/Roboto-VariableFont_wdth,wght.ttf", 0, &face);
+            FT_New_Face(ft, "/home/ant/Programming/LyndsayUI/fonts/Roboto-VariableFont_wdth,wght.ttf", 0, &face);
         }
 
         void SetFontHeight(int fontHeight) { FT_Set_Pixel_Sizes(face, 0, fontHeight); }
 
-        void GetGlyph(char character) {
+        LyndsayGlyph GetGlyph(char character) {
             // What happens if this fails?
-            FT_Load_Char(face, character, FT_LOAD_RENDER);
+            if (!FT_Load_Char(face, character, FT_LOAD_RENDER)) {
+                std::cout << "Character load failed" << std::endl;
+            }
 
             LyndsayGlyph glyph;
             ImageData data;
@@ -69,6 +72,8 @@ namespace NSLyndsayUI {
             glyph.BearingX = face->glyph->bitmap_left;
             glyph.BearingY = face->glyph->bitmap_top;
             glyph.Advance = face->glyph->advance.x;
+
+            return glyph;
         }
     };
 } // NSLyndsayUI

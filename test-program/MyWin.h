@@ -25,7 +25,6 @@ namespace NSLyndsayUI {
         float mouseY = 0;
 
 
-
         bool wDown = false;
         bool aDown = false;
         bool sDown = false;
@@ -41,12 +40,13 @@ namespace NSLyndsayUI {
     public:
         //  Public stuff here
         void Setup() {
-            //img = this->GetGraphics()->BufferImage("/home/ant/ghost.png");
+            //img = this->GetGraphics()->BufferImage("/home/ant/Savey/mckayla.jpg");
             MouseButtonDown.AddEventHandler([this](auto d){MouseDownHandler(d);});
             MouseMoved.AddEventHandler([this](auto d){MouseMoveHandler(d);});
             KeyDown.AddEventHandler([this](auto d){KeyDownHandler(d);});
             KeyUp.AddEventHandler([this](auto d){KeyUpHandler(d);});
             //rect.setImg(img);
+            this->GetGraphics()->SetBackColour(Colours::GrassGreen);
         }
 
         float mapCoord(float absCoord, float magnitude) {
@@ -138,9 +138,15 @@ namespace NSLyndsayUI {
 
         void Draw() {
             NSLyndsayUI::FreeTypeCharacterRenderer tred;
+
             tred.Init();
-            tred.GetGlyph('r');
-            std::cout << "Draw" << std::endl;
+            auto glyph = tred.GetGlyph('a');
+            auto charRef = this->GetGraphics()->BufferImageData(glyph.data);
+            Rectangle charRect(0.0f, 0.0f, 1.0f, 1.0f);
+            TransformParams charParams;
+            this->GetGraphics()->DrawImage(charRef, charRect, charRect, charParams);
+            //this->GetGraphics()->DrawImage(img, charRect, charRect, charParams);
+
             PointPath points;
 
             int samples = 100;
@@ -170,8 +176,8 @@ namespace NSLyndsayUI {
                 t += increment;
             }
 
-            this->GetGraphics()->SetBackColour(Colours::GrassGreen);
-            this->GetGraphics()->Clear();
+            //this->GetGraphics()->SetBackColour(Colours::GrassGreen);
+            //this->GetGraphics()->Clear();
             TransformParams imgParams, spiralParams;
 
             constexpr float num = 1920.0/1080.0;
